@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:WeatherTracker"
+             mc:Ignorable="d"
+             x:Class="WeatherTracker.App">
+    <Application.Resources>
+        <Style x:Key="labelStyle" 
+                   TargetType="Label">
+            <Setter Property="FontSize" 
+                        Value="Small" />
+            <Setter Property="TextColor" 
+                        Value="Gray" />
+        </Style>
+
+        <Style x:Key="labelResultStyle" 
+                   TargetType="Label">
+            <Setter Property="FontSize" 
+                        Value="Medium" />
+            <Setter Property="Margin" 
+                        Value="10,0,0,0" />
+        </Style>
+
+        <local:LongToDateTimeConverter x:Key="longToDateTimeConverter" />
+
+    </Application.Resources>
+</Application>
