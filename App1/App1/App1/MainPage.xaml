@@ -3,44 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:App1"
              mc:Ignorable="d"
-             x:Class="App1.MainPage"
-             >
+             x:Class="App1.MainPage">
 
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <Style TargetType="Label">
-                <Setter Property="TextColor" Value="Gold" />
-                <Setter Property="FontSize" Value="16" />
-            </Style>
-            <ControlTemplate x:Key="MyTemplate">
-                <StackLayout>
-                    <Label  Text="Header"
-                            BackgroundColor="Purple"
-                            TextColor="White"
-                            VerticalOptions="Start" />
-                    <ContentPresenter VerticalOptions="FillAndExpand" />
-                    <Entry Placeholder="Entry"
-                           VerticalOptions="CenterAndExpand"
-                           IsPassword="True" />
-                    <Editor Placeholder="Editor"
-                                VerticalOptions="Center"
-                                PlaceholderColor="Purple"
-                                AutoSize="TextChanges" />
-                    <Label  Text="Footer"
-                            BackgroundColor="Purple"
-                            TextColor="White"
-                            VerticalOptions="End" />
-                </StackLayout>
-            </ControlTemplate>
-        </ResourceDictionary>
-    </ContentPage.Resources>
-    <ContentView ControlTemplate="{StaticResource MyTemplate}">
-        <StackLayout>
-            <!-- Place new controls here -->
-            <Label  Text="Hello World!" 
-                    HorizontalOptions="Center"
-                    VerticalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentView>
+    <ContentPage.BindingContext>
+        <local:MainViewModel/>
+    </ContentPage.BindingContext>
+    
+    <StackLayout>
+        <!-- Place new controls here -->
+        <Entry Text="{Binding Name}" Placeholder="Enter Name"/>
+        <Label Text="{Binding DisplayName}"/>
+    </StackLayout>
+
 </ContentPage>
