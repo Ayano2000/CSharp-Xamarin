@@ -4,11 +4,12 @@ C:\Users\bbdnet2209\Desktop\Work\Basic-Xamarin-Reactive-app\WeatherTracker\Weath
 C:\Users\bbdnet2209\Desktop\Work\Basic-Xamarin-Reactive-app\WeatherTracker\WeatherTracker\WeatherTracker\bin\Debug\netstandard2.0\WeatherTracker.pdb
 C:\Users\bbdnet2209\Desktop\Work\Basic-Xamarin-Reactive-app\WeatherTracker\WeatherTracker\WeatherTracker\obj\Debug\netstandard2.0\WeatherTracker.csprojAssemblyReference.cache
 C:\Users\bbdnet2209\Desktop\Work\Basic-Xamarin-Reactive-app\WeatherTracker\WeatherTracker\WeatherTracker\obj\Debug\netstandard2.0\App.xaml.g.cs
-C:\Users\bbdnet2209\Desktop\Work\Basic-Xamarin-Reactive-app\WeatherTracker\WeatherTracker\WeatherTracker\obj\Debug\netstandard2.0\MainPage.xaml.g.cs
 C:\Users\bbdnet2209\Desktop\Work\Basic-Xamarin-Reactive-app\WeatherTracker\WeatherTracker\WeatherTracker\obj\Debug\netstandard2.0\WeatherTracker.AssemblyInfoInputs.cache
 C:\Users\bbdnet2209\Desktop\Work\Basic-Xamarin-Reactive-app\WeatherTracker\WeatherTracker\WeatherTracker\obj\Debug\netstandard2.0\WeatherTracker.AssemblyInfo.cs
+C:\Users\bbdnet2209\Desktop\Work\Basic-Xamarin-Reactive-app\WeatherTracker\WeatherTracker\WeatherTracker\obj\Debug\netstandard2.0\XamlC.stamp
 C:\Users\bbdnet2209\Desktop\Work\Basic-Xamarin-Reactive-app\WeatherTracker\WeatherTracker\WeatherTracker\obj\Debug\netstandard2.0\WeatherTracker.dll
 C:\Users\bbdnet2209\Desktop\Work\Basic-Xamarin-Reactive-app\WeatherTracker\WeatherTracker\WeatherTracker\obj\Debug\netstandard2.0\ref\WeatherTracker.dll
 C:\Users\bbdnet2209\Desktop\Work\Basic-Xamarin-Reactive-app\WeatherTracker\WeatherTracker\WeatherTracker\obj\Debug\netstandard2.0\WeatherTracker.pdb
-C:\Users\bbdnet2209\Desktop\Work\Basic-Xamarin-Reactive-app\WeatherTracker\WeatherTracker\WeatherTracker\obj\Debug\netstandard2.0\XamlC.stamp
-C:\Users\bbdnet2209\Desktop\Work\Basic-Xamarin-Reactive-app\WeatherTracker\WeatherTracker\WeatherTracker\obj\Debug\netstandard2.0\WeatherInfo.xaml.g.cs
+C:\Users\bbdnet2209\Desktop\Work\Basic-Xamarin-Reactive-app\WeatherTracker\WeatherTracker\WeatherTracker\obj\Debug\netstandard2.0\Views\MainPage.xaml.g.cs
+C:\Users\bbdnet2209\Desktop\Work\Basic-Xamarin-Reactive-app\WeatherTracker\WeatherTracker\WeatherTracker\obj\Debug\netstandard2.0\Views\WeatherInfo.xaml.g.cs
+C:\Users\bbdnet2209\Desktop\Work\Basic-Xamarin-Reactive-app\WeatherTracker\WeatherTracker\WeatherTracker\obj\Debug\netstandard2.0\Views\ConfigView.xaml.g.cs

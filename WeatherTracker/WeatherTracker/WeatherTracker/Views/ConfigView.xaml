@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:WeatherTracker.ViewModels"
+             mc:Ignorable="d"
+             x:Class="WeatherTracker.Views.ConfigView">
+
+    <ContentPage.BindingContext>
+        <local:ConfigViewModel/>
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <StackLayout>
+        <!--input control area-->
+        <Entry Text="{Binding City}"
+                   Placeholder="Enter City"
+                   x:Name="_cityEntry1"
+                   Grid.Row="1" 
+                   Grid.Column="1"
+                   Margin="5,0"
+                   VerticalOptions="Center"
+                   BackgroundColor="DarkGray"
+                   TextColor="White"/>
+        <Button x:Name="AddCity"
+                Grid.Row="1" 
+                Grid.Column="2"
+                Text="Add City" 
+                BorderWidth="1"
+                BorderColor="White"
+                BackgroundColor="DarkGray"
+                TextColor="White"
+                Command="{Binding AddCityButtonClicked}"/>
+        <!--list of added cities-->
+            <StackLayout BindableLayout.ItemsSource="{Binding Cities}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Label Text="{Binding .}"/>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
+

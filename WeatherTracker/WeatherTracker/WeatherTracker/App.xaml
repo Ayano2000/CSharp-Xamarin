@@ -3,12 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:local="clr-namespace:WeatherTracker"
+             xmlns:local="clr-namespace:WeatherTracker.Converters"
              mc:Ignorable="d"
              x:Class="WeatherTracker.App">
     <Application.Resources>
-        <Style x:Key="labelStyle" 
-                   TargetType="Label">
+        <Style TargetType="Label">
             <Setter Property="FontSize" 
                         Value="Small" />
             <Setter Property="TextColor" 
@@ -23,7 +22,7 @@
                         Value="10,0,0,0" />
         </Style>
 
-        <local:LongToDateTimeConverter x:Key="longToDateTimeConverter" />
+        <local:LongToDateTimeConverter x:Key="LongToDateTimeConverter" />
 
     </Application.Resources>
 </Application>

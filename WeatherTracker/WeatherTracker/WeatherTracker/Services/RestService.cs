@@ -3,10 +3,12 @@ using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using WeatherTracker.ViewModels;
+using WeatherTracker.DTO;
 
-namespace WeatherTracker
+namespace WeatherTracker.Services
 {
-    class RestService
+    class RestService : IRestService
     {
         HttpClient _client;
 
@@ -15,16 +17,16 @@ namespace WeatherTracker
             _client = new HttpClient();
         }
 
-        public async Task<WeatherViewModel> GetWeatherData(string query)
+        public async Task<WeatherModel> GetWeatherData(string query)
         {
-            WeatherViewModel weatherData = null;
+            WeatherModel weatherData = null;
             try
             {
                 var response = await _client.GetAsync(query);
                 if (response.IsSuccessStatusCode)
                 {
                     var data = await response.Content.ReadAsStringAsync();
-                    weatherData = JsonConvert.DeserializeObject<WeatherViewModel>(data);
+                    weatherData = JsonConvert.DeserializeObject<WeatherModel>(data);
                 }
             }
             catch (Exception ex)

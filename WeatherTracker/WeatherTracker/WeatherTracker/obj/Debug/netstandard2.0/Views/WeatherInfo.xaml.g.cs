@@ -8,12 +8,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Xamarin.Forms.Xaml.XamlResourceIdAttribute("WeatherTracker.WeatherInfo.xaml", "WeatherInfo.xaml", typeof(global::WeatherTracker.WeatherInfo))]
+[assembly: global::Xamarin.Forms.Xaml.XamlResourceIdAttribute("WeatherTracker.Views.WeatherInfo.xaml", "Views/WeatherInfo.xaml", typeof(global::WeatherTracker.WeatherInfo))]
 
 namespace WeatherTracker {
     
     
-    [global::Xamarin.Forms.Xaml.XamlFilePathAttribute("WeatherInfo.xaml")]
+    [global::Xamarin.Forms.Xaml.XamlFilePathAttribute("Views\\WeatherInfo.xaml")]
     public partial class WeatherInfo : global::Xamarin.Forms.ContentView {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "2.0.0.0")]
