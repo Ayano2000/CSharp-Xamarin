@@ -8,6 +8,7 @@
         <Label Text="Go to add cities" />
         <Button Text="Go to add cities" Command="{Binding NavigateCommand}" />
         <Button Text="View City Data" Command="{Binding GetData}" />
+        <Button Text="View my location in maps" Command="{Binding MapViewCommand}" />
     </StackLayout>
 
 </ContentPage>

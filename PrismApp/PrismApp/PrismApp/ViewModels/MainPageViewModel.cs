@@ -13,6 +13,7 @@ namespace PrismApp.ViewModels
     {
         private DelegateCommand _navigateCommand;
         private DelegateCommand _getData;
+        private DelegateCommand _mapViewCommand;
         private readonly INavigationService _navigationService;
 
         public DelegateCommand NavigateCommand =>
@@ -20,6 +21,9 @@ namespace PrismApp.ViewModels
 
         public DelegateCommand GetData =>
             _getData ?? (_getData = new DelegateCommand(ExecuteGetDataCommand));
+
+        public DelegateCommand MapViewCommand =>
+            _mapViewCommand ?? (_mapViewCommand = new DelegateCommand(ExecuteMapViewCommand));
 
         public MainPageViewModel(INavigationService navigationService)
         {
@@ -41,6 +45,11 @@ namespace PrismApp.ViewModels
         async void ExecuteGetDataCommand()
         {
             await _navigationService.NavigateAsync("WeatherInfo");
+        }
+
+        async void ExecuteMapViewCommand()
+        {
+            await _navigationService.NavigateAsync("Map");
         }
     }
 }

@@ -43,7 +43,7 @@ namespace PrismApp
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<Config, ConfigViewModel>();
             containerRegistry.RegisterForNavigation<WeatherInfo, WeatherInfoViewModel>();
-
+            containerRegistry.RegisterForNavigation<Map, MapViewModel>();
         }
     }
 }

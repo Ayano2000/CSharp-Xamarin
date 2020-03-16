@@ -19,7 +19,7 @@ namespace PrismApp.Services
 
         public async Task<string> GenerateQuery()
         {
-            var request = new GeolocationRequest(GeolocationAccuracy.Medium);
+            var request = new GeolocationRequest(GeolocationAccuracy.Best);
             var location = await Geolocation.GetLocationAsync(request);
             string query = Constants.Constants.Endpoint;
             query += $"?lat={location.Latitude}&lon={location.Longitude}";

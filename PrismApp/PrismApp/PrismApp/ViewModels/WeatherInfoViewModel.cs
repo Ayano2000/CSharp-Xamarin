@@ -61,7 +61,7 @@ namespace PrismApp.ViewModels
         private async Task GetWeatherInfo()
         {
             IsBusy = true;
-            Configuration.CityNames.ForEach(async (city) =>
+            foreach (var city in Configuration.CityNames)
             {
                 if (!string.IsNullOrWhiteSpace(city))
                 {
@@ -75,8 +75,23 @@ namespace PrismApp.ViewModels
                     Console.WriteLine("API RESOLVED -> " + weatherModel.Title);
                 }
                 IsBusy = false;
-            });
+            }
 
+            //Configuration.CityNames.ForEach(async (city) =>
+            //{
+                //if (!string.IsNullOrWhiteSpace(city))
+                //{
+                //    string requestUri = Constants.Constants.Endpoint;
+                //    requestUri += $"?q={city}";
+                //    requestUri += "&units=metric"; // or units=imperial
+                //    requestUri += $"&APPID={Constants.Constants.APIKey}";
+                //    // Await result from endpoint query
+                //    var weatherModel = await _restService.GetWeatherData(requestUri);
+                //    CityWeatherViewModels.Add(new CityWeatherViewModel(weatherModel));
+                //    Console.WriteLine("API RESOLVED -> " + weatherModel.Title);
+                //}
+                //IsBusy = false;
+            //});
         }
     }
 }
