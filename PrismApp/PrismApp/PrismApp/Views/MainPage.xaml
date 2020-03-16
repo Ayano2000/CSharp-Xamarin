@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="PrismApp.Views.MainPage"
+             Title="Weather Tracking">
+
+    <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
+        <Label Text="Go to add cities" />
+        <Button Text="Go to add cities" Command="{Binding NavigateCommand}" />
+        <Button Text="View City Data" Command="{Binding GetData}" />
+    </StackLayout>
+
+</ContentPage>

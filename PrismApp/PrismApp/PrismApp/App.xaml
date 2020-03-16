@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms"
+             xmlns:local="clr-namespace:PrismApp.Converters"
+             x:Class="PrismApp.App">
+    <Application.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" 
+                        Value="Small" />
+            <Setter Property="TextColor" 
+                        Value="Gray" />
+        </Style>
+
+        <Style x:Key="labelResultStyle" 
+                   TargetType="Label">
+            <Setter Property="FontSize" 
+                        Value="Medium" />
+            <Setter Property="Margin" 
+                        Value="10,0,0,0" />
+        </Style>
+        <local:LongToDateTimeConverter x:Key="LongToDateTimeConverter" />
+    </Application.Resources>
+</prism:PrismApplication>

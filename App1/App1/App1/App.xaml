@@ -7,5 +7,9 @@
              x:Class="App1.App">
     <Application.Resources>
 
+        <Style TargetType="Label" x:Key="Heading">
+            <Setter Property="FontSize" Value="24"/>
+        </Style>       
+        
     </Application.Resources>
 </Application>

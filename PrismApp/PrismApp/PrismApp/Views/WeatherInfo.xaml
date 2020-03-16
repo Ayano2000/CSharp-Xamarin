@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="PrismApp.Views.WeatherInfo"
+             Title="Weather Info Page">
+
+    <ContentPage.Content>
+        <StackLayout>
+            <ActivityIndicator IsRunning="{Binding IsBusy}" VerticalOptions="Center" HorizontalOptions="Center" Color="Blue" />
+            <Button
+                Grid.Row="1" 
+                Grid.Column="2"
+                Text="Get Weather" 
+                BorderWidth="1"
+                BorderColor="White"
+                BackgroundColor="DarkGray"
+                TextColor="White"
+                Command="{Binding WeatherButtonClickedCommand}"/>
+            <StackLayout>
+                <ScrollView >
+                    <StackLayout Padding="10" Orientation="{Binding StackLayoutOrientation}" BindableLayout.ItemsSource="{Binding  CityWeatherViewModels}">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout>
+                                    <Label Text="Location"/>
+                                    <Label Text="{Binding Location}" 
+                                       Style="{StaticResource labelResultStyle}" />
+                                    <Label Text="Temperature"/>
+                                    <Label Text="{Binding Temperature}" 
+                                       Style="{StaticResource labelResultStyle}" />
+                                    <Label Text="Wind Speed"/>
+                                    <Label Text="{Binding WindSpeed}" 
+                                       Style="{StaticResource labelResultStyle}" />
+                                    <Label Text="Humidity"/>
+                                    <Label Text="{Binding Humidity}" 
+                                       Style="{StaticResource labelResultStyle}" />
+                                    <Label Text="Visibility"/>
+                                    <Label Text="{Binding Visibility}" 
+                                       Style="{StaticResource labelResultStyle}" />
+                                    <Label Text="Time of Sunrise"/>
+                                    <Label Text="{Binding Sunrise, Converter={StaticResource LongToDateTimeConverter}}"
+                                       Style="{StaticResource labelResultStyle}" />
+                                    <Label Text="Time of Sunset"/>
+                                    <Label Text="{Binding Sunset, Converter={StaticResource LongToDateTimeConverter}}" 
+                                       Style="{StaticResource labelResultStyle}" />
+                                </StackLayout>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                </ScrollView>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+
+</ContentPage>

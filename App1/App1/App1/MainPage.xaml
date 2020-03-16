@@ -7,14 +7,43 @@
              mc:Ignorable="d"
              x:Class="App1.MainPage">
 
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <!-- implied styles will target all labels/entries -->
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="FontSize" Value="16" />
+            </Style>
+            <Style TargetType="Entry">
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="FontSize" Value="16" />
+            </Style>
+            <!-- should add header, footer to the main page of app -->
+            <ControlTemplate x:Key="MyTemplate">
+                <StackLayout>
+                    <Label  Text="Header"
+                            BackgroundColor="Purple"
+                            TextColor="Black"
+                            VerticalOptions="Start" />
+                    <ContentPresenter VerticalOptions="FillAndExpand" />
+                    <Label  Text="Footer"
+                            BackgroundColor="Purple"
+                            TextColor="Black"
+                            VerticalOptions="End" />
+                </StackLayout>
+            </ControlTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <ContentPage.BindingContext>
         <local:MainViewModel/>
     </ContentPage.BindingContext>
-    
-    <StackLayout>
-        <!-- Place new controls here -->
-        <Entry Text="{Binding Name}" Placeholder="Enter Name"/>
-        <Label Text="{Binding DisplayName}"/>
-    </StackLayout>
 
+    <ContentView ControlTemplate="{StaticResource MyTemplate}">
+        <StackLayout>
+            <!-- Place new controls here -->
+            <Entry Text="{Binding Name}" Placeholder="Enter Name"/>
+            <Label Text="{Binding DisplayName}" Style="{StaticResource Heading}"/>
+        </StackLayout>
+    </ContentView>
 </ContentPage>

@@ -31,5 +31,18 @@ namespace App1
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
+
+        //private void DoSomething()
+        //{
+        //    try
+        //    {
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        //do something with ex
+        //        throw;
+        //    }
+        //}
     }
 }
