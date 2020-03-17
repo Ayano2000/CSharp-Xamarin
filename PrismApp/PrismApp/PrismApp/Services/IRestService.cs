@@ -9,7 +9,6 @@ namespace PrismApp.Services
     public interface IRestService
     {
         Task<WeatherModel> GetWeatherData(string query);
-        //Task<string> GenerateQuery();
 
     }
 }

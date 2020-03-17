@@ -14,8 +14,9 @@ namespace PrismApp.ViewModels
     public class WeatherInfoViewModel : BindableBase
     {
         private DelegateCommand _navigateCommand;
-        private IRestService _restService;
+        private readonly IRestService _restService;
         private readonly INavigationService _navigationService;
+        private readonly IQueryService _queryService;
         private ObservableCollection<CityWeatherViewModel> _cityWeatherModels;
         private bool _isBusy;
 
@@ -26,11 +27,12 @@ namespace PrismApp.ViewModels
         public DelegateCommand NavigateCommand =>
             _navigateCommand ?? (_navigateCommand = new DelegateCommand(ExecuteNavigationCommand));
 
-        public WeatherInfoViewModel(INavigationService navigationService, IRestService restService)
+        public WeatherInfoViewModel(INavigationService navigationService, IRestService restService, IQueryService queryService)
         {
             CityWeatherViewModels = new ObservableCollection<CityWeatherViewModel>();
             _restService = restService;
             _navigationService = navigationService;
+            _queryService = queryService;
             WeatherButtonClickedCommand = new Command(async () => await GetWeatherInfo());
         }
         public ObservableCollection<CityWeatherViewModel> CityWeatherViewModels
@@ -65,33 +67,13 @@ namespace PrismApp.ViewModels
             {
                 if (!string.IsNullOrWhiteSpace(city))
                 {
-                    string requestUri = Constants.Constants.Endpoint;
-                    requestUri += $"?q={city}";
-                    requestUri += "&units=metric"; // or units=imperial
-                    requestUri += $"&APPID={Constants.Constants.APIKey}";
+                    string requestUri = _queryService.GenerateQuery(city);
                     // Await result from endpoint query
                     var weatherModel = await _restService.GetWeatherData(requestUri);
                     CityWeatherViewModels.Add(new CityWeatherViewModel(weatherModel));
-                    Console.WriteLine("API RESOLVED -> " + weatherModel.Title);
                 }
                 IsBusy = false;
             }
-
-            //Configuration.CityNames.ForEach(async (city) =>
-            //{
-                //if (!string.IsNullOrWhiteSpace(city))
-                //{
-                //    string requestUri = Constants.Constants.Endpoint;
-                //    requestUri += $"?q={city}";
-                //    requestUri += "&units=metric"; // or units=imperial
-                //    requestUri += $"&APPID={Constants.Constants.APIKey}";
-                //    // Await result from endpoint query
-                //    var weatherModel = await _restService.GetWeatherData(requestUri);
-                //    CityWeatherViewModels.Add(new CityWeatherViewModel(weatherModel));
-                //    Console.WriteLine("API RESOLVED -> " + weatherModel.Title);
-                //}
-                //IsBusy = false;
-            //});
         }
     }
 }
