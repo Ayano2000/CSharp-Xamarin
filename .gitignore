@@ -355,3 +355,8 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+.idea/
+PrismApp/PrismApp/.DS_Store
+PrismApp/.DS_Store
+PrismApp/PrismApp/PrismApp/.DS_Store
+.DS_Store
