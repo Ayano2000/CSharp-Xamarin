@@ -1,31 +1,19 @@
-﻿using System.Threading.Tasks;
+﻿using PrismApp.ViewModels;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
+using System;
 
 namespace PrismApp.Services
 {
     public class LocationService : ILocationService
     {
-        //todo - Arata: move the query parts to its own service, only Location specific functionality should be called here
-        
-        public async Task<string> GenerateQuery()
+        public async Task<Location> GetLocation()
         {
             var request = new GeolocationRequest(GeolocationAccuracy.Best);
             var location = await Geolocation.GetLocationAsync(request);
-            string query = Constants.Constants.Endpoint;
-            query += $"?lat={location.Latitude}&lon={location.Longitude}";
-            query += "&units=metric"; // or units=imperial
-            query += $"&APPID={Constants.Constants.APIKey}";
-            return (query);
-        }
-
-        public string GetCityQuery(string city)
-        {
-            string requestUri = Constants.Constants.Endpoint;
-            requestUri += $"?q={city}";
-            requestUri += "&units=metric"; // or units=imperial
-            requestUri += $"&APPID={Constants.Constants.APIKey}";
+            // Long then Lat not other way around, if only that didnt take 20 minutes
             
-            return requestUri;
+            return location;
         }
     }
 }
