@@ -8,5 +8,7 @@ namespace PrismApp.Services
     public interface ILocationService
     {
         Task<string> GenerateQuery();
+        
+        string GetCityQuery(string city);
     }
 }

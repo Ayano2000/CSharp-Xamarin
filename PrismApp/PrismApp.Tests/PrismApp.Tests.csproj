@@ -8,7 +8,12 @@
       <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
       <PackageReference Include="NUnit" Version="3.12.0" />
       <PackageReference Include="NUnit3TestAdapter" Version="3.16.1" />
+      <PackageReference Include="System.ServiceModel.Primitives" Version="4.7.0" />
       <PackageReference Include="TestFramework.NUnit.Ninject.NSubstitute" Version="1.1.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\PrismApp\PrismApp\PrismApp.csproj" />
     </ItemGroup>
 
 </Project>

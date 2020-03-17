@@ -18,18 +18,19 @@ namespace PrismApp.ViewModels
         private readonly INavigationService _navigationService;
         private ObservableCollection<CityWeatherViewModel> _cityWeatherModels;
         private bool _isBusy;
+        private ILocationService _locationService;
 
         public Command GetWeatherButtonClicked { get; }
         public Command WeatherButtonClickedCommand { get; }
 
-
         public DelegateCommand NavigateCommand =>
             _navigateCommand ?? (_navigateCommand = new DelegateCommand(ExecuteNavigationCommand));
 
-        public WeatherInfoViewModel(INavigationService navigationService, IRestService restService)
+        public WeatherInfoViewModel(INavigationService navigationService, IRestService restService, ILocationService locationService)
         {
             CityWeatherViewModels = new ObservableCollection<CityWeatherViewModel>();
             _restService = restService;
+            _locationService = locationService;
             _navigationService = navigationService;
             WeatherButtonClickedCommand = new Command(async () => await GetWeatherInfo());
         }
@@ -53,7 +54,7 @@ namespace PrismApp.ViewModels
             }
         }
 
-        async void ExecuteNavigationCommand()
+        async void ExecuteNavigationCommand() //async if you're awaiting
         {
             await _navigationService.GoBackAsync();
         }
@@ -65,10 +66,7 @@ namespace PrismApp.ViewModels
             {
                 if (!string.IsNullOrWhiteSpace(city))
                 {
-                    string requestUri = Constants.Constants.Endpoint;
-                    requestUri += $"?q={city}";
-                    requestUri += "&units=metric"; // or units=imperial
-                    requestUri += $"&APPID={Constants.Constants.APIKey}";
+                    string requestUri = _locationService.GetCityQuery(city);
                     // Await result from endpoint query
                     var weatherModel = await _restService.GetWeatherData(requestUri);
                     CityWeatherViewModels.Add(new CityWeatherViewModel(weatherModel));

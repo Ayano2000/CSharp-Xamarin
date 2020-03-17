@@ -3,8 +3,10 @@ using Xamarin.Essentials;
 
 namespace PrismApp.Services
 {
-    class LocationService : ILocationService
+    public class LocationService : ILocationService
     {
+        //todo - Arata: move the query parts to its own service, only Location specific functionality should be called here
+        
         public async Task<string> GenerateQuery()
         {
             var request = new GeolocationRequest(GeolocationAccuracy.Best);
@@ -14,6 +16,16 @@ namespace PrismApp.Services
             query += "&units=metric"; // or units=imperial
             query += $"&APPID={Constants.Constants.APIKey}";
             return (query);
+        }
+
+        public string GetCityQuery(string city)
+        {
+            string requestUri = Constants.Constants.Endpoint;
+            requestUri += $"?q={city}";
+            requestUri += "&units=metric"; // or units=imperial
+            requestUri += $"&APPID={Constants.Constants.APIKey}";
+            
+            return requestUri;
         }
     }
 }
