@@ -16,11 +16,6 @@ namespace PrismApp.Services
             _client = new HttpClient();
         }
 
-        //public Task<string> GenerateQuery()
-        //{
-
-        //}
-
         public async Task<WeatherModel> GetWeatherData(string query)
         {
             WeatherModel weatherData = null;

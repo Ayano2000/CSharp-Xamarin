@@ -15,6 +15,8 @@ namespace PrismApp.ViewModels
         private DelegateCommand _getData;
         private DelegateCommand _mapViewCommand;
         private readonly INavigationService _navigationService;
+        private ILocationService _locationService;
+        private IRestService _restService;
 
         public DelegateCommand NavigateCommand =>
             _navigateCommand ?? (_navigateCommand = new DelegateCommand(ExecuteNavigationCommand));
@@ -28,14 +30,15 @@ namespace PrismApp.ViewModels
         public MainPageViewModel(INavigationService navigationService)
         {
             _navigationService = navigationService;
+            _locationService = new LocationService();
+            _restService = new RestService();
             GetDeviceLocation();
         }
 
         private async void GetDeviceLocation()
         {
-            GetLocationService LocationService = new GetLocationService();
-            var Query = await LocationService.GenerateQuery();
-            var weatherModel = await LocationService.GetWeatherData(Query);
+            var Query = await _locationService.GenerateQuery();
+            var weatherModel = await _restService.GetWeatherData(Query);
             Configuration.CityNames.Add(weatherModel.Title);
         }
         async void ExecuteNavigationCommand()

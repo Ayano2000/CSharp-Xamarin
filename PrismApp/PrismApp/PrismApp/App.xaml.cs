@@ -32,7 +32,7 @@ namespace PrismApp
         private void RegisterServices(IContainerRegistry containerRegistry)
         {
             containerRegistry.Register<IRestService, RestService>();
-            containerRegistry.Register<IRestService, GetLocationService>();
+            containerRegistry.Register<ILocationService, LocationService>();
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
