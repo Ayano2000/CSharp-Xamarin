@@ -18,7 +18,7 @@ namespace PrismApp.ViewModels
         private bool _isBusy;
 
         public Command GetWeatherButtonClicked { get; }
-        public Command WeatherButtonClickedCommand { get; }
+        public Command GetWeatherCommand { get; }
 
         public DelegateCommand NavigateCommand =>
             _navigateCommand ?? (_navigateCommand = new DelegateCommand(ExecuteNavigationCommand));
@@ -29,7 +29,7 @@ namespace PrismApp.ViewModels
             _restService = restService;
             _navigationService = navigationService;
             _queryService = queryService;
-            WeatherButtonClickedCommand = new Command(async () => await GetWeatherInfo());
+            GetWeatherCommand = new Command(async () => await GetWeatherInfo());
         }
         public ObservableCollection<CityWeatherViewModel> CityWeatherViewModels
         {
