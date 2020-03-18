@@ -5,4 +5,6 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="PrismApp.Views.Map">
     
+    <!-- TODO - ADD A NAVIGATION BUTTON -->
+    
 </ContentPage>

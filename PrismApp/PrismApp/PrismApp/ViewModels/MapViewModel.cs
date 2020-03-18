@@ -1,18 +1,21 @@
 ﻿using Xamarin.Essentials;
 using Prism.Mvvm;
 using System.Threading.Tasks;
+using Prism.Navigation;
 using PrismApp.Services;
 
 namespace PrismApp.ViewModels
 {
     public class MapViewModel : BindableBase
     {
-        private IRestService _restService;
-        private IQueryService _queryService;
-        public MapViewModel(IQueryService queryService, IRestService restService)
+        private readonly IRestService _restService;
+        private readonly IQueryService _queryService;
+        private readonly INavigationService _navigationService;
+        public MapViewModel(INavigationService navigationService, IQueryService queryService, IRestService restService)
         {
             _restService = restService;
             _queryService = queryService;
+            _navigationService = navigationService;
             OpenMapView();
         }
 
