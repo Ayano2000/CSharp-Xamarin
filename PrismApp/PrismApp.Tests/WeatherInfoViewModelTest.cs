@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using NSubstitute;
-using NSubstitute.Core;
 using NUnit.Framework;
 using Prism.Navigation;
 using PrismApp.DTO;
 using PrismApp.Services;
 using PrismApp.ViewModels;
-using PrismApp.Views;
-using Xamarin.Essentials;
 
 namespace PrismApp.Tests
 {
@@ -42,30 +38,63 @@ namespace PrismApp.Tests
                     new WeatherModel
                     {
                         Title = CAPE_TOWN,
-                        Main = new MainModel{Temperature = 20}
-                        //todo - populate the rest of the model
+                        Main = new MainModel
+                        {
+                            Temperature = 20,
+                            Humidity = 20
+                        },
+                        Sys = new SysModel
+                        {
+                            Sunrise = 20,
+                            Sunset = 20
+                        },
+                        Visibility = 20,
+                        Wind = new WindModel
+                        {
+                            Speed = 20,
+                        }
                     }));
-                // Location = weather.Title;
-                // Temperature = weather.Main.Temperature;
-                // WindSpeed = weather.Wind.Speed;
-                // Humidity = weather.Main.Humidity;
-                // Visibility = weather.Visibility;
-                // Sunrise = weather.Sys.Sunrise;
-                // Sunset = weather.Sys.Sunset;
                 
                 restService.GetWeatherData(STELLENBOSCH).Returns(result => Task.FromResult(
                     new WeatherModel
                     {
-                        Title = STELLENBOSCH
-                        //todo - same here
+                        Title = STELLENBOSCH,
+                        Main = new MainModel
+                        {
+                            Temperature = 30,
+                            Humidity = 30
+                        },
+                        Sys = new SysModel
+                        {
+                            Sunrise = 30,
+                            Sunset = 30
+                        },
+                        Visibility = 30,
+                        Wind = new WindModel
+                        {
+                            Speed = 30,
+                        }
                     }));
                 restService.GetWeatherData(JOHANNESBURG).Returns(result => Task.FromResult(
                     new WeatherModel
                     {
-                        Title = JOHANNESBURG
-                        //todo - same here
+                        Title = JOHANNESBURG,
+                        Main = new MainModel
+                        {
+                            Temperature = 40,
+                            Humidity = 40
+                        },
+                        Sys = new SysModel
+                        {
+                            Sunrise = 40,
+                            Sunset = 40
+                        },
+                        Visibility = 40,
+                        Wind = new WindModel
+                        {
+                            Speed = 40,
+                        }
                     }));
-
                 Configuration.CityNames.Add(CAPE_TOWN);
                 Configuration.CityNames.Add(STELLENBOSCH);
                 Configuration.CityNames.Add(JOHANNESBURG);
@@ -85,8 +114,34 @@ namespace PrismApp.Tests
                 var johannesburgModel = viewModel.CityWeatherViewModels.FirstOrDefault(vm => vm.Location == JOHANNESBURG);
                 //now you've got the viewmodel
                 //assert that the other properties have been set correctly
-                Assert.That(capeTownModel != null); //this model was not generated correctly, or does not exist
-                Assert.That(capeTownModel.Temperature == 20); //this might be null thus breaking the test
+
+                // can use an if statement to check of a certain viewmodel is null but this throws an exception as is.
+                Assert.That(capeTownModel != null);
+                Assert.That(capeTownModel.Location == "Cape Town");
+                Assert.That(capeTownModel.Temperature == 20);
+                Assert.That(capeTownModel.Humidity == 20);
+                Assert.That(capeTownModel.Sunrise == 20);
+                Assert.That(capeTownModel.Sunset == 20);
+                Assert.That(capeTownModel.Visibility == 20);
+                Assert.That(capeTownModel.WindSpeed == 20);
+
+                Assert.That(stellenboschModel != null);
+                Assert.That(stellenboschModel.Location == "Stellenbosch");
+                Assert.That(stellenboschModel.Temperature == 30);
+                Assert.That(stellenboschModel.Humidity == 30);
+                Assert.That(stellenboschModel.Sunrise == 30);
+                Assert.That(stellenboschModel.Sunset == 30);
+                Assert.That(stellenboschModel.Visibility == 30);
+                Assert.That(stellenboschModel.WindSpeed == 30);
+
+                Assert.That(johannesburgModel != null);
+                Assert.That(johannesburgModel.Location == "Johannesburg");
+                Assert.That(johannesburgModel.Temperature == 40);
+                Assert.That(johannesburgModel.Humidity == 40);
+                Assert.That(johannesburgModel.Sunrise == 40);
+                Assert.That(johannesburgModel.Sunset == 40);
+                Assert.That(johannesburgModel.Visibility == 40);
+                Assert.That(johannesburgModel.WindSpeed == 40);
 
             }
             catch (Exception e)
