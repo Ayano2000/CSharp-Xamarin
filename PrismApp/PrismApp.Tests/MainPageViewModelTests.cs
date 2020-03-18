@@ -17,7 +17,7 @@ namespace PrismApp.Tests
     public class MainPageViewModelTests
     {
         [Test]
-        public void Test1()
+        public void AddUserLocationTest()
         {
             try
             {

@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrismApp.Android", "PrismAp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PrismApp.Tests", "PrismApp.Tests\PrismApp.Tests.csproj", "{78312419-EF3A-41EE-BBDA-9F384BEBF4E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTesting", "UnitTesting\UnitTesting.csproj", "{99C4CE04-F193-4842-967D-E2FE0A50A3B6}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,10 +29,6 @@ Global
 		{78312419-EF3A-41EE-BBDA-9F384BEBF4E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78312419-EF3A-41EE-BBDA-9F384BEBF4E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78312419-EF3A-41EE-BBDA-9F384BEBF4E5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{99C4CE04-F193-4842-967D-E2FE0A50A3B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{99C4CE04-F193-4842-967D-E2FE0A50A3B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{99C4CE04-F193-4842-967D-E2FE0A50A3B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{99C4CE04-F193-4842-967D-E2FE0A50A3B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
