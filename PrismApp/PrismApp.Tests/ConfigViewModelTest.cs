@@ -32,8 +32,11 @@ namespace PrismApp.Tests
                 
                 //Act
                 //Call functions
+                viewModel.City = CAPE_TOWN;
                 viewModel.AddCityButtonClicked.Execute(CAPE_TOWN);
+                viewModel.City = STELLENBOSCH;
                 viewModel.AddCityButtonClicked.Execute(STELLENBOSCH);
+                viewModel.City = JOHANNESBURG;
                 viewModel.AddCityButtonClicked.Execute(JOHANNESBURG);
 
                 //Assert

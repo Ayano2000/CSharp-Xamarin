@@ -8,9 +8,11 @@ namespace PrismApp.ViewModels
     public class MapViewModel : BindableBase
     {
         private IRestService _restService;
-        public MapViewModel()
+        private IQueryService _queryService;
+        public MapViewModel(IQueryService queryService, IRestService restService)
         {
-            _restService = new RestService();
+            _restService = restService;
+            _queryService = queryService;
             OpenMapView();
         }
 
@@ -18,10 +20,7 @@ namespace PrismApp.ViewModels
         {
             if (Configuration.CityNames[0] != null)
             {
-                string query = Constants.Constants.Endpoint;
-                query += $"?q={Configuration.CityNames[0]}";
-                query += "&units=metric"; // or units=imperial
-                query += $"&APPID={Constants.Constants.APIKey}";
+                string query = _queryService.GenerateQuery(Configuration.CityNames[0]);
                 var CityData = await _restService.GetWeatherData(query);
                 var location = new Location(CityData.Coord.Lat, CityData.Coord.Lon);
                 var options = new MapLaunchOptions { Name = "Map View PrismApp" };
