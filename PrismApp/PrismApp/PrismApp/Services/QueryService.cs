@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using PrismApp.DTO;
 
 namespace PrismApp.Services
 {
@@ -19,6 +20,15 @@ namespace PrismApp.Services
         {
             string query = Constants.Constants.Endpoint;
             query += $"?lat={lat}&lon={lon}";
+            query += "&units=metric"; // or units=imperial
+            query += $"&APPID={Constants.Constants.APIKey}";
+            return (query);
+        }
+        
+        public string GenerateQuery(CoordModel coord)
+        {
+            string query = Constants.Constants.Endpoint;
+            query += $"?lat={coord.Lat}&lon={coord.Lon}";
             query += "&units=metric"; // or units=imperial
             query += $"&APPID={Constants.Constants.APIKey}";
             return (query);

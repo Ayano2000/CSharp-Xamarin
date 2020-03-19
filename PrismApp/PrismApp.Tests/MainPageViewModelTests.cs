@@ -27,17 +27,18 @@ namespace PrismApp.Tests
                 var queryService = Substitute.For<IQueryService>();
                 var navigationService = Substitute.For<INavigationService>();
                 var locationService = Substitute.For<ILocationService>();
-
-                locationService.GetLocation().Returns(item => Task.FromResult(new Location(0, 0)));
-                queryService.GenerateQuery(0, 0).Returns("ThisCanBeAnything");
-                restService.GetWeatherData("ThisCanBeAnything").Returns(result => Task.FromResult(
-                    new WeatherModel
-                    {
-                        Title = "Cape Town"
-                    }));               
+                
+                
+                // locationService.GetLocation().Returns(item => Task.FromResult(new Location(111, 222)));
+                // queryService.GenerateQuery(new CoordModel{ Lat = 111, Lon = 222}).Returns("ThisCanBeAnything");
+                // restService.GetWeatherData("ThisCanBeAnything").Returns(result => Task.FromResult(
+                //     new WeatherModel
+                //     {
+                //         Title = "Cape Town"
+                //     }));               
                 
 
-                var viewModel = new MainPageViewModel(navigationService, locationService, queryService, restService);
+                new MainPageViewModel(navigationService, locationService, queryService, restService);
                 Assert.That(Configuration.CityNames.Contains("Cape Town"));
             }
             catch (Exception e)

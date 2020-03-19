@@ -14,7 +14,7 @@ namespace PrismApp.Tests
     [TestFixture]
     class WeatherInfoViewModelTest
     {
-        private static WeatherModel Populate(string title, int value)
+        public WeatherModel Populate(string title, int value)
         {
             return (new WeatherModel
             {
