@@ -11,12 +11,26 @@ namespace PrismApp.ViewModels
         private readonly IRestService _restService;
         private readonly IQueryService _queryService;
         private readonly INavigationService _navigationService;
+        private Location _location;
         public MapViewModel(INavigationService navigationService, IQueryService queryService, IRestService restService)
         {
             _restService = restService;
             _queryService = queryService;
             _navigationService = navigationService;
             OpenMapView();
+        }
+        
+        public Location Location
+        {
+            get => _location;
+
+            set
+            {
+                if (_location == value)
+                    return;
+                _location = value;
+                RaisePropertyChanged(nameof(Location));
+            }
         }
 
         public async Task OpenMapView()
@@ -25,9 +39,9 @@ namespace PrismApp.ViewModels
             {
                 string query = _queryService.GenerateQuery(Configuration.CityNames[0]);
                 var CityData = await _restService.GetWeatherData(query);
-                var location = new Location(CityData.Coord.Lat, CityData.Coord.Lon);
+                _location = new Location(CityData.Coord.Lat, CityData.Coord.Lon);
                 var options = new MapLaunchOptions { Name = "Map View PrismApp" };
-                await Map.OpenAsync(location, options);
+                await Map.OpenAsync(_location, options);
             }
             else
             {
