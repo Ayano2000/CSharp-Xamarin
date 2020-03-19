@@ -16,7 +16,7 @@ namespace PrismApp.Services
             return (query);
         }
 
-        public string GenerateQuery(double lon, double lat)
+        public string GenerateQuery(double lat, double lon)
         {
             string query = Constants.Constants.Endpoint;
             query += $"?lat={lat}&lon={lon}";
@@ -27,11 +27,7 @@ namespace PrismApp.Services
         
         public string GenerateQuery(CoordModel coord)
         {
-            string query = Constants.Constants.Endpoint;
-            query += $"?lat={coord.Lat}&lon={coord.Lon}";
-            query += "&units=metric"; // or units=imperial
-            query += $"&APPID={Constants.Constants.APIKey}";
-            return (query);
+            return GenerateQuery(coord.Lat, coord.Lon);
         }
     }
 }

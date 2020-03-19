@@ -51,11 +51,7 @@ namespace PrismApp.ViewModels
         private async Task<DTO.WeatherModel> GetDeviceLocation()
         {
             var location = await _locationService.GetLocation();
-            string query = _queryService.GenerateQuery(new CoordModel
-            {
-                Lat = location.Latitude,
-                Lon = location.Longitude
-            });
+            string query = _queryService.GenerateQuery(location.Latitude, location.Longitude);
             var city = await _restService.GetWeatherData(query);
             return city;
         }

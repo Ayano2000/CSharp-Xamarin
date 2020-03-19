@@ -29,13 +29,13 @@ namespace PrismApp.Tests
                 var locationService = Substitute.For<ILocationService>();
                 
                 
-                // locationService.GetLocation().Returns(item => Task.FromResult(new Location(111, 222)));
-                // queryService.GenerateQuery(new CoordModel{ Lat = 111, Lon = 222}).Returns("ThisCanBeAnything");
-                // restService.GetWeatherData("ThisCanBeAnything").Returns(result => Task.FromResult(
-                //     new WeatherModel
-                //     {
-                //         Title = "Cape Town"
-                //     }));               
+                locationService.GetLocation().Returns(item => Task.FromResult(new Location(111, 222)));
+                queryService.GenerateQuery(111,222).Returns("ThisCanBeAnything");
+                restService.GetWeatherData("ThisCanBeAnything").Returns(result => Task.FromResult(
+                    new WeatherModel
+                    {
+                        Title = "Cape Town"
+                    }));               
                 
 
                 new MainPageViewModel(navigationService, locationService, queryService, restService);
