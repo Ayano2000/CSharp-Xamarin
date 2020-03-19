@@ -32,7 +32,7 @@ namespace PrismApp.Tests
 
                 //lat0, long0
                 locationService.GetLocation().Returns(item => Task.FromResult(new Location(0, 0)));
-                queryService.GenerateQuery(0, 0).Returns("ThisCanBeAnything");
+                queryService.GenerateQuery(111, 222).Returns("ThisCanBeAnything");
                 restService.GetWeatherData("ThisCanBeAnything").Returns(result => Task.FromResult(
                     new WeatherModel
                     {
