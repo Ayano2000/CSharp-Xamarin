@@ -22,17 +22,17 @@ namespace PrismApp.Tests
                 Main = new MainModel
                 {
                     Temperature = value,
-                    Humidity = value
+                    Humidity = value + 1
                 },
                 Sys = new SysModel
                 {
-                    Sunrise = value,
-                    Sunset = value
+                    Sunrise = value + 2,
+                    Sunset = value + 3
                 },
-                Visibility = value,
+                Visibility = value + 4,
                 Wind = new WindModel
                 {
-                    Speed = value,
+                    Speed = value + 5,
                 }
             };
         }
@@ -66,7 +66,7 @@ namespace PrismApp.Tests
 
                 viewModel.GetWeatherCommand.Execute(null);
 
-                Assert.That(viewModel.CityWeatherViewModels.Count() == 3);
+                Assert.That(viewModel.CityWeatherViewModels.Count() == 2);
 
                 var capeTownModel = viewModel.CityWeatherViewModels.FirstOrDefault(vm => vm.Location == CAPE_TOWN);
                 var stellenboschModel =
@@ -77,11 +77,11 @@ namespace PrismApp.Tests
                     Assert.That(capeTownModel != null);
                     Assert.That(capeTownModel.Location == CAPE_TOWN);
                     Assert.That(capeTownModel.Temperature == 20);
-                    Assert.That(capeTownModel.Humidity == 20);
-                    Assert.That(capeTownModel.Sunrise == 20);
-                    Assert.That(capeTownModel.Sunset == 20);
-                    Assert.That(capeTownModel.Visibility == 20);
-                    Assert.That(capeTownModel.WindSpeed == 20);
+                    Assert.That(capeTownModel.Humidity == 21);
+                    Assert.That(capeTownModel.Sunrise == 22);
+                    Assert.That(capeTownModel.Sunset == 23);
+                    Assert.That(capeTownModel.Visibility == 24);
+                    Assert.That(capeTownModel.WindSpeed == 25);
                 }
                 else Assert.Fail();
 
@@ -90,11 +90,11 @@ namespace PrismApp.Tests
                     Assert.That(stellenboschModel != null);
                     Assert.That(stellenboschModel.Location == STELLENBOSCH);
                     Assert.That(stellenboschModel.Temperature == 30);
-                    Assert.That(stellenboschModel.Humidity == 30);
-                    Assert.That(stellenboschModel.Sunrise == 30);
-                    Assert.That(stellenboschModel.Sunset == 30);
-                    Assert.That(stellenboschModel.Visibility == 30);
-                    Assert.That(stellenboschModel.WindSpeed == 30);
+                    Assert.That(stellenboschModel.Humidity == 31);
+                    Assert.That(stellenboschModel.Sunrise == 32);
+                    Assert.That(stellenboschModel.Sunset == 33);
+                    Assert.That(stellenboschModel.Visibility == 34);
+                    Assert.That(stellenboschModel.WindSpeed == 35);
                 }
                 else Assert.Fail();
 
