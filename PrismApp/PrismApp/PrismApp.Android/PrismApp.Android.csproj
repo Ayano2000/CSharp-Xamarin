@@ -84,7 +84,7 @@
     <None Include="Assets\AboutAssets.txt" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\loading.json" />
+    <AndroidResource Include="Resources\drawable\loading.png" />
     <AndroidResource Include="Resources\mipmap-hdpi\ic_launcher.png">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>

@@ -21,8 +21,7 @@ namespace PrismApp.Tests
         {
             try
             {
-                //Arrange
-                //Set up substitutes, etc.
+                // Arrange
                 Configuration.CityNames = new List<string>();
 
                 var restService = Substitute.For<IRestService>();
@@ -30,9 +29,8 @@ namespace PrismApp.Tests
                 var navigationService = Substitute.For<INavigationService>();
                 var locationService = Substitute.For<ILocationService>();
 
-                //lat0, long0
-                locationService.GetLocation().Returns(item => Task.FromResult(new Location(0, 0)));
-                queryService.GenerateQuery(111, 222).Returns("ThisCanBeAnything");
+                locationService.GetLocation().Returns(item => Task.FromResult(new Location(111, 222)));
+                queryService.GenerateQuery(111,222).Returns("ThisCanBeAnything");
                 restService.GetWeatherData("ThisCanBeAnything").Returns(result => Task.FromResult(
                     new WeatherModel
                     {
@@ -40,16 +38,10 @@ namespace PrismApp.Tests
                     }));               
                 
 
-                var viewModel = new MainPageViewModel(navigationService, locationService, queryService, restService);
-
-                //Act
-                //Call functions
-                //we are not acting here, a command is executed in the constructor
-
-                //Assert
-                //Assert the results from functions are as expected
+                new MainPageViewModel(navigationService, locationService, queryService, restService);
+                
+                // Assert
                 Assert.That(Configuration.CityNames.Contains("Cape Town"));
-                // Assert.That(true, Is.False); //fails, expects false
             }
             catch (Exception e)
             {

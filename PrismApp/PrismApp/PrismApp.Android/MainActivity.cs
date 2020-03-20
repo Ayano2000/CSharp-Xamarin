@@ -1,6 +1,8 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using Lottie.Forms;
+using Lottie.Forms.Droid;
 using Prism;
 using Prism.Ioc;
 
@@ -18,6 +20,9 @@ namespace PrismApp.Droid
 
             Xamarin.Essentials.Platform.Init(this, bundle);
             global::Xamarin.Forms.Forms.Init(this, bundle);
+            
+            AnimationViewRenderer.Init();
+            
             LoadApplication(new App(new AndroidInitializer()));
         }
     }
@@ -30,4 +35,3 @@ namespace PrismApp.Droid
         }
     }
 }
-

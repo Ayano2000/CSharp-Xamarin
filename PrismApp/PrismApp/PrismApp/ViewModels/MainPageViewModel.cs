@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PrismApp.DTO;
 using Xamarin.Forms;
 
 namespace PrismApp.ViewModels
@@ -50,7 +51,7 @@ namespace PrismApp.ViewModels
         private async Task<DTO.WeatherModel> GetDeviceLocation()
         {
             var location = await _locationService.GetLocation();
-            string query = _queryService.GenerateQuery(location.Longitude, location.Latitude);
+            string query = _queryService.GenerateQuery(location.Latitude, location.Longitude);
             var city = await _restService.GetWeatherData(query);
             return city;
         }
