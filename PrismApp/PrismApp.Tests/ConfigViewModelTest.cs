@@ -19,6 +19,7 @@ namespace PrismApp.Tests
         {
             try
             {
+                // Arrange
                 const string CAPE_TOWN = "Cape Town";
                 const string STELLENBOSCH = "Stellenbosch";
                 const string JOHANNESBURG = "Johannesburg";
@@ -27,7 +28,8 @@ namespace PrismApp.Tests
                 var navigationService = Substitute.For<INavigationService>();
             
                 var viewModel = new ConfigViewModel(navigationService);
-                
+
+                // Act
                 viewModel.City = CAPE_TOWN;
                 viewModel.AddCityButtonClicked.Execute(CAPE_TOWN);
                 viewModel.City = STELLENBOSCH;
@@ -35,6 +37,7 @@ namespace PrismApp.Tests
                 viewModel.City = JOHANNESBURG;
                 viewModel.AddCityButtonClicked.Execute(JOHANNESBURG);
 
+                // Assert
                 Assert.That(Configuration.CityNames.Count() == 3);
                 Assert.That(Configuration.CityNames.Contains("Cape Town"));
                 Assert.That(Configuration.CityNames.Contains("Stellenbosch"));

@@ -42,6 +42,7 @@ namespace PrismApp.Tests
         {
             try
             {
+                // Arrange
                 const string CAPE_TOWN = "Cape Town";
                 const string STELLENBOSCH = "Stellenbosch";
 
@@ -64,8 +65,10 @@ namespace PrismApp.Tests
 
                 var viewModel = new WeatherInfoViewModel(navigationService, restService, queryService);
 
+                // Act
                 viewModel.GetWeatherCommand.Execute(null);
 
+                // Assert
                 Assert.That(viewModel.CityWeatherViewModels.Count() == 2);
 
                 var capeTownModel = viewModel.CityWeatherViewModels.FirstOrDefault(vm => vm.Location == CAPE_TOWN);

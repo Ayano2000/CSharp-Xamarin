@@ -21,6 +21,7 @@ namespace PrismApp.Tests
         {
             try
             {
+                // Arrange
                 Configuration.CityNames = new List<string> {"Stellenbosch"};
 
                 var restService = Substitute.For<IRestService>();
@@ -41,6 +42,7 @@ namespace PrismApp.Tests
                 
                 var viewModel = new MapViewModel(navigationService, queryService, restService);
                 
+                // Assert
                 Assert.That(viewModel.Location.Latitude == 111);
                 Assert.That(viewModel.Location.Longitude == 222);
                 

@@ -21,6 +21,7 @@ namespace PrismApp.Tests
         {
             try
             {
+                // Arrange
                 Configuration.CityNames = new List<string>();
 
                 var restService = Substitute.For<IRestService>();
@@ -39,6 +40,8 @@ namespace PrismApp.Tests
                 
 
                 new MainPageViewModel(navigationService, locationService, queryService, restService);
+                
+                // Assert
                 Assert.That(Configuration.CityNames.Contains("Cape Town"));
             }
             catch (Exception e)
