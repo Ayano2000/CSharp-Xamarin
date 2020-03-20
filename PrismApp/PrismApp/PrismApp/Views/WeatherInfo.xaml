@@ -17,7 +17,7 @@
                 BorderColor="White"
                 BackgroundColor="DarkGray"
                 TextColor="White"
-                Command="{Binding WeatherButtonClickedCommand}"/>
+                Command="{Binding GetWeatherCommand}"/>
             <StackLayout>
                 <ScrollView >
                     <StackLayout Padding="10" Orientation="{Binding StackLayoutOrientation}" BindableLayout.ItemsSource="{Binding  CityWeatherViewModels}">

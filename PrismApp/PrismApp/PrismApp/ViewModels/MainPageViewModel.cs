@@ -6,6 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using PrismApp.DTO;
+using Xamarin.Forms;
 
 namespace PrismApp.ViewModels
 {
@@ -16,7 +19,9 @@ namespace PrismApp.ViewModels
         private DelegateCommand _mapViewCommand;
         private INavigationService _navigationService;
         private ILocationService _locationService;
-
+        private IQueryService _queryService;
+        private IRestService _restService;
+        private Command _getCurrentCityCommand;
         public DelegateCommand NavigateCommand =>
             _navigateCommand ?? (_navigateCommand = new DelegateCommand(ExecuteNavigationCommand));
 
@@ -25,18 +30,30 @@ namespace PrismApp.ViewModels
 
         public DelegateCommand MapViewCommand =>
             _mapViewCommand ?? (_mapViewCommand = new DelegateCommand(ExecuteMapViewCommand));
-
-        public MainPageViewModel(ILocationService locationService, INavigationService navigationService)
+        
+        public MainPageViewModel(INavigationService navigationService, ILocationService locationService, IQueryService queryService, IRestService restService)
         {
             _navigationService = navigationService;
             _locationService = locationService;
-            GetDeviceLocation();
+            _queryService = queryService;
+            _restService = restService;
+            _getCurrentCityCommand = new Command(async () => await GetCurrentCity());
+
+            _getCurrentCityCommand.Execute(null);
         }
 
-        private async void GetDeviceLocation()
+        private async Task GetCurrentCity()
         {
-            var DeviceCity = await _locationService.GetLocation();
-            Configuration.CityNames.Add(DeviceCity);
+            var city = await GetDeviceLocation();
+            Configuration.CityNames.Add(city.Title);
+        }
+
+        private async Task<DTO.WeatherModel> GetDeviceLocation()
+        {
+            var location = await _locationService.GetLocation();
+            string query = _queryService.GenerateQuery(location.Latitude, location.Longitude);
+            var city = await _restService.GetWeatherData(query);
+            return city;
         }
         async void ExecuteNavigationCommand()
         {

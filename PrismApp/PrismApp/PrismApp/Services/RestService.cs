@@ -7,7 +7,7 @@ using PrismApp.DTO;
 
 namespace PrismApp.Services
 {
-    class RestService : IRestService
+    public class RestService : IRestService
     {
         HttpClient _client;
 

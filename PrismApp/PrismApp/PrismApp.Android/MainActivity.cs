@@ -1,12 +1,14 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using Lottie.Forms;
+using Lottie.Forms.Droid;
 using Prism;
 using Prism.Ioc;
 
 namespace PrismApp.Droid
 {
-    [Activity(Label = "PrismApp", Icon = "@mipmap/ic_launcher", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "Weather Tracker", Icon = "@mipmap/ic_launcher", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         protected override void OnCreate(Bundle bundle)
@@ -18,6 +20,9 @@ namespace PrismApp.Droid
 
             Xamarin.Essentials.Platform.Init(this, bundle);
             global::Xamarin.Forms.Forms.Init(this, bundle);
+            
+            AnimationViewRenderer.Init();
+            
             LoadApplication(new App(new AndroidInitializer()));
         }
     }
@@ -30,4 +35,3 @@ namespace PrismApp.Droid
         }
     }
 }
-
