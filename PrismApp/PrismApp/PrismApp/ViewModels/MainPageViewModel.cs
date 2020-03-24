@@ -45,7 +45,10 @@ namespace PrismApp.ViewModels
         private async Task GetCurrentCity()
         {
             var city = await GetDeviceLocation();
-            Configuration.CityNames.Add(city.Title);
+            if (!Configuration.CityNames.Contains(city.Title))
+            {
+                Configuration.CityNames.Add(city.Title);
+            }
         }
 
         private async Task<DTO.WeatherModel> GetDeviceLocation()

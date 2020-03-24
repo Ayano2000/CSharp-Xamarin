@@ -4,6 +4,9 @@ using PrismApp.Services;
 using PrismApp.ViewModels;
 using PrismApp.Views;
 using System.Collections.Generic;
+using System.Linq;
+using Newtonsoft.Json;
+using PrismApp.Constants;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -25,6 +28,10 @@ namespace PrismApp
         {
             InitializeComponent();
             Configuration.CityNames = new List<string>();
+            Configuration.CityNames = JsonConvert.DeserializeObject<List<string>>(Settings.UserCities);
+            // List<string> noDupes = Configuration.CityNames.Distinct().ToList();
+            // Configuration.CityNames = noDupes;
+            // Settings.UserCities = JsonConvert.SerializeObject(Configuration.CityNames);
             await NavigationService.NavigateAsync("NavigationPage/MainPage");
             
         }

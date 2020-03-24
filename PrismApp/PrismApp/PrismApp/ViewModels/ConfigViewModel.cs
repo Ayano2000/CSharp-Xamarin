@@ -3,6 +3,8 @@ using Prism.Mvvm;
 using Prism.Navigation;
 using System;
 using System.Collections.ObjectModel;
+using Newtonsoft.Json;
+using PrismApp.Constants;
 using Xamarin.Forms;
 
 namespace PrismApp.ViewModels
@@ -25,13 +27,18 @@ namespace PrismApp.ViewModels
             AddCityButtonClicked = new Command(
             execute: () =>
             {
-                Configuration.CityNames.Add(_city);
-                Cities.Add(_city);
-                Console.WriteLine(_city + " has been added");
-                foreach (string name in Configuration.CityNames)
+                if (!Configuration.CityNames.Contains(_city))
                 {
-                    Console.WriteLine(name);
+                    Configuration.CityNames.Add(_city);
+                    Cities.Add(_city);
+                    Settings.UserCities = JsonConvert.SerializeObject(Configuration.CityNames);
+                    Console.WriteLine(_city + " has been added");
+                    foreach (string name in Configuration.CityNames)
+                    {
+                        Console.WriteLine(name);
+                    }
                 }
+
             });
         }
 

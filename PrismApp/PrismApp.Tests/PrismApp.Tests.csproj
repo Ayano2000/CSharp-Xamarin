@@ -16,6 +16,8 @@
 
     <ItemGroup>
       <ProjectReference Include="..\PrismApp\PrismApp\PrismApp.csproj" />
+      <PackageReference Include="TestFramework.NUnit.Ninject.NSubstitute" Version="1.1.0" />
+      <PackageReference Include="Xam.Plugins.Settings" Version="4.1.0-beta" />
     </ItemGroup>
 
 </Project>
