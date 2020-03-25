@@ -5,8 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="PrismApp.Views.CityData">
-  <ContentView.Content>
-      <StackLayout>
+       <StackLayout>
           <Label Text="Location"/>
           <Label Text="{Binding Location}" 
                  Style="{StaticResource labelResultStyle}" />
@@ -28,6 +27,5 @@
           <Label Text="Time of Sunset"/>
           <Label Text="{Binding Sunset, Converter={StaticResource LongToDateTimeConverter}}" 
                  Style="{StaticResource labelResultStyle}" />
-      </StackLayout>
-  </ContentView.Content>
+       </StackLayout>
 </ContentView>
