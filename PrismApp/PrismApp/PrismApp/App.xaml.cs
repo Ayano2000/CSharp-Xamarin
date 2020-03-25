@@ -29,9 +29,6 @@ namespace PrismApp
             InitializeComponent();
             Configuration.CityNames = new List<string>();
             Configuration.CityNames = JsonConvert.DeserializeObject<List<string>>(Settings.UserCities);
-            // List<string> noDupes = Configuration.CityNames.Distinct().ToList();
-            // Configuration.CityNames = noDupes;
-            // Settings.UserCities = JsonConvert.SerializeObject(Configuration.CityNames);
             await NavigationService.NavigateAsync("NavigationPage/MainPage");
             
         }

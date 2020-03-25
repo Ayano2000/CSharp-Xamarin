@@ -27,18 +27,13 @@ namespace PrismApp.ViewModels
             AddCityButtonClicked = new Command(
             execute: () =>
             {
-                if (!Configuration.CityNames.Contains(_city))
+                var userCityInput = _city.Trim();
+                if (!Configuration.CityNames.Contains(userCityInput))
                 {
-                    Configuration.CityNames.Add(_city);
-                    Cities.Add(_city);
+                    Configuration.CityNames.Add(userCityInput);
+                    Cities.Add(userCityInput);
                     Settings.UserCities = JsonConvert.SerializeObject(Configuration.CityNames);
-                    Console.WriteLine(_city + " has been added");
-                    foreach (string name in Configuration.CityNames)
-                    {
-                        Console.WriteLine(name);
-                    }
                 }
-
             });
         }
 
