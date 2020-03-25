@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
-             xmlns:local="clr-namespace:Xamarin;assembly=Xamarin.Forms.CarouselView"
+             xmlns:views="clr-namespace:PrismApp.Views;assembly=PrismApp"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="PrismApp.Views.WeatherInfo"
              Title="Weather Info Page">
@@ -14,29 +14,7 @@
                 <CarouselView ItemsSource="{Binding CityWeatherViewModels}">
                     <CarouselView.ItemTemplate>
                         <DataTemplate>
-                            <StackLayout>
-                                <Label Text="Location"/>
-                                <Label Text="{Binding Location}" 
-                                   Style="{StaticResource labelResultStyle}" />
-                                <Label Text="Temperature"/>
-                                <Label Text="{Binding Temperature}" 
-                                   Style="{StaticResource labelResultStyle}" />
-                                <Label Text="Wind Speed"/>
-                                <Label Text="{Binding WindSpeed}" 
-                                   Style="{StaticResource labelResultStyle}" />
-                                <Label Text="Humidity"/>
-                                <Label Text="{Binding Humidity}" 
-                                   Style="{StaticResource labelResultStyle}" />
-                                <Label Text="Visibility"/>
-                                <Label Text="{Binding Visibility}" 
-                                   Style="{StaticResource labelResultStyle}" />
-                                <Label Text="Time of Sunrise"/>
-                                <Label Text="{Binding Sunrise, Converter={StaticResource LongToDateTimeConverter}}"
-                                   Style="{StaticResource labelResultStyle}" />
-                                <Label Text="Time of Sunset"/>
-                                <Label Text="{Binding Sunset, Converter={StaticResource LongToDateTimeConverter}}" 
-                                   Style="{StaticResource labelResultStyle}" />
-                            </StackLayout>
+                            <views:CityData/>
                         </DataTemplate>
                     </CarouselView.ItemTemplate>
                 </CarouselView>
