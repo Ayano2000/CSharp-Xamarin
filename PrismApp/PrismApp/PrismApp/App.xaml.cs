@@ -4,6 +4,9 @@ using PrismApp.Services;
 using PrismApp.ViewModels;
 using PrismApp.Views;
 using System.Collections.Generic;
+using System.Linq;
+using Newtonsoft.Json;
+using PrismApp.Constants;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -24,9 +27,8 @@ namespace PrismApp
         protected override async void OnInitialized()
         {
             InitializeComponent();
-            Configuration.CityNames = new List<string>();
-            await NavigationService.NavigateAsync("NavigationPage/MainPage");
             
+            await NavigationService.NavigateAsync("NavigationPage/MainPage");
         }
 
         private void RegisterServices(IContainerRegistry containerRegistry)
@@ -34,6 +36,7 @@ namespace PrismApp
             containerRegistry.Register<IRestService, RestService>();
             containerRegistry.Register<ILocationService, LocationService>();
             containerRegistry.Register<IQueryService, QueryService>();
+            containerRegistry.Register<ISettingsService, SettingsService>();
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)

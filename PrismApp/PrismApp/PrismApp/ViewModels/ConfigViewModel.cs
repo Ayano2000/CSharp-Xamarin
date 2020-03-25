@@ -3,6 +3,9 @@ using Prism.Mvvm;
 using Prism.Navigation;
 using System;
 using System.Collections.ObjectModel;
+using Newtonsoft.Json;
+using PrismApp.Constants;
+using PrismApp.Services;
 using Xamarin.Forms;
 
 namespace PrismApp.ViewModels
@@ -11,26 +14,29 @@ namespace PrismApp.ViewModels
     {
         private DelegateCommand _navigateCommand;
         private readonly INavigationService _navigationService;
+        private ISettingsService _settingsService;
         private string _city;
         private ObservableCollection<string> _cities;
+        
 
         public DelegateCommand NavigateCommand =>
              _navigateCommand ?? (_navigateCommand = new DelegateCommand(ExecuteNavigationCommand));
 
-        public ConfigViewModel(INavigationService navigationService)
+        public ConfigViewModel(INavigationService navigationService, ISettingsService settingsService)
         {
             _navigationService = navigationService;
-            Cities = new ObservableCollection<string>(Configuration.CityNames);
+            _settingsService = settingsService;
+            Cities = new ObservableCollection<string>(_settingsService.UserCities);
 
             AddCityButtonClicked = new Command(
             execute: () =>
             {
-                Configuration.CityNames.Add(_city);
-                Cities.Add(_city);
-                Console.WriteLine(_city + " has been added");
-                foreach (string name in Configuration.CityNames)
+                var userCityInput = _city.Trim();
+                if (!_settingsService.UserCities.Contains(userCityInput))
                 {
-                    Console.WriteLine(name);
+                    _settingsService.UserCities.Add(userCityInput);
+                    Cities.Add(userCityInput);
+                    _settingsService.UserCities =_settingsService.UserCities;
                 }
             });
         }
@@ -38,16 +44,12 @@ namespace PrismApp.ViewModels
         public ObservableCollection<string> Cities
         {
             get => _cities;
-            set
-            {
-                _cities = value;
-            }
+            set => _cities = value;
         }
 
         public string City
         {
             get => _city;
-
             set
             {
                 if (_city == value)

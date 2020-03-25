@@ -14,13 +14,15 @@ namespace PrismApp.ViewModels
 {
     public class MainPageViewModel : BindableBase
     {
+        private readonly INavigationService _navigationService;
+        private readonly ILocationService _locationService;
+        private readonly IQueryService _queryService;
+        private readonly IRestService _restService;
+        private readonly ISettingsService _settingsService;
+        
         private DelegateCommand _navigateCommand;
         private DelegateCommand _getData;
         private DelegateCommand _mapViewCommand;
-        private INavigationService _navigationService;
-        private ILocationService _locationService;
-        private IQueryService _queryService;
-        private IRestService _restService;
         private Command _getCurrentCityCommand;
         public DelegateCommand NavigateCommand =>
             _navigateCommand ?? (_navigateCommand = new DelegateCommand(ExecuteNavigationCommand));
@@ -31,21 +33,29 @@ namespace PrismApp.ViewModels
         public DelegateCommand MapViewCommand =>
             _mapViewCommand ?? (_mapViewCommand = new DelegateCommand(ExecuteMapViewCommand));
         
-        public MainPageViewModel(INavigationService navigationService, ILocationService locationService, IQueryService queryService, IRestService restService)
+        public MainPageViewModel(INavigationService navigationService, ILocationService locationService, 
+            IQueryService queryService, IRestService restService, ISettingsService settingsService)
         {
             _navigationService = navigationService;
             _locationService = locationService;
             _queryService = queryService;
             _restService = restService;
+            _settingsService = settingsService;
             _getCurrentCityCommand = new Command(async () => await GetCurrentCity());
-
-            _getCurrentCityCommand.Execute(null);
+            if (_settingsService.UserCities.Count == 0) // there are no cities being watched by the user.
+            {
+                Console.WriteLine("INSIDE COMMAND TO GET DEVICE LOCATION");
+                _getCurrentCityCommand.Execute(null);
+            }
         }
 
         private async Task GetCurrentCity()
         {
             var city = await GetDeviceLocation();
-            Configuration.CityNames.Add(city.Title);
+            if (!_settingsService.UserCities.Contains(city.Title)) // prevents duplicate cities from being added
+            {
+                _settingsService.UserCities.Add(city.Title);
+            }
         }
 
         private async Task<DTO.WeatherModel> GetDeviceLocation()

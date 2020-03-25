@@ -22,11 +22,13 @@ namespace PrismApp.Tests
             try
             {
                 // Arrange
-                Configuration.CityNames = new List<string> {"Stellenbosch"};
-
                 var restService = Substitute.For<IRestService>();
                 var queryService = Substitute.For<IQueryService>();
                 var navigationService = Substitute.For<INavigationService>();
+                var settingsService = Substitute.For<ISettingsService>();
+                
+                settingsService.UserCities = new List<string>();
+                settingsService.UserCities.Add("Stellenbosch");
 
                 queryService.GenerateQuery("Stellenbosch").Returns("SomeData");
                 restService.GetWeatherData("SomeData").Returns(result => Task.FromResult(
@@ -40,7 +42,7 @@ namespace PrismApp.Tests
                         }
                     }));
                 
-                var viewModel = new MapViewModel(navigationService, queryService, restService);
+                var viewModel = new MapViewModel(navigationService, queryService, restService, settingsService);
                 
                 // Assert
                 Assert.That(viewModel.Location.Latitude == 111);
