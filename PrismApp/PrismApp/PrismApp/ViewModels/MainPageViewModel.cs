@@ -14,13 +14,13 @@ namespace PrismApp.ViewModels
 {
     public class MainPageViewModel : BindableBase
     {
+        private readonly INavigationService _navigationService;
+        private readonly ILocationService _locationService;
+        private readonly IQueryService _queryService;
+        private readonly IRestService _restService;
         private DelegateCommand _navigateCommand;
         private DelegateCommand _getData;
         private DelegateCommand _mapViewCommand;
-        private INavigationService _navigationService;
-        private ILocationService _locationService;
-        private IQueryService _queryService;
-        private IRestService _restService;
         private Command _getCurrentCityCommand;
         public DelegateCommand NavigateCommand =>
             _navigateCommand ?? (_navigateCommand = new DelegateCommand(ExecuteNavigationCommand));
@@ -38,14 +38,17 @@ namespace PrismApp.ViewModels
             _queryService = queryService;
             _restService = restService;
             _getCurrentCityCommand = new Command(async () => await GetCurrentCity());
-
-            _getCurrentCityCommand.Execute(null);
+            if (Configuration.CityNames.Count == 0) // there are no cities being watched by the user.
+            {
+                Console.WriteLine("INSIDE COMMAND TO GET DEVICE LOCATION");
+                _getCurrentCityCommand.Execute(null);
+            }
         }
 
         private async Task GetCurrentCity()
         {
             var city = await GetDeviceLocation();
-            if (!Configuration.CityNames.Contains(city.Title))
+            if (!Configuration.CityNames.Contains(city.Title)) // prevents duplicate cities from being added
             {
                 Configuration.CityNames.Add(city.Title);
             }

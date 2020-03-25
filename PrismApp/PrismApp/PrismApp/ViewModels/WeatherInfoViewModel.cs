@@ -52,7 +52,7 @@ namespace PrismApp.ViewModels
             }
         }
 
-        async void ExecuteNavigationCommand() //async if you're awaiting
+        async void ExecuteNavigationCommand()
         {
             await _navigationService.GoBackAsync();
         }
