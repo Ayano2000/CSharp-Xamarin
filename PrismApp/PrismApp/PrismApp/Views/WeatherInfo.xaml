@@ -9,15 +9,6 @@
     <ContentPage.Content>
         <StackLayout>
             <ActivityIndicator IsRunning="{Binding IsBusy}" VerticalOptions="Center" HorizontalOptions="Center" Color="Blue" />
-            <Button
-                Grid.Row="1" 
-                Grid.Column="2"
-                Text="Get Weather" 
-                BorderWidth="1"
-                BorderColor="White"
-                BackgroundColor="DarkGray"
-                TextColor="White"
-                Command="{Binding GetWeatherCommand}"/>
             <StackLayout>
                 <ScrollView >
                     <StackLayout Padding="10" Orientation="{Binding StackLayoutOrientation}" BindableLayout.ItemsSource="{Binding  CityWeatherViewModels}">

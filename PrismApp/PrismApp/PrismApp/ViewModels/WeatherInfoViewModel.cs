@@ -30,6 +30,7 @@ namespace PrismApp.ViewModels
             _navigationService = navigationService;
             _queryService = queryService;
             GetWeatherCommand = new Command(async () => await GetWeatherInfo());
+            GetWeatherCommand.Execute(null);
         }
         public ObservableCollection<CityWeatherViewModel> CityWeatherViewModels
         {
