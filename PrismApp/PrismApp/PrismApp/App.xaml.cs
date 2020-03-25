@@ -38,6 +38,7 @@ namespace PrismApp
             containerRegistry.Register<IRestService, RestService>();
             containerRegistry.Register<ILocationService, LocationService>();
             containerRegistry.Register<IQueryService, QueryService>();
+            containerRegistry.Register<ISettingsService, SettingsService>();
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Newtonsoft.Json;
-using PrismApp.Constants;
-using PrismApp.Settings;
+﻿using System.Collections.Generic;
+using PrismApp.Services;
 
 namespace PrismApp
 {

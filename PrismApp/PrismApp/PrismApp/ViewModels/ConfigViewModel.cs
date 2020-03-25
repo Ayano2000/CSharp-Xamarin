@@ -5,6 +5,7 @@ using System;
 using System.Collections.ObjectModel;
 using Newtonsoft.Json;
 using PrismApp.Constants;
+using PrismApp.Services;
 using Xamarin.Forms;
 
 namespace PrismApp.ViewModels
@@ -13,15 +14,17 @@ namespace PrismApp.ViewModels
     {
         private DelegateCommand _navigateCommand;
         private readonly INavigationService _navigationService;
+        private ISettingsService _settingsService;
         private string _city;
         private ObservableCollection<string> _cities;
 
         public DelegateCommand NavigateCommand =>
              _navigateCommand ?? (_navigateCommand = new DelegateCommand(ExecuteNavigationCommand));
 
-        public ConfigViewModel(INavigationService navigationService)
+        public ConfigViewModel(INavigationService navigationService, ISettingsService settingsService)
         {
             _navigationService = navigationService;
+            _settingsService = settingsService;
             Cities = new ObservableCollection<string>(Configuration.CityNames);
 
             AddCityButtonClicked = new Command(
@@ -32,7 +35,7 @@ namespace PrismApp.ViewModels
                 {
                     Configuration.CityNames.Add(userCityInput);
                     Cities.Add(userCityInput);
-                    Settings.Settings.UserCities = Configuration.CityNames;
+                    _settingsService.UserCities = Configuration.CityNames;
                 }
             });
         }
