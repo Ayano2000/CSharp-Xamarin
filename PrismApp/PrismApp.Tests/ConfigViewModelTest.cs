@@ -24,10 +24,16 @@ namespace PrismApp.Tests
                 const string STELLENBOSCH = "Stellenbosch";
                 const string JOHANNESBURG = "Johannesburg";
                 
-                Configuration.CityNames = new List<string>();
                 var navigationService = Substitute.For<INavigationService>();
+                var settingsService = Substitute.For<ISettingsService>();
+                
+                settingsService.UserCities = new List<string>
+                {
+                    CAPE_TOWN, STELLENBOSCH, JOHANNESBURG 
+                };
+                
             
-                var viewModel = new ConfigViewModel(navigationService);
+                var viewModel = new ConfigViewModel(navigationService, settingsService);
 
                 // Act
                 viewModel.City = CAPE_TOWN;
@@ -38,10 +44,10 @@ namespace PrismApp.Tests
                 viewModel.AddCityButtonClicked.Execute(JOHANNESBURG);
 
                 // Assert
-                Assert.That(Configuration.CityNames.Count() == 3);
-                Assert.That(Configuration.CityNames.Contains("Cape Town"));
-                Assert.That(Configuration.CityNames.Contains("Stellenbosch"));
-                Assert.That(Configuration.CityNames.Contains("Johannesburg"));
+                Assert.That(settingsService.UserCities.Count() == 3);
+                Assert.That(settingsService.UserCities.Contains("Cape Town"));
+                Assert.That(settingsService.UserCities.Contains("Stellenbosch"));
+                Assert.That(settingsService.UserCities.Contains("Johannesburg"));
             }
             catch (Exception e)
             {

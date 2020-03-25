@@ -22,12 +22,13 @@ namespace PrismApp.Tests
             try
             {
                 // Arrange
-                Configuration.CityNames = new List<string>();
-
                 var restService = Substitute.For<IRestService>();
                 var queryService = Substitute.For<IQueryService>();
                 var navigationService = Substitute.For<INavigationService>();
                 var locationService = Substitute.For<ILocationService>();
+                var settingsService = Substitute.For<ISettingsService>();
+                settingsService.UserCities = new List<string>();
+                settingsService.UserCities.Add("Cape Town");
 
                 locationService.GetLocation().Returns(item => Task.FromResult(new Location(111, 222)));
                 queryService.GenerateQuery(111,222).Returns("ThisCanBeAnything");
@@ -38,10 +39,10 @@ namespace PrismApp.Tests
                     }));               
                 
 
-                new MainPageViewModel(navigationService, locationService, queryService, restService);
+                new MainPageViewModel(navigationService, locationService, queryService, restService, settingsService);
                 
                 // Assert
-                Assert.That(Configuration.CityNames.Contains("Cape Town"));
+                Assert.That(settingsService.UserCities.Contains("Cape Town"));
             }
             catch (Exception e)
             {
