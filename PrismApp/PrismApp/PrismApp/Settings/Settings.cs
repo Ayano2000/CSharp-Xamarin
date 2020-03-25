@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using Plugin.Settings;
 using Plugin.Settings.Abstractions;
 
-namespace PrismApp.Constants
+namespace PrismApp.Settings
 {
     public static class Settings
     {
@@ -15,9 +15,15 @@ namespace PrismApp.Constants
             }
         }
         
-        public static string UserCities
+        public static List<string> UserCities
         {
-            get => AppSettings.GetValueOrDefault(nameof(UserCities), string.Empty);
+            get
+            {
+                var UserCitiesJSON = AppSettings.GetValueOrDefault(nameof(UserCities), string.Empty);
+                var UserCitiesList = JsonConvert.DeserializeObject<List<string>>(UserCitiesJSON);
+                return UserCitiesList;
+            }
+            
             set => AppSettings.AddOrUpdateValue(nameof(UserCities), JsonConvert.SerializeObject(Configuration.CityNames));
         }
     }

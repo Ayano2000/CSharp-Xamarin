@@ -32,7 +32,7 @@ namespace PrismApp.ViewModels
                 {
                     Configuration.CityNames.Add(userCityInput);
                     Cities.Add(userCityInput);
-                    Settings.UserCities = JsonConvert.SerializeObject(Configuration.CityNames);
+                    Settings.Settings.UserCities = Configuration.CityNames;
                 }
             });
         }

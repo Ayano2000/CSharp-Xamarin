@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
 using PrismApp.Constants;
+using PrismApp.Settings;
 
 namespace PrismApp
 {
@@ -12,7 +13,7 @@ namespace PrismApp
 
         static Configuration()
         {
-            CityNames = JsonConvert.DeserializeObject<List<string>>(Settings.UserCities);
+            CityNames = Settings.Settings.UserCities;
         }
     }
 }
