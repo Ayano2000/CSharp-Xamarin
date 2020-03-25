@@ -12,6 +12,7 @@
       <PackageReference Include="NUnit3TestAdapter" Version="3.16.1" />
       <PackageReference Include="System.Security.Permissions" Version="4.7.0" />
       <PackageReference Include="System.ServiceModel.Primitives" Version="4.7.0" />
+      <PackageReference Include="Xamarin.Forms.CarouselView" Version="2.3.0-pre2" />
     </ItemGroup>
 
     <ItemGroup>
