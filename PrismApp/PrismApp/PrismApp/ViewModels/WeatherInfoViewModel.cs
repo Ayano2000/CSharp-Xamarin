@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
@@ -15,6 +16,7 @@ namespace PrismApp.ViewModels
         private readonly IRestService _restService;
         private readonly INavigationService _navigationService;
         private readonly IQueryService _queryService;
+        private readonly ISettingsService _settingsService;
         private ObservableCollection<CityWeatherViewModel> _cityWeatherModels;
         private bool _isBusy;
 
@@ -24,12 +26,14 @@ namespace PrismApp.ViewModels
         public DelegateCommand NavigateCommand =>
             _navigateCommand ?? (_navigateCommand = new DelegateCommand(ExecuteNavigationCommand));
 
-        public WeatherInfoViewModel(INavigationService navigationService, IRestService restService, IQueryService queryService)
+        public WeatherInfoViewModel(INavigationService navigationService, IRestService restService, 
+            IQueryService queryService, ISettingsService settingsService)
         {
             CityWeatherViewModels = new ObservableCollection<CityWeatherViewModel>();
             _restService = restService;
             _navigationService = navigationService;
             _queryService = queryService;
+            _settingsService = settingsService;
             GetWeatherCommand = new Command(async () => await GetWeatherInfo());
             GetWeatherCommand.Execute(null);
         }
@@ -61,7 +65,7 @@ namespace PrismApp.ViewModels
         private async Task GetWeatherInfo()
         {
             IsBusy = true;
-            foreach (var city in Configuration.CityNames)
+            foreach (var city in _settingsService.UserCities)
             {
                 if (!string.IsNullOrWhiteSpace(city))
                 {

@@ -7,23 +7,18 @@ namespace PrismApp.Services
 {
     public class SettingsService : ISettingsService
     {
-        private ISettings AppSettings
-        {
-            get
-            {
-                return (CrossSettings.Current);
-            }
-        }
+        private ISettings AppSettings => CrossSettings.Current;
+
         public List<string> UserCities
         {
             get
             {
-                var UserCitiesJSON = AppSettings.GetValueOrDefault(nameof(UserCities), string.Empty);
-                var UserCitiesList = JsonConvert.DeserializeObject<List<string>>(UserCitiesJSON);
-                return UserCitiesList;
+                var userCitiesJson = AppSettings.GetValueOrDefault(nameof(UserCities), string.Empty);
+                var userCitiesList = JsonConvert.DeserializeObject<List<string>>(userCitiesJson);
+                return userCitiesList;
             }
             
-            set => AppSettings.AddOrUpdateValue(nameof(UserCities), JsonConvert.SerializeObject(Configuration.CityNames));
+            set => AppSettings.AddOrUpdateValue(nameof(UserCities), JsonConvert.SerializeObject(value));
         }
     }
 }

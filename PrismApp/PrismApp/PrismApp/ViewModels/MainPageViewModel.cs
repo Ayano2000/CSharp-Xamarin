@@ -18,6 +18,8 @@ namespace PrismApp.ViewModels
         private readonly ILocationService _locationService;
         private readonly IQueryService _queryService;
         private readonly IRestService _restService;
+        private readonly ISettingsService _settingsService;
+        
         private DelegateCommand _navigateCommand;
         private DelegateCommand _getData;
         private DelegateCommand _mapViewCommand;
@@ -31,14 +33,16 @@ namespace PrismApp.ViewModels
         public DelegateCommand MapViewCommand =>
             _mapViewCommand ?? (_mapViewCommand = new DelegateCommand(ExecuteMapViewCommand));
         
-        public MainPageViewModel(INavigationService navigationService, ILocationService locationService, IQueryService queryService, IRestService restService)
+        public MainPageViewModel(INavigationService navigationService, ILocationService locationService, 
+            IQueryService queryService, IRestService restService, ISettingsService settingsService)
         {
             _navigationService = navigationService;
             _locationService = locationService;
             _queryService = queryService;
             _restService = restService;
+            _settingsService = settingsService;
             _getCurrentCityCommand = new Command(async () => await GetCurrentCity());
-            if (Configuration.CityNames.Count == 0) // there are no cities being watched by the user.
+            if (_settingsService.UserCities.Count == 0) // there are no cities being watched by the user.
             {
                 Console.WriteLine("INSIDE COMMAND TO GET DEVICE LOCATION");
                 _getCurrentCityCommand.Execute(null);
@@ -48,9 +52,9 @@ namespace PrismApp.ViewModels
         private async Task GetCurrentCity()
         {
             var city = await GetDeviceLocation();
-            if (!Configuration.CityNames.Contains(city.Title)) // prevents duplicate cities from being added
+            if (!_settingsService.UserCities.Contains(city.Title)) // prevents duplicate cities from being added
             {
-                Configuration.CityNames.Add(city.Title);
+                _settingsService.UserCities.Add(city.Title);
             }
         }
 

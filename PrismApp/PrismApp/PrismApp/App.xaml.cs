@@ -27,10 +27,8 @@ namespace PrismApp
         protected override async void OnInitialized()
         {
             InitializeComponent();
-            Configuration.CityNames = new List<string>();
-            Configuration.CityNames = Settings.Settings.UserCities;
-            await NavigationService.NavigateAsync("NavigationPage/MainPage");
             
+            await NavigationService.NavigateAsync("NavigationPage/MainPage");
         }
 
         private void RegisterServices(IContainerRegistry containerRegistry)

@@ -17,6 +17,7 @@ namespace PrismApp.ViewModels
         private ISettingsService _settingsService;
         private string _city;
         private ObservableCollection<string> _cities;
+        
 
         public DelegateCommand NavigateCommand =>
              _navigateCommand ?? (_navigateCommand = new DelegateCommand(ExecuteNavigationCommand));
@@ -25,17 +26,17 @@ namespace PrismApp.ViewModels
         {
             _navigationService = navigationService;
             _settingsService = settingsService;
-            Cities = new ObservableCollection<string>(Configuration.CityNames);
+            Cities = new ObservableCollection<string>(_settingsService.UserCities);
 
             AddCityButtonClicked = new Command(
             execute: () =>
             {
                 var userCityInput = _city.Trim();
-                if (!Configuration.CityNames.Contains(userCityInput))
+                if (!_settingsService.UserCities.Contains(userCityInput))
                 {
-                    Configuration.CityNames.Add(userCityInput);
+                    _settingsService.UserCities.Add(userCityInput);
                     Cities.Add(userCityInput);
-                    _settingsService.UserCities = Configuration.CityNames;
+                    _settingsService.UserCities =_settingsService.UserCities;
                 }
             });
         }
@@ -43,16 +44,12 @@ namespace PrismApp.ViewModels
         public ObservableCollection<string> Cities
         {
             get => _cities;
-            set
-            {
-                _cities = value;
-            }
+            set => _cities = value;
         }
 
         public string City
         {
             get => _city;
-
             set
             {
                 if (_city == value)
