@@ -46,7 +46,10 @@ namespace PrismApp.Tests
                 const string CAPE_TOWN = "Cape Town";
                 const string STELLENBOSCH = "Stellenbosch";
 
-                Configuration.CityNames = new List<string>();
+                Configuration.CityNames = new List<string>
+                {
+                    CAPE_TOWN, STELLENBOSCH
+                };
 
                 var restService = Substitute.For<IRestService>();
                 var queryService = Substitute.For<IQueryService>();
@@ -60,17 +63,11 @@ namespace PrismApp.Tests
                 restService.GetWeatherData(STELLENBOSCH).Returns(result => Task.FromResult(
                     Populate(STELLENBOSCH, 30)));
 
-                Configuration.CityNames.Add(CAPE_TOWN);
-                Configuration.CityNames.Add(STELLENBOSCH);
-
                 var viewModel = new WeatherInfoViewModel(navigationService, restService, queryService);
-
-                // Act
-                viewModel.GetWeatherCommand.Execute(null);
 
                 // Assert
                 Assert.That(viewModel.CityWeatherViewModels.Count() == 2);
-
+                
                 var capeTownModel = viewModel.CityWeatherViewModels.FirstOrDefault(vm => vm.Location == CAPE_TOWN);
                 var stellenboschModel =
                     viewModel.CityWeatherViewModels.FirstOrDefault(vm => vm.Location == STELLENBOSCH);
