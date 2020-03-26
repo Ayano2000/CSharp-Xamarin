@@ -8,7 +8,7 @@
              mvvm:ViewModelLocator.AutowireViewModel="True"
              mc:Ignorable="d"
              x:Class="PrismApp.Views.AddCity">
-    <StackLayout BackgroundColor="Aqua"
+    <StackLayout BackgroundColor="White"
                  VerticalOptions="CenterAndExpand"
                  HorizontalOptions="CenterAndExpand"
                  Padding="24"

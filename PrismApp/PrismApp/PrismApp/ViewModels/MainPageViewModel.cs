@@ -23,19 +23,13 @@ namespace PrismApp.ViewModels
         private readonly IRestService _restService;
         private readonly ISettingsService _settingsService;
         
-        private DelegateCommand _getData;
-        private DelegateCommand _mapViewCommand;
-        private DelegateCommand _showPopupCommand;
         private Command _getCurrentCityCommand;
 
-        public DelegateCommand GetData =>
-            _getData ?? (_getData = new DelegateCommand(ExecuteGetDataCommand));
+        public DelegateCommand GetData => new DelegateCommand(ExecuteGetDataCommand);
 
-        public DelegateCommand ShowPopupCommand =>
-            _showPopupCommand ?? (_showPopupCommand = new DelegateCommand(ExecuteShowPopupCommand));
+        public DelegateCommand ShowPopupCommand => new DelegateCommand(ShowPopup);
         
-        public DelegateCommand MapViewCommand =>
-            _mapViewCommand ?? (_mapViewCommand = new DelegateCommand(ExecuteMapViewCommand));
+        public DelegateCommand MapViewCommand => new DelegateCommand(ExecuteMapViewCommand);
         
         public MainPageViewModel(INavigationService navigationService, ILocationService locationService, 
             IQueryService queryService, IRestService restService, ISettingsService settingsService)
@@ -48,7 +42,6 @@ namespace PrismApp.ViewModels
             _getCurrentCityCommand = new Command(async () => await GetCurrentCity());
             if (_settingsService.UserCities.Count == 0) // there are no cities being watched by the user.
             {
-                Console.WriteLine("INSIDE COMMAND TO GET DEVICE LOCATION");
                 _getCurrentCityCommand.Execute(null);
             }
         }
@@ -79,7 +72,7 @@ namespace PrismApp.ViewModels
             await _navigationService.NavigateAsync("Map");
         }
         
-        private void ExecuteShowPopupCommand()
+        private void ShowPopup()
         {
             PopupNavigation.Instance.PushAsync(new AddCity());
         }

@@ -23,8 +23,7 @@ namespace PrismApp.ViewModels
         public Command GetWeatherButtonClicked { get; }
         public Command GetWeatherCommand { get; }
 
-        public DelegateCommand NavigateCommand =>
-            _navigateCommand ?? (_navigateCommand = new DelegateCommand(ExecuteNavigationCommand));
+        public DelegateCommand NavigateCommand => new DelegateCommand(ExecuteNavigationCommand);
 
         public WeatherInfoViewModel(INavigationService navigationService, IRestService restService, 
             IQueryService queryService, ISettingsService settingsService)
