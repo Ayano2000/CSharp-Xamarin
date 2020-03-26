@@ -27,9 +27,11 @@ namespace PrismApp.Tests
                 var navigationService = Substitute.For<INavigationService>();
                 var locationService = Substitute.For<ILocationService>();
                 var settingsService = Substitute.For<ISettingsService>();
-                settingsService.UserCities = new List<string>();
-                settingsService.UserCities.Add("Cape Town");
-
+                
+                settingsService.UserCities.Returns(new List<string>
+                {
+                    "Cape Town"
+                });
                 locationService.GetLocation().Returns(item => Task.FromResult(new Location(111, 222)));
                 queryService.GenerateQuery(111,222).Returns("ThisCanBeAnything");
                 restService.GetWeatherData("ThisCanBeAnything").Returns(result => Task.FromResult(

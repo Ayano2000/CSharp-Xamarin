@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+             xmlns:mvvm="http://prismlibrary.com"
+             mvvm:ViewModelLocator.AutowireViewModel="True"
+             mc:Ignorable="d"
+             x:Class="PrismApp.Views.AddCity">
+    <StackLayout BackgroundColor="White"
+                 VerticalOptions="CenterAndExpand"
+                 HorizontalOptions="CenterAndExpand"
+                 Padding="24"
+                 Spacing="24">
+        
+        <Entry Text="{Binding City}"
+               Placeholder="Enter City"
+               Margin="5,0"
+               VerticalOptions="Center"
+               BackgroundColor="DarkGray"
+               TextColor="White"/>
+        <Button Text="Add City" 
+                BorderWidth="1"
+                BorderColor="White"
+                BackgroundColor="DarkGray"
+                TextColor="White"
+                Command="{Binding AddCityButtonClicked}"/>
+        <StackLayout BindableLayout.ItemsSource="{Binding Cities}">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate>
+                    <Label Text="{Binding .}"/>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </StackLayout>
+    </StackLayout>
+</pages:PopupPage>

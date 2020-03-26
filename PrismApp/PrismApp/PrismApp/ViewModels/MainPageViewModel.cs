@@ -8,6 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PrismApp.DTO;
+using PrismApp.Views;
+using Rg.Plugins.Popup.Pages;
+using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
 
 namespace PrismApp.ViewModels
@@ -20,18 +23,13 @@ namespace PrismApp.ViewModels
         private readonly IRestService _restService;
         private readonly ISettingsService _settingsService;
         
-        private DelegateCommand _navigateCommand;
-        private DelegateCommand _getData;
-        private DelegateCommand _mapViewCommand;
         private Command _getCurrentCityCommand;
-        public DelegateCommand NavigateCommand =>
-            _navigateCommand ?? (_navigateCommand = new DelegateCommand(ExecuteNavigationCommand));
 
-        public DelegateCommand GetData =>
-            _getData ?? (_getData = new DelegateCommand(ExecuteGetDataCommand));
+        public DelegateCommand GetData => new DelegateCommand(ExecuteGetDataCommand);
 
-        public DelegateCommand MapViewCommand =>
-            _mapViewCommand ?? (_mapViewCommand = new DelegateCommand(ExecuteMapViewCommand));
+        public DelegateCommand ShowPopupCommand => new DelegateCommand(ShowPopup);
+        
+        public DelegateCommand MapViewCommand => new DelegateCommand(ExecuteMapViewCommand);
         
         public MainPageViewModel(INavigationService navigationService, ILocationService locationService, 
             IQueryService queryService, IRestService restService, ISettingsService settingsService)
@@ -44,7 +42,6 @@ namespace PrismApp.ViewModels
             _getCurrentCityCommand = new Command(async () => await GetCurrentCity());
             if (_settingsService.UserCities.Count == 0) // there are no cities being watched by the user.
             {
-                Console.WriteLine("INSIDE COMMAND TO GET DEVICE LOCATION");
                 _getCurrentCityCommand.Execute(null);
             }
         }
@@ -65,10 +62,6 @@ namespace PrismApp.ViewModels
             var city = await _restService.GetWeatherData(query);
             return city;
         }
-        async void ExecuteNavigationCommand()
-        {
-            await _navigationService.NavigateAsync("Config");
-        }
         async void ExecuteGetDataCommand()
         {
             await _navigationService.NavigateAsync("WeatherInfo");
@@ -77,6 +70,11 @@ namespace PrismApp.ViewModels
         async void ExecuteMapViewCommand()
         {
             await _navigationService.NavigateAsync("Map");
+        }
+        
+        private void ShowPopup()
+        {
+            PopupNavigation.Instance.PushAsync(new AddCity());
         }
     }
 }

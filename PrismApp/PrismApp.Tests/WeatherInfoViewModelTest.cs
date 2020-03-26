@@ -51,11 +51,11 @@ namespace PrismApp.Tests
                 var navigationService = Substitute.For<INavigationService>();
                 var settingsService = Substitute.For<ISettingsService>();
 
-                
-                settingsService.UserCities = new List<string>
+
+                settingsService.UserCities.Returns(new List<string>
                 {
                     CAPE_TOWN, STELLENBOSCH
-                };
+                });
                 queryService.GenerateQuery(CAPE_TOWN).Returns(CAPE_TOWN);
                 queryService.GenerateQuery(STELLENBOSCH).Returns(STELLENBOSCH);
                 restService.GetWeatherData(CAPE_TOWN).Returns(result => Task.FromResult(
