@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using Plugin.Settings;
 using Plugin.Settings.Abstractions;
@@ -17,8 +18,12 @@ namespace PrismApp.Services
                 var userCitiesList = JsonConvert.DeserializeObject<List<string>>(userCitiesJson);
                 return userCitiesList;
             }
+
+            set
+            {
+                AppSettings.AddOrUpdateValue(nameof(UserCities), JsonConvert.SerializeObject(value));   
+            }
             
-            set => AppSettings.AddOrUpdateValue(nameof(UserCities), JsonConvert.SerializeObject(value));
         }
     }
 }

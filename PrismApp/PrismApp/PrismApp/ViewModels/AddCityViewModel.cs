@@ -26,9 +26,10 @@ namespace PrismApp.ViewModels
                 var userCityInput = _city.Trim();
                 if (!_settingsService.UserCities.Contains(userCityInput))
                 {
-                    userCities.Add(userCityInput);
+                    _settingsService.UserCities.Add(userCityInput);
+                    foreach (string city in _settingsService.UserCities)
                     Cities.Add(userCityInput);
-                    _settingsService.UserCities = userCities;
+                    _settingsService.UserCities = _settingsService.UserCities;
                 }
             });
         }
