@@ -13,25 +13,22 @@ namespace PrismApp.ViewModels
         private ISettingsService _settingsService;
         private string _city;
         private ObservableCollection<string> _cities;
-        
+
         public AddCityViewModel(ISettingsService settingsService)
         {
             _settingsService = settingsService;
             Cities = new ObservableCollection<string>(_settingsService.UserCities);
 
-            AddCityButtonClicked = new Command(
-            execute: () =>
-            {
-                var userCities = _settingsService.UserCities;
-                var userCityInput = _city.Trim();
-                if (!_settingsService.UserCities.Contains(userCityInput))
-                {
-                    _settingsService.UserCities.Add(userCityInput);
-                    foreach (string city in _settingsService.UserCities)
-                    Cities.Add(userCityInput);
-                    _settingsService.UserCities = _settingsService.UserCities;
-                }
-            });
+            AddCityButtonClicked = new Command(execute: AddCityToList);
+        }
+
+        private void AddCityToList()
+        {
+            var userCities = _settingsService.UserCities;
+            var userCityInput = _city.Trim();
+
+            _settingsService.AddCity(userCityInput);
+            Cities.Add(userCityInput);
         }
 
         public ObservableCollection<string> Cities

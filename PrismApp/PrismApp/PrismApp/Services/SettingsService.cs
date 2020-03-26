@@ -18,12 +18,41 @@ namespace PrismApp.Services
                 var userCitiesList = JsonConvert.DeserializeObject<List<string>>(userCitiesJson);
                 return userCitiesList;
             }
+            private set { AppSettings.AddOrUpdateValue(nameof(UserCities), JsonConvert.SerializeObject(value)); }
+        }
 
-            set
+        public void AddCity(string city)
+        {
+            var cities = UserCities;
+
+            if (cities.Contains(city)) return;
+
+            cities.Add(city);
+            UserCities = cities;
+        }
+
+        public void AddCities(List<string> citiesToAdd)
+        {
+            var valueChanged = false;
+            var cities = UserCities;
+
+            citiesToAdd.ForEach(city =>
             {
-                AppSettings.AddOrUpdateValue(nameof(UserCities), JsonConvert.SerializeObject(value));   
+                if (cities.Contains(city)) return;
+                cities.Add(city);
+
+                valueChanged = true;
+            });
+
+            if (valueChanged)
+            {
+                UserCities = cities;
             }
-            
+        }
+
+        public void RemoveCity(string city)
+        {
+            // throw new NotImplementedException();
         }
     }
 }
