@@ -8,6 +8,5 @@ namespace PrismApp.Services
 
         void AddCity(string city);
         void RemoveCity(string city);
-        void AddCities(List<string> citiesToAdd);
     }
 }

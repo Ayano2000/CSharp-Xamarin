@@ -30,26 +30,7 @@ namespace PrismApp.Services
             cities.Add(city);
             UserCities = cities;
         }
-
-        public void AddCities(List<string> citiesToAdd)
-        {
-            var valueChanged = false;
-            var cities = UserCities;
-
-            citiesToAdd.ForEach(city =>
-            {
-                if (cities.Contains(city)) return;
-                cities.Add(city);
-
-                valueChanged = true;
-            });
-
-            if (valueChanged)
-            {
-                UserCities = cities;
-            }
-        }
-
+        
         public void RemoveCity(string city)
         {
             // throw new NotImplementedException();

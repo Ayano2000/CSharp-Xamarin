@@ -43,7 +43,9 @@ namespace PrismApp.ViewModels
             set
             {
                 if (_city == value)
+                {
                     return;
+                }
                 _city = value;
                 RaisePropertyChanged(nameof(City));
             }
