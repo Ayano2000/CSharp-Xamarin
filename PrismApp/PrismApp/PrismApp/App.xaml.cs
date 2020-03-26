@@ -3,12 +3,7 @@ using Prism.Ioc;
 using PrismApp.Services;
 using PrismApp.ViewModels;
 using PrismApp.Views;
-using System.Collections.Generic;
-using System.Linq;
-using Newtonsoft.Json;
-using PrismApp.Constants;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 //[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace PrismApp
@@ -45,9 +40,9 @@ namespace PrismApp
 
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
-            containerRegistry.RegisterForNavigation<Config, ConfigViewModel>();
             containerRegistry.RegisterForNavigation<WeatherInfo, WeatherInfoViewModel>();
             containerRegistry.RegisterForNavigation<Map, MapViewModel>();
+            containerRegistry.RegisterForNavigation<AddCity, AddCityViewModel>();
         }
     }
 }

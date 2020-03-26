@@ -1,42 +1,34 @@
-﻿using Prism.Commands;
+﻿using System;
+using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
-using System;
 using System.Collections.ObjectModel;
-using Newtonsoft.Json;
-using PrismApp.Constants;
 using PrismApp.Services;
 using Xamarin.Forms;
 
 namespace PrismApp.ViewModels
 {
-    public class ConfigViewModel : BindableBase
+    public class AddCityViewModel : BindableBase
     {
-        private DelegateCommand _navigateCommand;
-        private readonly INavigationService _navigationService;
         private ISettingsService _settingsService;
         private string _city;
         private ObservableCollection<string> _cities;
         
-
-        public DelegateCommand NavigateCommand =>
-             _navigateCommand ?? (_navigateCommand = new DelegateCommand(ExecuteNavigationCommand));
-
-        public ConfigViewModel(INavigationService navigationService, ISettingsService settingsService)
+        public AddCityViewModel(ISettingsService settingsService)
         {
-            _navigationService = navigationService;
             _settingsService = settingsService;
             Cities = new ObservableCollection<string>(_settingsService.UserCities);
 
             AddCityButtonClicked = new Command(
             execute: () =>
             {
+                var userCities = _settingsService.UserCities;
                 var userCityInput = _city.Trim();
                 if (!_settingsService.UserCities.Contains(userCityInput))
                 {
-                    _settingsService.UserCities.Add(userCityInput);
+                    userCities.Add(userCityInput);
                     Cities.Add(userCityInput);
-                    _settingsService.UserCities =_settingsService.UserCities;
+                    _settingsService.UserCities = userCities;
                 }
             });
         }
@@ -60,10 +52,5 @@ namespace PrismApp.ViewModels
         }
 
         public Command AddCityButtonClicked { get; }
-
-        async void ExecuteNavigationCommand()
-        {
-            await _navigationService.GoBackAsync();
-        }
     }
 }

@@ -4,14 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Rg.Plugins.Popup.Pages;
-using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace PrismApp.Views
 {
-    public partial class MainPage : ContentPage
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class AddCity : PopupPage
     {
-        public MainPage()
+        public AddCity()
         {
             InitializeComponent();
         }

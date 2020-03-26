@@ -8,6 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PrismApp.DTO;
+using PrismApp.Views;
+using Rg.Plugins.Popup.Pages;
+using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
 
 namespace PrismApp.ViewModels
@@ -20,16 +23,17 @@ namespace PrismApp.ViewModels
         private readonly IRestService _restService;
         private readonly ISettingsService _settingsService;
         
-        private DelegateCommand _navigateCommand;
         private DelegateCommand _getData;
         private DelegateCommand _mapViewCommand;
+        private DelegateCommand _showPopupCommand;
         private Command _getCurrentCityCommand;
-        public DelegateCommand NavigateCommand =>
-            _navigateCommand ?? (_navigateCommand = new DelegateCommand(ExecuteNavigationCommand));
 
         public DelegateCommand GetData =>
             _getData ?? (_getData = new DelegateCommand(ExecuteGetDataCommand));
 
+        public DelegateCommand ShowPopupCommand =>
+            _showPopupCommand ?? (_showPopupCommand = new DelegateCommand(ExecuteShowPopupCommand));
+        
         public DelegateCommand MapViewCommand =>
             _mapViewCommand ?? (_mapViewCommand = new DelegateCommand(ExecuteMapViewCommand));
         
@@ -65,10 +69,6 @@ namespace PrismApp.ViewModels
             var city = await _restService.GetWeatherData(query);
             return city;
         }
-        async void ExecuteNavigationCommand()
-        {
-            await _navigationService.NavigateAsync("Config");
-        }
         async void ExecuteGetDataCommand()
         {
             await _navigationService.NavigateAsync("WeatherInfo");
@@ -77,6 +77,11 @@ namespace PrismApp.ViewModels
         async void ExecuteMapViewCommand()
         {
             await _navigationService.NavigateAsync("Map");
+        }
+        
+        private void ExecuteShowPopupCommand()
+        {
+            PopupNavigation.Instance.PushAsync(new AddCity());
         }
     }
 }
