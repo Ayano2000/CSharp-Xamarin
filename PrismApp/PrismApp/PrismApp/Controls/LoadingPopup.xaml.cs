@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,22 +13,9 @@ namespace PrismApp.Controls
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class LoadingPopup : PopupPage
     {
-        private BindableProperty ProcessDescriptionProperty = BindableProperty.Create(
-            propertyName: nameof(ProcessDescription),
-            returnType: typeof(string),
-            declaringType: typeof(LoadingPopup),
-            defaultValue: string.Empty
-        );
-
         public LoadingPopup()
         {
             InitializeComponent();
-        }
-
-        public string ProcessDescription
-        {
-            get => GetValue(ProcessDescriptionProperty) as string;
-            set => SetValue(ProcessDescriptionProperty, value);
         }
     }
 }

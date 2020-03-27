@@ -17,7 +17,6 @@ namespace PrismApp.ViewModels
         private readonly INavigationService _navigationService;
         private readonly ISettingsService _settingsService;
         private Map _map;
-        private bool _isBusy;
 
         public MapViewModel(INavigationService navigationService, IQueryService queryService, 
             IRestService restService, ISettingsService settingsService)
@@ -31,7 +30,7 @@ namespace PrismApp.ViewModels
         
         public async Task SetMapPosition()
         {
-            await PopupNavigation.Instance.PushAsync(new LoadingPopup() {ProcessDescription = "Loading..."}, true);
+            await PopupNavigation.Instance.PushAsync(new LoadingPopup(), true);
             
             if (_settingsService.UserCities[1] != null)
             {

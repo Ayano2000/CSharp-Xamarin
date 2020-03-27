@@ -11,7 +11,7 @@
             <ControlTemplate>
                 <StackLayout VerticalOptions="Center">
                     <ActivityIndicator IsRunning="true" HorizontalOptions="Center" Color="Blue" />
-                    <Label Text="{TemplateBinding ProcessDescription}" HorizontalOptions="Center" />
+                    <Label Text="Loading.." HorizontalOptions="Center" />
                 </StackLayout>
             </ControlTemplate>
         </ContentView.ControlTemplate>
