@@ -23,7 +23,6 @@ namespace PrismApp.Converters
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return $"{_time.ToString()} GMT";
-            //throw new NotImplementedException();
         }
     }
 }
