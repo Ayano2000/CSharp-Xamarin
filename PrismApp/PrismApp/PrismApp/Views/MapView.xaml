@@ -10,7 +10,7 @@
         <ContentView>
             <StackLayout>
                 <ContentView Content="{Binding Map}"/>
-                <ActivityIndicator IsRunning="{Binding IsBusy}" VerticalOptions="Center" HorizontalOptions="Center" Color="Blue"/>
+                <!-- <ActivityIndicator IsRunning="{Binding IsBusy}" VerticalOptions="Center" HorizontalOptions="Center" Color="Blue"/> -->
             </StackLayout>
         </ContentView>
     </ContentPage.Content>

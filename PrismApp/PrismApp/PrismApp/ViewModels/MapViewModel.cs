@@ -4,7 +4,9 @@ using Xamarin.Essentials;
 using Prism.Mvvm;
 using System.Threading.Tasks;
 using Prism.Navigation;
+using PrismApp.Controls;
 using PrismApp.Services;
+using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using Map = Xamarin.Forms.Maps.Map;
@@ -34,6 +36,8 @@ namespace PrismApp.ViewModels
         
         public async Task SetMapPosition()
         {
+            await PopupNavigation.Instance.PushAsync(new LoadingPopup() {ProcessDescription = "Loading..."}, true);
+            
             if (_settingsService.UserCities[1] != null)
             {
                 IsBusy = true;
@@ -45,6 +49,8 @@ namespace PrismApp.ViewModels
                 Map.MapType = MapType.Street;
                 IsBusy = false;
             }
+
+            await PopupNavigation.Instance.PopAsync();
         }
 
         public Map Map
