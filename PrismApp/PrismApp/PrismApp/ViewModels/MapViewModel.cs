@@ -20,7 +20,8 @@ namespace PrismApp.ViewModels
         private readonly INavigationService _navigationService;
         private readonly ISettingsService _settingsService;
         private Map _map;
-        
+        private bool _isBusy;
+
         public MapViewModel(INavigationService navigationService, IQueryService queryService, 
             IRestService restService, ISettingsService settingsService)
         {
@@ -35,12 +36,14 @@ namespace PrismApp.ViewModels
         {
             if (_settingsService.UserCities[1] != null)
             {
+                IsBusy = true;
                 string query = _queryService.GenerateQuery(_settingsService.UserCities[1]);
                 var cityData = await _restService.GetWeatherData(query);
                 var myPosition = new Position(cityData.Coord.Lat, cityData.Coord.Lon);
                 var mapSpan = new MapSpan(myPosition, 0.01, 0.01);
                 Map = new Map(mapSpan);
                 Map.MapType = MapType.Street;
+                IsBusy = false;
             }
         }
 
@@ -56,6 +59,16 @@ namespace PrismApp.ViewModels
                 }
                 _map = value;
                 RaisePropertyChanged(nameof(Map));
+            }
+        }
+        
+        public bool IsBusy
+        {
+            get => this._isBusy;
+            set
+            {
+                _isBusy = value;
+                RaisePropertyChanged();
             }
         }
     }
