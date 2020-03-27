@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using Xamarin.Essentials;
-using Prism.Mvvm;
+﻿using Prism.Mvvm;
 using System.Threading.Tasks;
 using Prism.Navigation;
 using PrismApp.Controls;
@@ -10,8 +7,6 @@ using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Maps;
 using Map = Xamarin.Forms.Maps.Map;
-
-// using Map = Xamarin.Essentials.Map;
 
 namespace PrismApp.ViewModels
 {
@@ -40,14 +35,12 @@ namespace PrismApp.ViewModels
             
             if (_settingsService.UserCities[1] != null)
             {
-                IsBusy = true;
                 string query = _queryService.GenerateQuery(_settingsService.UserCities[1]);
                 var cityData = await _restService.GetWeatherData(query);
                 var myPosition = new Position(cityData.Coord.Lat, cityData.Coord.Lon);
                 var mapSpan = new MapSpan(myPosition, 0.01, 0.01);
                 Map = new Map(mapSpan);
                 Map.MapType = MapType.Street;
-                IsBusy = false;
             }
 
             await PopupNavigation.Instance.PopAsync();
@@ -65,16 +58,6 @@ namespace PrismApp.ViewModels
                 }
                 _map = value;
                 RaisePropertyChanged(nameof(Map));
-            }
-        }
-        
-        public bool IsBusy
-        {
-            get => this._isBusy;
-            set
-            {
-                _isBusy = value;
-                RaisePropertyChanged();
             }
         }
     }
