@@ -45,12 +45,7 @@ namespace PrismApp.Tests
                     }));
                 
                 var viewModel = new MapViewModel(navigationService, queryService, restService, settingsService);
-                
-                // Assert
-                // Assert.That(viewModel.Location.Latitude == 111);
-                // Assert.That(viewModel.Location.Longitude == 222);
-                
-                
+
             }
             catch (Exception e)
             {
