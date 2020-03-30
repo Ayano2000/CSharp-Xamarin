@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 using PrismApp.Controls;
 using PrismApp.Views;
 using Rg.Plugins.Popup.Services;
-using Xamarin.Essentials;
 
 namespace PrismApp.ViewModels
 {
@@ -32,8 +31,7 @@ namespace PrismApp.ViewModels
 
         public DelegateCommand NavigateCommand => new DelegateCommand(ExecuteNavigationCommand);
         public DelegateCommand ShowAddCityPage => new DelegateCommand(ShowAddCityPageCommand);
-        public DelegateCommand RemoveCity => new DelegateCommand(RemoveCityCommand);
-
+        public DelegateCommand About => new DelegateCommand(AboutCommand);
         public WeatherInfoViewModel(INavigationService navigationService, IRestService restService,
             IQueryService queryService, ISettingsService settingsService, ILocationService locationService)
         {
@@ -73,14 +71,13 @@ namespace PrismApp.ViewModels
         
         private void ShowAddCityPageCommand()
         {
-            Console.WriteLine("ShowAddCityPage");
             PopupNavigation.Instance.PushAsync(new AddCity());
         }
-        private void RemoveCityCommand()
+        private void AboutCommand()
         {
-            
+            Console.WriteLine("EHRE");
+            PopupNavigation.Instance.PushAsync(new About());
         }
-        
         public bool AddCityButtonIsVisible
         {
             get => _addCityButtonIsVisible;
@@ -95,7 +92,6 @@ namespace PrismApp.ViewModels
             var city = await GetDeviceLocation();
             if (!_settingsService.UserCities.Contains(city.Title)) // prevents duplicate cities from being added
             {
-                Console.WriteLine("CHECK ME " + city.Title);
                 _settingsService.AddCity(city.Title);
             }
         }

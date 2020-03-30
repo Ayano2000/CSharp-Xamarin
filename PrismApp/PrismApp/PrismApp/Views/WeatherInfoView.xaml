@@ -19,7 +19,7 @@
                 </CarouselView>
             </StackLayout>
             <Button Text="Add City" Command="{Binding ShowAddCityPage}" IsVisible="{Binding AddCityButtonIsVisible}"/>
-            <Button Text="Remove City" Command="{Binding RemoveCity}"/>
+            <Button Text="About" Command="{Binding About}"/>
         </StackLayout>
     </ContentPage.Content>
 
