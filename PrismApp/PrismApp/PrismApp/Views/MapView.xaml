@@ -9,4 +9,5 @@
     <ContentPage.Content>
         <ContentView Content="{Binding Map}"/>
     </ContentPage.Content>
+        
 </ContentPage>

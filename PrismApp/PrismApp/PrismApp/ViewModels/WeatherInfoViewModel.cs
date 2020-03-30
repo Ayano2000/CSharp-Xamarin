@@ -6,7 +6,10 @@ using Prism.Navigation;
 using PrismApp.Services;
 using Xamarin.Forms;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
+using PrismApp.Controls;
+using Rg.Plugins.Popup.Services;
 
 namespace PrismApp.ViewModels
 {
@@ -18,14 +21,13 @@ namespace PrismApp.ViewModels
         private readonly IQueryService _queryService;
         private readonly ISettingsService _settingsService;
         private ObservableCollection<CityWeatherViewModel> _cityWeatherModels;
-        private bool _isBusy;
 
         public Command GetWeatherButtonClicked { get; }
         public Command GetWeatherCommand { get; }
 
         public DelegateCommand NavigateCommand => new DelegateCommand(ExecuteNavigationCommand);
 
-        public WeatherInfoViewModel(INavigationService navigationService, IRestService restService, 
+        public WeatherInfoViewModel(INavigationService navigationService, IRestService restService,
             IQueryService queryService, ISettingsService settingsService)
         {
             CityWeatherViewModels = new ObservableCollection<CityWeatherViewModel>();
@@ -45,17 +47,7 @@ namespace PrismApp.ViewModels
                 RaisePropertyChanged();
             }
         }
-
-        public bool IsBusy
-        {
-            get => this._isBusy;
-            set
-            {
-                _isBusy = value;
-                RaisePropertyChanged();
-            }
-        }
-
+        
         async void ExecuteNavigationCommand()
         {
             await _navigationService.GoBackAsync();
@@ -63,7 +55,7 @@ namespace PrismApp.ViewModels
 
         private async Task GetWeatherInfo()
         {
-            IsBusy = true;
+            await PopupNavigation.Instance.PushAsync(new LoadingPopup(), true);
             foreach (var city in _settingsService.UserCities)
             {
                 if (!string.IsNullOrWhiteSpace(city))
@@ -73,8 +65,8 @@ namespace PrismApp.ViewModels
                     var weatherModel = await _restService.GetWeatherData(requestUri);
                     CityWeatherViewModels.Add(new CityWeatherViewModel(weatherModel));
                 }
-                IsBusy = false;
             }
+            await PopupNavigation.Instance.PopAsync();
         }
     }
 }

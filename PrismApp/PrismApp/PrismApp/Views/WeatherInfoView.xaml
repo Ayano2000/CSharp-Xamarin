@@ -10,7 +10,7 @@
     <ContentPage.Content>
         <StackLayout>
             <ActivityIndicator IsRunning="{Binding IsBusy}" VerticalOptions="Center" HorizontalOptions="Center" Color="Blue" />
-            <StackLayout>
+        <StackLayout>
                 <CarouselView ItemsSource="{Binding CityWeatherViewModels}">
                     <CarouselView.ItemTemplate>
                         <DataTemplate>
