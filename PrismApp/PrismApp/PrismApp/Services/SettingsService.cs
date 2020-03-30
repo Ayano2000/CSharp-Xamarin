@@ -26,7 +26,6 @@ namespace PrismApp.Services
             var cities = UserCities;
 
             if (cities.Contains(city)) return;
-
             cities.Add(city);
             UserCities = cities;
         }

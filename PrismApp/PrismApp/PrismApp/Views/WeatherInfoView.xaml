@@ -9,8 +9,7 @@
 
     <ContentPage.Content>
         <StackLayout>
-            <ActivityIndicator IsRunning="{Binding IsBusy}" VerticalOptions="Center" HorizontalOptions="Center" Color="Blue" />
-        <StackLayout>
+            <StackLayout>
                 <CarouselView ItemsSource="{Binding CityWeatherViewModels}">
                     <CarouselView.ItemTemplate>
                         <DataTemplate>
@@ -19,6 +18,8 @@
                     </CarouselView.ItemTemplate>
                 </CarouselView>
             </StackLayout>
+            <Button Text="Add City" Command="{Binding ShowAddCityPage}" IsVisible="{Binding AddCityButtonIsVisible}"/>
+            <!-- <Button Text="Remove City" Command="{Binding ShowRemoveCity}" IsVisible="{Binding RemoveCityIsVisible}"/> -->
         </StackLayout>
     </ContentPage.Content>
 
