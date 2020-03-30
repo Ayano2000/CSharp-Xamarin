@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using PrismApp.Controls;
 using PrismApp.Views;
 using Rg.Plugins.Popup.Services;
+using Xamarin.Essentials;
 
 namespace PrismApp.ViewModels
 {
@@ -21,24 +22,33 @@ namespace PrismApp.ViewModels
         private readonly INavigationService _navigationService;
         private readonly IQueryService _queryService;
         private readonly ISettingsService _settingsService;
+        private readonly ILocationService _locationService;
         private ObservableCollection<CityWeatherViewModel> _cityWeatherModels;
         private bool _addCityButtonIsVisible;
+        private Command _getCurrentCityCommand;
 
         public Command GetWeatherButtonClicked { get; }
         public Command GetWeatherCommand { get; }
 
         public DelegateCommand NavigateCommand => new DelegateCommand(ExecuteNavigationCommand);
         public DelegateCommand ShowAddCityPage => new DelegateCommand(ShowAddCityPageCommand);
+        public DelegateCommand RemoveCity => new DelegateCommand(RemoveCityCommand);
 
         public WeatherInfoViewModel(INavigationService navigationService, IRestService restService,
-            IQueryService queryService, ISettingsService settingsService)
+            IQueryService queryService, ISettingsService settingsService, ILocationService locationService)
         {
             CityWeatherViewModels = new ObservableCollection<CityWeatherViewModel>();
             _restService = restService;
             _navigationService = navigationService;
             _queryService = queryService;
             _settingsService = settingsService;
+            _locationService = locationService;
             AddCityButtonIsVisible = false;
+            _getCurrentCityCommand = new Command(async () => await GetCurrentCity());
+            if (settingsService.UserCities.Count == 0)
+            {
+                _getCurrentCityCommand.Execute(null);
+            }
             if (settingsService.UserCities.Count() < 3)
             {
                 AddCityButtonIsVisible = true;
@@ -66,6 +76,10 @@ namespace PrismApp.ViewModels
             Console.WriteLine("ShowAddCityPage");
             PopupNavigation.Instance.PushAsync(new AddCity());
         }
+        private void RemoveCityCommand()
+        {
+            
+        }
         
         public bool AddCityButtonIsVisible
         {
@@ -75,6 +89,23 @@ namespace PrismApp.ViewModels
                 _addCityButtonIsVisible = value;
                 RaisePropertyChanged(nameof(AddCityButtonIsVisible));
             }
+        }
+        private async Task GetCurrentCity()
+        {
+            var city = await GetDeviceLocation();
+            if (!_settingsService.UserCities.Contains(city.Title)) // prevents duplicate cities from being added
+            {
+                Console.WriteLine("CHECK ME " + city.Title);
+                _settingsService.AddCity(city.Title);
+            }
+        }
+
+        private async Task<DTO.WeatherModel> GetDeviceLocation()
+        {
+            var location = await _locationService.GetLocation();
+            string query = _queryService.GenerateQuery(location.Latitude, location.Longitude);
+            var city = await _restService.GetWeatherData(query);
+            return city;
         }
 
         private async Task GetWeatherInfo()
