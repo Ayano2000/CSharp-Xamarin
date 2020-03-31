@@ -26,4 +26,5 @@
           <Label Text="Time of Sunset"/>
           <Label Text="{Binding Sunset, Converter={StaticResource LongToDateTimeConverter}}" 
                  Style="{StaticResource labelResultStyle}" />
+          <Button Text="Remove City" Command="{Binding RemoveCity}"/>
 </StackLayout>

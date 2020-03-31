@@ -1,6 +1,8 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
 using PrismApp.DTO;
+using PrismApp.Services;
+using Xamarin.Forms;
 
 namespace PrismApp.ViewModels
 {
@@ -13,6 +15,8 @@ namespace PrismApp.ViewModels
         private long _visibility;
         private long _sunrise;
         private long _sunset;
+        private ISettingsService _settingsService;
+        public DelegateCommand RemoveCity => new DelegateCommand(RemoveCityCommand);
 
         public CityWeatherViewModel(WeatherModel weather)
         {
@@ -23,6 +27,11 @@ namespace PrismApp.ViewModels
             Visibility = weather.Visibility;
             Sunrise = weather.Sys.Sunrise;
             Sunset = weather.Sys.Sunset;
+        }
+        
+        private void RemoveCityCommand()
+        {
+            MessagingCenter.Send(Location, "DeleteCity");
         }
         public string Location
         {

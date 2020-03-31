@@ -44,7 +44,6 @@ namespace PrismApp.ViewModels
             _locationService = locationService;
             AddCityButtonIsVisible = false;
             _getCurrentCityCommand = new Command(async () => await GetCurrentCity());
-            _settingsService.RemoveCity("Paarl");
             if (settingsService.UserCities.Count == 0)
             {
                 _getCurrentCityCommand.Execute(null);
@@ -56,6 +55,7 @@ namespace PrismApp.ViewModels
             GetWeatherCommand = new Command(async () => await GetWeatherInfo());
             GetWeatherCommand.Execute(null);
             MessagingCenter.Unsubscribe<CityWeatherViewModel>(this, "NewAdded");
+            MessagingCenter.Unsubscribe<string>(this, "DeleteCity");
             MessagingCenter.Subscribe<CityWeatherViewModel>(this, "NewAdded", (CityData) =>
             {
                 if (CityData.Location == String.Empty) return;
@@ -72,6 +72,18 @@ namespace PrismApp.ViewModels
                     }
                 }
                 CityWeatherViewModels.Add(CityData);
+            });
+            MessagingCenter.Subscribe<string>(this, "DeleteCity", (CityName) =>
+            {
+                foreach (var city in CityWeatherViewModels)
+                {
+                    if (city.Location == CityName)
+                    {
+                        CityWeatherViewModels.Remove(city);
+                        AddDummyCityWeatherViewModel();
+                        break;
+                    }
+                }
             });
         }
         public ObservableCollection<CityWeatherViewModel> CityWeatherViewModels
