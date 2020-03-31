@@ -51,7 +51,7 @@ namespace PrismApp.ViewModels
         
         private void ShowAddCityPageCommand()
         {
-            PopupNavigation.Instance.PushAsync(new AddCity());
+            PopupNavigation.Instance.PushAsync(new AddCityView());
         }
         
         public bool IsPopulated

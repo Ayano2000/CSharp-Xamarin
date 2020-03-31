@@ -2,9 +2,9 @@
 
 namespace PrismApp.Views
 {
-    public partial class MainPage : ContentPage
+    public partial class MainPageView : ContentPage
     {
-        public MainPage()
+        public MainPageView()
         {
             InitializeComponent();
         }

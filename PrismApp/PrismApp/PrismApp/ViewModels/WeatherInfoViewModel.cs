@@ -98,7 +98,7 @@ namespace PrismApp.ViewModels
         
         private void AboutCommand()
         {
-            PopupNavigation.Instance.PushAsync(new About());
+            PopupNavigation.Instance.PushAsync(new AboutView());
         }
         
         private async Task GetCurrentCity()

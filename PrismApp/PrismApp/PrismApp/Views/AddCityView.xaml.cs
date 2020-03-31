@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace PrismApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AddCity : PopupPage
+    public partial class AddCityView : PopupPage
     {
-        public AddCity()
+        public AddCityView()
         {
             InitializeComponent();
         }

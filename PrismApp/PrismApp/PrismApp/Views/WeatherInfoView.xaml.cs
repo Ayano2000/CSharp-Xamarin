@@ -2,9 +2,9 @@
 
 namespace PrismApp.Views
 {
-    public partial class WeatherInfo : ContentPage
+    public partial class WeatherInfoView : ContentPage
     {
-        public WeatherInfo()
+        public WeatherInfoView()
         {
             InitializeComponent();
         }
