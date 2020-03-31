@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using PrismApp.Controls;
+using PrismApp.DTO;
 using PrismApp.Views;
 using Rg.Plugins.Popup.Services;
 
@@ -43,6 +44,7 @@ namespace PrismApp.ViewModels
             _locationService = locationService;
             AddCityButtonIsVisible = false;
             _getCurrentCityCommand = new Command(async () => await GetCurrentCity());
+            _settingsService.RemoveCity("Paarl");
             if (settingsService.UserCities.Count == 0)
             {
                 _getCurrentCityCommand.Execute(null);
@@ -53,7 +55,6 @@ namespace PrismApp.ViewModels
             }
             GetWeatherCommand = new Command(async () => await GetWeatherInfo());
             GetWeatherCommand.Execute(null);
-
             MessagingCenter.Unsubscribe<CityWeatherViewModel>(this, "NewAdded");
             MessagingCenter.Subscribe<CityWeatherViewModel>(this, "NewAdded", (CityData) =>
             {
@@ -61,6 +62,14 @@ namespace PrismApp.ViewModels
                 foreach (var city in CityWeatherViewModels)
                 {
                     if (city.Location == CityData.Location) return;
+                }
+                foreach (var city in CityWeatherViewModels)
+                {
+                    if (city.Location == "Dummy")
+                    {
+                        CityWeatherViewModels.Remove(city);
+                        break;
+                    }
                 }
                 CityWeatherViewModels.Add(CityData);
             });
@@ -128,7 +137,38 @@ namespace PrismApp.ViewModels
                     CityWeatherViewModels.Add(new CityWeatherViewModel(weatherModel));
                 }
             }
+            if (CityWeatherViewModels.Count() < 3)
+            {
+                while (CityWeatherViewModels.Count != 3)
+                {
+                    AddDummyCityWeatherViewModel();
+                }
+            }
             await PopupNavigation.Instance.PopAsync();
+        }
+
+        private void AddDummyCityWeatherViewModel()
+        {
+            var DummyCity = new CityWeatherViewModel(new WeatherModel
+            {
+                Title = "Dummy",
+                Main = new MainModel
+                {
+                    Temperature = 0,
+                    Humidity = 0
+                },
+                Sys = new SysModel
+                {
+                    Sunrise = 0,
+                    Sunset = 0
+                },
+                Visibility = 0,
+                Wind = new WindModel
+                {
+                    Speed = 0
+                }
+            });
+            CityWeatherViewModels.Add(DummyCity);
         }
     }
 }
