@@ -26,12 +26,6 @@
                 BackgroundColor="DarkGray"
                 TextColor="White"
                 Command="{Binding AddCityButtonClicked}"/>
-        <StackLayout BindableLayout.ItemsSource="{Binding Cities}">
-            <BindableLayout.ItemTemplate>
-                <DataTemplate>
-                    <Label Text="{Binding .}"/>
-                </DataTemplate>
-            </BindableLayout.ItemTemplate>
-        </StackLayout>
+        <Label Text="{Binding AdditionCompletionMessage}"/>
     </StackLayout>
 </pages:PopupPage>

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;

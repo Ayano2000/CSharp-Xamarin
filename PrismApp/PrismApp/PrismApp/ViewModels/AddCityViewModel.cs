@@ -11,26 +11,28 @@ namespace PrismApp.ViewModels
     public class AddCityViewModel : BindableBase
     {
         private ISettingsService _settingsService;
-        private IRestService _restService;
-        private IQueryService _queryService;
         private string _city;
-        private ObservableCollection<string> _cities;
+        private string _additionCompletionMessage;
 
-        public AddCityViewModel(ISettingsService settingsService, IRestService restService, IQueryService queryService)
+        public AddCityViewModel(ISettingsService settingsService)
         {
             _settingsService = settingsService;
-            _restService = restService;
-            _queryService = queryService;
-            Cities = new ObservableCollection<string>(_settingsService.UserCities);
             AddCityButtonClicked = new Command(execute: AddCityToList);
         }
-
-        public ObservableCollection<string> Cities
+        
+        public string AdditionCompletionMessage
         {
-            get => _cities;
-            set => _cities = value;
+            get => _additionCompletionMessage;
+            set
+            {
+                if (_additionCompletionMessage == value)
+                {
+                    return;
+                }
+                _additionCompletionMessage = value;
+                RaisePropertyChanged(nameof(AdditionCompletionMessage));
+            }
         }
-
         public string City
         {
             get => _city;
@@ -51,7 +53,15 @@ namespace PrismApp.ViewModels
         {
             var userCities = _settingsService.UserCities;
             var userCityInput = _city.Trim();
-            _settingsService.AddCity(userCityInput);
+            var additionSuccessMessage = _settingsService.AddCity(userCityInput);
+            if (additionSuccessMessage == true)
+            {
+                AdditionCompletionMessage = "City successfully added";
+            }
+            if (additionSuccessMessage == false)
+            {
+                AdditionCompletionMessage = "City is already on your watch list";
+            }
             MessagingCenter.Send(userCityInput, "NewAdded");
         }
     }
