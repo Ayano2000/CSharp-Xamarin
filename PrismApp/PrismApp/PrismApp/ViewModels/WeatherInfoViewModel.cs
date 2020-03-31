@@ -53,6 +53,17 @@ namespace PrismApp.ViewModels
             }
             GetWeatherCommand = new Command(async () => await GetWeatherInfo());
             GetWeatherCommand.Execute(null);
+
+            MessagingCenter.Unsubscribe<CityWeatherViewModel>(this, "NewAdded");
+            MessagingCenter.Subscribe<CityWeatherViewModel>(this, "NewAdded", (CityData) =>
+            {
+                if (CityData.Location == String.Empty) return;
+                foreach (var city in CityWeatherViewModels)
+                {
+                    if (city.Location == CityData.Location) return;
+                }
+                CityWeatherViewModels.Add(CityData);
+            });
         }
         public ObservableCollection<CityWeatherViewModel> CityWeatherViewModels
         {
@@ -63,7 +74,7 @@ namespace PrismApp.ViewModels
                 RaisePropertyChanged();
             }
         }
-        
+
         async void ExecuteNavigationCommand()
         {
             await _navigationService.GoBackAsync();
@@ -75,7 +86,6 @@ namespace PrismApp.ViewModels
         }
         private void AboutCommand()
         {
-            Console.WriteLine("EHRE");
             PopupNavigation.Instance.PushAsync(new About());
         }
         public bool AddCityButtonIsVisible
@@ -93,6 +103,7 @@ namespace PrismApp.ViewModels
             if (!_settingsService.UserCities.Contains(city.Title)) // prevents duplicate cities from being added
             {
                 _settingsService.AddCity(city.Title);
+                GetWeatherCommand.Execute(null);
             }
         }
 
