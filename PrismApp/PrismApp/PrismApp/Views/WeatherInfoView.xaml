@@ -9,7 +9,6 @@
 
     <ContentPage.Content>
         <StackLayout>
-            <ActivityIndicator IsRunning="{Binding IsBusy}" VerticalOptions="Center" HorizontalOptions="Center" Color="Blue" />
             <StackLayout>
                 <CarouselView ItemsSource="{Binding CityWeatherViewModels}">
                     <CarouselView.ItemTemplate>
@@ -19,6 +18,8 @@
                     </CarouselView.ItemTemplate>
                 </CarouselView>
             </StackLayout>
+            <Button Text="Add City" Command="{Binding ShowAddCityPage}" IsVisible="{Binding AddCityButtonIsVisible}"/>
+            <Button Text="About" Command="{Binding About}"/>
         </StackLayout>
     </ContentPage.Content>
 

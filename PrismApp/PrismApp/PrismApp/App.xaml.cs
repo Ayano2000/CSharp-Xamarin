@@ -23,7 +23,7 @@ namespace PrismApp
         {
             InitializeComponent();
             
-            await NavigationService.NavigateAsync("NavigationPage/MainPage");
+            await NavigationService.NavigateAsync("NavigationPage/WeatherInfo");
         }
 
         private void RegisterServices(IContainerRegistry containerRegistry)
@@ -39,10 +39,8 @@ namespace PrismApp
             RegisterServices(containerRegistry);
 
             containerRegistry.RegisterForNavigation<NavigationPage>();
-            containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<WeatherInfo, WeatherInfoViewModel>();
             containerRegistry.RegisterForNavigation<Map, MapViewModel>();
-            containerRegistry.RegisterForNavigation<AddCity, AddCityViewModel>();
         }
     }
 }

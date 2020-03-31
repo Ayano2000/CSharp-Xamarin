@@ -26,14 +26,18 @@ namespace PrismApp.Services
             var cities = UserCities;
 
             if (cities.Contains(city)) return;
-
             cities.Add(city);
             UserCities = cities;
         }
         
         public void RemoveCity(string city)
         {
-            // throw new NotImplementedException();
+            var cities = UserCities;
+
+            if (!cities.Contains(city)) return;
+
+            cities.Remove(city);
+            UserCities = cities;
         }
     }
 }
