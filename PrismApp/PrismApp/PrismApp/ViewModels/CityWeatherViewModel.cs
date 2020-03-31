@@ -19,7 +19,6 @@ namespace PrismApp.ViewModels
         private long _sunset;
         private bool _isPopulated;
         private bool _notShowingData;
-        private ISettingsService _settingsService;
         public DelegateCommand RemoveCity => new DelegateCommand(RemoveCityCommand);
         public DelegateCommand ShowAddCityPage => new DelegateCommand(ShowAddCityPageCommand);
 
@@ -43,17 +42,7 @@ namespace PrismApp.ViewModels
                 NotShowingData = false;
             }
         }
-        
-        private void RemoveCityCommand()
-        {
-            MessagingCenter.Send(Location, "DeleteCity");
-        }
-        
-        private void ShowAddCityPageCommand()
-        {
-            PopupNavigation.Instance.PushAsync(new AddCityView());
-        }
-        
+
         public bool IsPopulated
         {
             get => _isPopulated;
@@ -141,6 +130,16 @@ namespace PrismApp.ViewModels
                 _sunset = value;
                 RaisePropertyChanged(nameof(Sunset));
             }
+        }
+
+        private void RemoveCityCommand()
+        {
+            MessagingCenter.Send(Location, "DeleteCity");
+        }
+        
+        private void ShowAddCityPageCommand()
+        {
+            PopupNavigation.Instance.PushAsync(new AddCityView());
         }
     }
 }

@@ -23,7 +23,7 @@ namespace PrismApp
         {
             InitializeComponent();
             
-            await NavigationService.NavigateAsync("NavigationPage/WeatherInfo");
+            await NavigationService.NavigateAsync("NavigationPage/WeatherInfoView");
         }
 
         private void RegisterServices(IContainerRegistry containerRegistry)

@@ -25,17 +25,6 @@ namespace PrismApp.ViewModels
             AddCityButtonClicked = new Command(execute: AddCityToList);
         }
 
-        private async void AddCityToList()
-        {
-            var userCities = _settingsService.UserCities;
-            var userCityInput = _city.Trim();
-            _settingsService.AddCity(userCityInput);
-            Cities.Add(userCityInput);
-            var query = _queryService.GenerateQuery(userCityInput);
-            var CityData = await _restService.GetWeatherData(query);
-            MessagingCenter.Send(new CityWeatherViewModel(CityData), "NewAdded");
-        }
-
         public ObservableCollection<string> Cities
         {
             get => _cities;
@@ -57,5 +46,13 @@ namespace PrismApp.ViewModels
         }
 
         public Command AddCityButtonClicked { get; }
+        
+        private async void AddCityToList()
+        {
+            var userCities = _settingsService.UserCities;
+            var userCityInput = _city.Trim();
+            _settingsService.AddCity(userCityInput);
+            MessagingCenter.Send(userCityInput, "NewAdded");
+        }
     }
 }
