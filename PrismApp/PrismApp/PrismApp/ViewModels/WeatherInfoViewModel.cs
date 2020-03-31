@@ -81,6 +81,7 @@ namespace PrismApp.ViewModels
                     {
                         CityWeatherViewModels.Remove(city);
                         AddDummyCityWeatherViewModel();
+                        _settingsService.RemoveCity(CityName);
                         break;
                     }
                 }
