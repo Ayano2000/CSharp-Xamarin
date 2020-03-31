@@ -101,16 +101,7 @@ namespace PrismApp.ViewModels
                     await AddCityWeatherViewModel(city);
                 }
             }
-            Console.WriteLine("CHECK1 " + CityWeatherViewModels.Count());
-            if (_settingsService.UserCities.Count() < 3)
-            {
-                var userCitiesAmount = _settingsService.UserCities.Count();
-                while (userCitiesAmount != 3)
-                {
-                    AddDummyCityWeatherViewModel();
-                    userCitiesAmount++;
-                }
-            }
+            AddDummyCityWeatherViewModel();
             await PopupNavigation.Instance.PopAsync();
         }
 
@@ -126,29 +117,39 @@ namespace PrismApp.ViewModels
             var weatherModel = await _restService.GetWeatherData(requestUri);
             CityWeatherViewModels.Add(new CityWeatherViewModel(weatherModel));
         }
-
         private void AddDummyCityWeatherViewModel()
         {
-            var DummyCity = new CityWeatherViewModel(new WeatherModel
+            if (_settingsService.UserCities.Count() < 3)
             {
-                Title = "Dummy",
-                Main = new MainModel
+                for (int i = 0; i < CityWeatherViewModels.Count(); i++)
                 {
-                    Temperature = 0,
-                    Humidity = 0
-                },
-                Sys = new SysModel
-                {
-                    Sunrise = 0,
-                    Sunset = 0
-                },
-                Visibility = 0,
-                Wind = new WindModel
-                {
-                    Speed = 0
+                    if (CityWeatherViewModels[i].Location == "Dummy")
+                    {
+                        CityWeatherViewModels.RemoveAt(i);
+                        Console.WriteLine("Here " + i);
+                    }
                 }
-            });
-            CityWeatherViewModels.Add(DummyCity);
+                var DummyCity = new CityWeatherViewModel(new WeatherModel
+                {
+                    Title = "Dummy",
+                    Main = new MainModel
+                    {
+                        Temperature = 0,
+                        Humidity = 0
+                    },
+                    Sys = new SysModel
+                    {
+                        Sunrise = 0,
+                        Sunset = 0
+                    },
+                    Visibility = 0,
+                    Wind = new WindModel
+                    {
+                        Speed = 0
+                    }
+                });
+                CityWeatherViewModels.Add(DummyCity);
+            }
         }
 
         private void DeleteCity(string CityName)
@@ -158,14 +159,14 @@ namespace PrismApp.ViewModels
                 if (city.Location == CityName)
                 {
                     CityWeatherViewModels.Remove(city);
-                    AddDummyCityWeatherViewModel();
                     _settingsService.RemoveCity(CityName);
+                    AddDummyCityWeatherViewModel();
                     break;
                 }
             }
         }
 
-        private void AddCity(string CityName)
+        private async void AddCity(string CityName)
         {
             if (CityName == String.Empty) return;
             
@@ -173,15 +174,9 @@ namespace PrismApp.ViewModels
             {
                 if (city.Location == CityName) return;
             }
-            foreach (var city in CityWeatherViewModels)
-            {
-                if (city.Location == "Dummy")
-                {
-                    CityWeatherViewModels.Remove(city);
-                    break;
-                }
-            }
-            AddCityWeatherViewModel(CityName);
+            await AddCityWeatherViewModel(CityName);
+            
+            AddDummyCityWeatherViewModel();
         }
     }
 }
