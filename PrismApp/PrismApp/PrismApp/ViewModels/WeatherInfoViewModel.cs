@@ -24,14 +24,12 @@ namespace PrismApp.ViewModels
         private readonly ISettingsService _settingsService;
         private readonly ILocationService _locationService;
         private ObservableCollection<CityWeatherViewModel> _cityWeatherModels;
-        private bool _addCityButtonIsVisible;
         private Command _getCurrentCityCommand;
 
         public Command GetWeatherButtonClicked { get; }
         public Command GetWeatherCommand { get; }
 
         public DelegateCommand NavigateCommand => new DelegateCommand(ExecuteNavigationCommand);
-        public DelegateCommand ShowAddCityPage => new DelegateCommand(ShowAddCityPageCommand);
         public DelegateCommand About => new DelegateCommand(AboutCommand);
         public WeatherInfoViewModel(INavigationService navigationService, IRestService restService,
             IQueryService queryService, ISettingsService settingsService, ILocationService locationService)
@@ -42,15 +40,11 @@ namespace PrismApp.ViewModels
             _queryService = queryService;
             _settingsService = settingsService;
             _locationService = locationService;
-            AddCityButtonIsVisible = false;
+            _settingsService.RemoveCity("Paarl");
             _getCurrentCityCommand = new Command(async () => await GetCurrentCity());
             if (settingsService.UserCities.Count == 0)
             {
                 _getCurrentCityCommand.Execute(null);
-            }
-            if (settingsService.UserCities.Count() < 3)
-            {
-                AddCityButtonIsVisible = true;
             }
             GetWeatherCommand = new Command(async () => await GetWeatherInfo());
             GetWeatherCommand.Execute(null);
@@ -102,23 +96,11 @@ namespace PrismApp.ViewModels
             await _navigationService.GoBackAsync();
         }
         
-        private void ShowAddCityPageCommand()
-        {
-            PopupNavigation.Instance.PushAsync(new AddCity());
-        }
         private void AboutCommand()
         {
             PopupNavigation.Instance.PushAsync(new About());
         }
-        public bool AddCityButtonIsVisible
-        {
-            get => _addCityButtonIsVisible;
-            set
-            {
-                _addCityButtonIsVisible = value;
-                RaisePropertyChanged(nameof(AddCityButtonIsVisible));
-            }
-        }
+        
         private async Task GetCurrentCity()
         {
             var city = await GetDeviceLocation();

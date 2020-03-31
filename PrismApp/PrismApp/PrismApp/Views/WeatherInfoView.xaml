@@ -18,7 +18,6 @@
                     </CarouselView.ItemTemplate>
                 </CarouselView>
             </StackLayout>
-            <Button Text="Add City" Command="{Binding ShowAddCityPage}" IsVisible="{Binding AddCityButtonIsVisible}"/>
             <Button Text="About" Command="{Binding About}"/>
         </StackLayout>
     </ContentPage.Content>

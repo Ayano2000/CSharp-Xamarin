@@ -2,6 +2,8 @@
 using Prism.Mvvm;
 using PrismApp.DTO;
 using PrismApp.Services;
+using PrismApp.Views;
+using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
 
 namespace PrismApp.ViewModels
@@ -15,8 +17,11 @@ namespace PrismApp.ViewModels
         private long _visibility;
         private long _sunrise;
         private long _sunset;
+        private bool _isPopulated;
+        private bool _notShowingData;
         private ISettingsService _settingsService;
         public DelegateCommand RemoveCity => new DelegateCommand(RemoveCityCommand);
+        public DelegateCommand ShowAddCityPage => new DelegateCommand(ShowAddCityPageCommand);
 
         public CityWeatherViewModel(WeatherModel weather)
         {
@@ -27,11 +32,46 @@ namespace PrismApp.ViewModels
             Visibility = weather.Visibility;
             Sunrise = weather.Sys.Sunrise;
             Sunset = weather.Sys.Sunset;
+            if (_location == "Dummy")
+            {
+                IsPopulated = false;
+                NotShowingData = true;
+            }
+            else
+            {
+                IsPopulated = true;
+                NotShowingData = false;
+            }
         }
         
         private void RemoveCityCommand()
         {
             MessagingCenter.Send(Location, "DeleteCity");
+        }
+        
+        private void ShowAddCityPageCommand()
+        {
+            PopupNavigation.Instance.PushAsync(new AddCity());
+        }
+        
+        public bool IsPopulated
+        {
+            get => _isPopulated;
+            set
+            {
+                _isPopulated = value;
+                RaisePropertyChanged(nameof(IsPopulated));
+            }
+        }
+        
+        public bool NotShowingData
+        {
+            get => _notShowingData;
+            set
+            {
+                _notShowingData = value;
+                RaisePropertyChanged(nameof(NotShowingData));
+            }
         }
         public string Location
         {

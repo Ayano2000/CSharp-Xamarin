@@ -5,7 +5,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="PrismApp.Views.CityData">
-          <Label Text="Location"/>
+       <StackLayout IsVisible="{Binding IsPopulated}">
+              <Label Text="Location"/>
           <Label Text="{Binding Location}" 
                  Style="{StaticResource labelResultStyle}" />
           <Label Text="Temperature"/>
@@ -27,4 +28,8 @@
           <Label Text="{Binding Sunset, Converter={StaticResource LongToDateTimeConverter}}" 
                  Style="{StaticResource labelResultStyle}" />
           <Button Text="Remove City" Command="{Binding RemoveCity}"/>
+       </StackLayout>
+       <StackLayout IsVisible="{Binding NotShowingData}">
+              <Button Text="Add City" Command="{Binding ShowAddCityPage}"/>
+       </StackLayout>
 </StackLayout>
