@@ -1,4 +1,5 @@
-﻿using Prism.Commands;
+﻿using System;
+using Prism.Commands;
 using Prism.Mvvm;
 using PrismApp.DTO;
 using PrismApp.Services;
@@ -19,10 +20,11 @@ namespace PrismApp.ViewModels
         private long _sunset;
         private bool _isPopulated;
         private bool _notShowingData;
+        private bool _isAddNewSlide;
         public DelegateCommand RemoveCity => new DelegateCommand(RemoveCityCommand);
         public DelegateCommand ShowAddCityPage => new DelegateCommand(ShowAddCityPageCommand);
 
-        public CityWeatherViewModel(WeatherModel weather)
+        public CityWeatherViewModel(WeatherModel weather, bool newSlide)
         {
             Location = weather.Title;
             Temperature = weather.Main.Temperature;
@@ -31,7 +33,8 @@ namespace PrismApp.ViewModels
             Visibility = weather.Visibility;
             Sunrise = weather.Sys.Sunrise;
             Sunset = weather.Sys.Sunset;
-            if (_location == "Dummy")
+            IsAddNewSlide = newSlide;
+            if (IsAddNewSlide == true)
             {
                 IsPopulated = false;
                 NotShowingData = true;
@@ -40,6 +43,15 @@ namespace PrismApp.ViewModels
             {
                 IsPopulated = true;
                 NotShowingData = false;
+            }
+        }
+        public bool IsAddNewSlide
+        {
+            get => _isAddNewSlide;
+            set
+            {
+                _isAddNewSlide = value;
+                RaisePropertyChanged(nameof(IsAddNewSlide));
             }
         }
 

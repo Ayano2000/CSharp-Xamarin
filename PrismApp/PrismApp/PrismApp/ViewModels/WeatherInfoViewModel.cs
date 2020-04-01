@@ -115,21 +115,21 @@ namespace PrismApp.ViewModels
             string requestUri = _queryService.GenerateQuery(city);
             // Await result from endpoint query
             var weatherModel = await _restService.GetWeatherData(requestUri);
-            CityWeatherViewModels.Add(new CityWeatherViewModel(weatherModel));
+            CityWeatherViewModels.Add(new CityWeatherViewModel(weatherModel, false));
         }
         private void AddDummyCityWeatherViewModel()
         {
-            if (_settingsService.UserCities.Count() < 3)
+            if (_settingsService.UserCities.Count() >= 3) return; //we have the required amount of slides, don't continue
+            
+            var dummy = CityWeatherViewModels.FirstOrDefault(vm => vm.IsAddNewSlide);
+                
+            if (dummy != null)
             {
-                for (int i = 0; i < CityWeatherViewModels.Count(); i++)
-                {
-                    if (CityWeatherViewModels[i].Location == "Dummy")
-                    {
-                        CityWeatherViewModels.RemoveAt(i);
-                        Console.WriteLine("Here " + i);
-                    }
-                }
-                var DummyCity = new CityWeatherViewModel(new WeatherModel
+                CityWeatherViewModels.Remove(dummy);
+            }
+            else
+            {
+                dummy = new CityWeatherViewModel(new WeatherModel
                 {
                     Title = "Dummy",
                     Main = new MainModel
@@ -147,9 +147,10 @@ namespace PrismApp.ViewModels
                     {
                         Speed = 0
                     }
-                });
-                CityWeatherViewModels.Add(DummyCity);
+                }, true);
             }
+            Console.WriteLine("DUMMY IS " + dummy.IsAddNewSlide);
+            CityWeatherViewModels.Add(dummy);
         }
 
         private void DeleteCity(string CityName)
