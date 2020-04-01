@@ -6,7 +6,7 @@ namespace PrismApp.Services
     {
         List<string> UserCities { get; }
 
-        void AddCity(string city);
-        void RemoveCity(string city);
+        bool AddCity(string city);
+        bool RemoveCity(string city);
     }
 }

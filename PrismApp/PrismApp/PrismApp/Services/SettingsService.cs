@@ -21,23 +21,25 @@ namespace PrismApp.Services
             private set { AppSettings.AddOrUpdateValue(nameof(UserCities), JsonConvert.SerializeObject(value)); }
         }
 
-        public void AddCity(string city)
+        public bool AddCity(string city)
         {
             var cities = UserCities;
 
-            if (cities.Contains(city)) return;
+            if (cities.Contains(city)) return false;
             cities.Add(city);
             UserCities = cities;
+            return true;
         }
         
-        public void RemoveCity(string city)
+        public bool RemoveCity(string city)
         {
             var cities = UserCities;
 
-            if (!cities.Contains(city)) return;
+            if (!cities.Contains(city)) return false;
 
             cities.Remove(city);
             UserCities = cities;
+            return true;
         }
     }
 }

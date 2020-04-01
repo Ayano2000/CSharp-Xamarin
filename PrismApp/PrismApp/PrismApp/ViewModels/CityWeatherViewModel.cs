@@ -1,11 +1,19 @@
-﻿using Prism.Commands;
+﻿using System;
+using Prism.Commands;
 using Prism.Mvvm;
 using PrismApp.DTO;
+using PrismApp.Services;
+using PrismApp.Views;
+using Rg.Plugins.Popup.Contracts;
+using Rg.Plugins.Popup.Services;
+using Xamarin.Forms;
 
 namespace PrismApp.ViewModels
 {
     public class CityWeatherViewModel : BindableBase
     {
+        private readonly IPopupNavigation _popupNavigation;
+        
         private string _location;
         private double _temperature;
         private double _windSpeed;
@@ -13,9 +21,16 @@ namespace PrismApp.ViewModels
         private long _visibility;
         private long _sunrise;
         private long _sunset;
+        private bool _isPopulated;
+        private bool _notShowingData;
+        private bool _isAddNewSlide;
+        public DelegateCommand RemoveCity => new DelegateCommand(RemoveCityCommand);
+        public DelegateCommand ShowAddCityPage => new DelegateCommand(ShowAddCityPageCommand);
 
-        public CityWeatherViewModel(WeatherModel weather)
+        public CityWeatherViewModel(WeatherModel weather, bool newSlide, IPopupNavigation popupNavigation)
         {
+            _popupNavigation = popupNavigation;
+            
             Location = weather.Title;
             Temperature = weather.Main.Temperature;
             WindSpeed = weather.Wind.Speed;
@@ -23,6 +38,17 @@ namespace PrismApp.ViewModels
             Visibility = weather.Visibility;
             Sunrise = weather.Sys.Sunrise;
             Sunset = weather.Sys.Sunset;
+            IsAddNewSlide = newSlide;
+        }
+
+        public bool IsAddNewSlide
+        {
+            get => _isAddNewSlide;
+            set
+            {
+                _isAddNewSlide = value;
+                RaisePropertyChanged(nameof(IsAddNewSlide));
+            }
         }
         public string Location
         {
@@ -92,6 +118,17 @@ namespace PrismApp.ViewModels
                 _sunset = value;
                 RaisePropertyChanged(nameof(Sunset));
             }
+        }
+
+        private void RemoveCityCommand()
+        {
+            MessagingCenter.Send(Location, "DeleteCity");
+        }
+        
+        private void ShowAddCityPageCommand()
+        {
+            //todo: async? 
+            _popupNavigation.PushAsync(new AddCityView());
         }
     }
 }

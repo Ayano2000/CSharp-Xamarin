@@ -4,7 +4,7 @@
              xmlns:prism="http://prismlibrary.com"
              xmlns:views="clr-namespace:PrismApp.Views;assembly=PrismApp"
              prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="PrismApp.Views.WeatherInfo"
+             x:Class="PrismApp.Views.WeatherInfoView"
              Title="Weather Info Page">
 
     <ContentPage.Content>
@@ -13,12 +13,11 @@
                 <CarouselView ItemsSource="{Binding CityWeatherViewModels}">
                     <CarouselView.ItemTemplate>
                         <DataTemplate>
-                            <views:CityData/>
+                            <views:CityWeatherView/>
                         </DataTemplate>
                     </CarouselView.ItemTemplate>
                 </CarouselView>
             </StackLayout>
-            <Button Text="Add City" Command="{Binding ShowAddCityPage}" IsVisible="{Binding AddCityButtonIsVisible}"/>
             <Button Text="About" Command="{Binding About}"/>
         </StackLayout>
     </ContentPage.Content>

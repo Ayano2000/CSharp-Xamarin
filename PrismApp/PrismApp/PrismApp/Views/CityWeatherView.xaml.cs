@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace PrismApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CityData : StackLayout
+    public partial class CityWeatherView : StackLayout
     {
-        public CityData()
+        public CityWeatherView()
         {
             InitializeComponent();
         }

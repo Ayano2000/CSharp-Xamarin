@@ -7,7 +7,7 @@
              xmlns:mvvm="http://prismlibrary.com"
              mvvm:ViewModelLocator.AutowireViewModel="True"
              mc:Ignorable="d"
-             x:Class="PrismApp.Views.AddCity">
+             x:Class="PrismApp.Views.AddCityView">
     <StackLayout BackgroundColor="White"
                  VerticalOptions="CenterAndExpand"
                  HorizontalOptions="CenterAndExpand"
@@ -26,12 +26,6 @@
                 BackgroundColor="DarkGray"
                 TextColor="White"
                 Command="{Binding AddCityButtonClicked}"/>
-        <StackLayout BindableLayout.ItemsSource="{Binding Cities}">
-            <BindableLayout.ItemTemplate>
-                <DataTemplate>
-                    <Label Text="{Binding .}"/>
-                </DataTemplate>
-            </BindableLayout.ItemTemplate>
-        </StackLayout>
+        <Label Text="{Binding AdditionCompletionMessage}"/>
     </StackLayout>
 </pages:PopupPage>
