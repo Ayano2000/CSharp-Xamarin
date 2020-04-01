@@ -9,6 +9,7 @@ using Prism.Navigation;
 using PrismApp.DTO;
 using PrismApp.Services;
 using PrismApp.ViewModels;
+using Rg.Plugins.Popup.Contracts;
 
 namespace PrismApp.Tests
 {
@@ -52,6 +53,7 @@ namespace PrismApp.Tests
                 var navigationService = Substitute.For<INavigationService>();
                 var settingsService = Substitute.For<ISettingsService>();
                 var locationService = Substitute.For<ILocationService>();
+                var popupnNavigationService = Substitute.For<IPopupNavigation>();
 
 
                 settingsService.UserCities.Returns(new List<string>
@@ -66,7 +68,7 @@ namespace PrismApp.Tests
                 restService.GetWeatherData(STELLENBOSCH).Returns(result => Task.FromResult(
                     Populate(STELLENBOSCH, 30)));
 
-                var viewModel = new WeatherInfoViewModel(navigationService, restService, queryService, settingsService, locationService);
+                var viewModel = new WeatherInfoViewModel(navigationService, restService, queryService, settingsService, locationService, popupnNavigationService);
                 
                 // Assert
                 Assert.That(viewModel.CityWeatherViewModels.Count() == 3);

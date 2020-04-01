@@ -11,7 +11,6 @@ using PrismApp.Controls;
 using PrismApp.DTO;
 using PrismApp.Views;
 using Rg.Plugins.Popup.Contracts;
-using Rg.Plugins.Popup.Services;
 
 namespace PrismApp.ViewModels
 {
@@ -78,10 +77,9 @@ namespace PrismApp.ViewModels
             await _navigationService.GoBackAsync();
         }
         
-        private void AboutCommand()
+        private async void AboutCommand()
         {
-            //todo: async?
-            _popupNavigation.PushAsync(new AboutView());
+            await _popupNavigation.PushAsync(new AboutView());
         }
         
         private async Task GetCurrentCity()
@@ -137,8 +135,6 @@ namespace PrismApp.ViewModels
         }
         private void AddDummyCityWeatherViewModel()
         {
-            if (_settingsService.UserCities.Count() == 3) return; //we have the required amount of slides, don't continue
-            
             var dummy = CityWeatherViewModels.FirstOrDefault(vm => vm.IsAddNewSlide);
                 
             if (dummy != null)
@@ -167,7 +163,11 @@ namespace PrismApp.ViewModels
                     }
                 }, true, _popupNavigation);
             }
-            CityWeatherViewModels.Add(dummy);
+
+            if (_settingsService.UserCities.Count() != 3)
+            {
+                CityWeatherViewModels.Add(dummy);
+            }
         }
 
         private void DeleteCity(string CityName)
@@ -192,8 +192,8 @@ namespace PrismApp.ViewModels
             {
                 if (city.Location == CityName) return;
             }
-            await AddCityWeatherViewModel(CityName);
             
+            await AddCityWeatherViewModel(CityName);
             AddDummyCityWeatherViewModel();
         }
     }
