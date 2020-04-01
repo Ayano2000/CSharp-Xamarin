@@ -34,17 +34,8 @@ namespace PrismApp.ViewModels
             Sunrise = weather.Sys.Sunrise;
             Sunset = weather.Sys.Sunset;
             IsAddNewSlide = newSlide;
-            if (IsAddNewSlide == true)
-            {
-                IsPopulated = false;
-                NotShowingData = true;
-            }
-            else
-            {
-                IsPopulated = true;
-                NotShowingData = false;
-            }
         }
+
         public bool IsAddNewSlide
         {
             get => _isAddNewSlide;
@@ -52,26 +43,6 @@ namespace PrismApp.ViewModels
             {
                 _isAddNewSlide = value;
                 RaisePropertyChanged(nameof(IsAddNewSlide));
-            }
-        }
-
-        public bool IsPopulated
-        {
-            get => _isPopulated;
-            set
-            {
-                _isPopulated = value;
-                RaisePropertyChanged(nameof(IsPopulated));
-            }
-        }
-        
-        public bool NotShowingData
-        {
-            get => _notShowingData;
-            set
-            {
-                _notShowingData = value;
-                RaisePropertyChanged(nameof(NotShowingData));
             }
         }
         public string Location

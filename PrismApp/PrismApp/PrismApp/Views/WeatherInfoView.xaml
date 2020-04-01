@@ -13,7 +13,7 @@
                 <CarouselView ItemsSource="{Binding CityWeatherViewModels}">
                     <CarouselView.ItemTemplate>
                         <DataTemplate>
-                            <views:CityDataView/>
+                            <views:CityWeatherView/>
                         </DataTemplate>
                     </CarouselView.ItemTemplate>
                 </CarouselView>

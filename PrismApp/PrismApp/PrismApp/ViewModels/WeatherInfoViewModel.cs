@@ -37,8 +37,6 @@ namespace PrismApp.ViewModels
             _queryService = queryService;
             _settingsService = settingsService;
             _locationService = locationService;
-            // DONT FORGET TO REMOVE
-            // _settingsService.RemoveCity("Paarl");
             _getCurrentCityCommand = new Command(async () => await GetCurrentCity());
             if (settingsService.UserCities.Count == 0)
             {
@@ -119,7 +117,7 @@ namespace PrismApp.ViewModels
         }
         private void AddDummyCityWeatherViewModel()
         {
-            if (_settingsService.UserCities.Count() >= 3) return; //we have the required amount of slides, don't continue
+            if (_settingsService.UserCities.Count() == 3) return; //we have the required amount of slides, don't continue
             
             var dummy = CityWeatherViewModels.FirstOrDefault(vm => vm.IsAddNewSlide);
                 
@@ -149,7 +147,6 @@ namespace PrismApp.ViewModels
                     }
                 }, true);
             }
-            Console.WriteLine("DUMMY IS " + dummy.IsAddNewSlide);
             CityWeatherViewModels.Add(dummy);
         }
 

@@ -29,7 +29,7 @@
     <EmbeddedResource Update="Views\AddCityView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\CityDataView.xaml">
+    <EmbeddedResource Update="Views\CityWeatherView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\AboutView.xaml">

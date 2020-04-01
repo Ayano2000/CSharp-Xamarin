@@ -4,8 +4,8 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="PrismApp.Views.CityDataView">
-       <StackLayout IsVisible="{Binding IsPopulated}">
+             x:Class="PrismApp.Views.CityWeatherView">
+       <StackLayout IsVisible="{Binding IsAddNewSlide, Converter={StaticResource BooleanConverter}}">
               <Label Text="Location"/>
           <Label Text="{Binding Location}" 
                  Style="{StaticResource labelResultStyle}" />
@@ -29,7 +29,7 @@
                  Style="{StaticResource labelResultStyle}" />
           <Button Text="Remove City" Command="{Binding RemoveCity}"/>
        </StackLayout>
-       <StackLayout IsVisible="{Binding NotShowingData}">
+       <StackLayout IsVisible="{Binding IsAddNewSlide}">
               <Button Text="Add City" Command="{Binding ShowAddCityPage}"/>
        </StackLayout>
 </StackLayout>
