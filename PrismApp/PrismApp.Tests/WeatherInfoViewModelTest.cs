@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using NSubstitute;
+using NSubstitute.Extensions;
 using NUnit.Framework;
 using Prism.Navigation;
 using PrismApp.DTO;
@@ -66,14 +67,14 @@ namespace PrismApp.Tests
                     Populate(STELLENBOSCH, 30)));
 
                 var viewModel = new WeatherInfoViewModel(navigationService, restService, queryService, settingsService, locationService);
-
-                // Assert
-                Assert.That(viewModel.CityWeatherViewModels.Count() == 2);
                 
+                // Assert
+                Assert.That(viewModel.CityWeatherViewModels.Count() == 3);
+                var dummyModel = viewModel.CityWeatherViewModels.FirstOrDefault(vm => vm.Location == "Dummy");
                 var capeTownModel = viewModel.CityWeatherViewModels.FirstOrDefault(vm => vm.Location == CAPE_TOWN);
                 var stellenboschModel =
                     viewModel.CityWeatherViewModels.FirstOrDefault(vm => vm.Location == STELLENBOSCH);
-
+                
                 if (capeTownModel != null)
                 {
                     Assert.That(capeTownModel != null);
@@ -86,7 +87,7 @@ namespace PrismApp.Tests
                     Assert.That(capeTownModel.WindSpeed == 25);
                 }
                 else Assert.Fail();
-
+                
                 if (stellenboschModel != null)
                 {
                     Assert.That(stellenboschModel != null);
@@ -99,7 +100,6 @@ namespace PrismApp.Tests
                     Assert.That(stellenboschModel.WindSpeed == 35);
                 }
                 else Assert.Fail();
-
             }
             catch (Exception e)
             {
