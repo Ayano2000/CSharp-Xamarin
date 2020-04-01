@@ -4,6 +4,7 @@ using Prism.Mvvm;
 using PrismApp.DTO;
 using PrismApp.Services;
 using PrismApp.Views;
+using Rg.Plugins.Popup.Contracts;
 using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
 
@@ -11,6 +12,8 @@ namespace PrismApp.ViewModels
 {
     public class CityWeatherViewModel : BindableBase
     {
+        private readonly IPopupNavigation _popupNavigation;
+        
         private string _location;
         private double _temperature;
         private double _windSpeed;
@@ -24,8 +27,10 @@ namespace PrismApp.ViewModels
         public DelegateCommand RemoveCity => new DelegateCommand(RemoveCityCommand);
         public DelegateCommand ShowAddCityPage => new DelegateCommand(ShowAddCityPageCommand);
 
-        public CityWeatherViewModel(WeatherModel weather, bool newSlide)
+        public CityWeatherViewModel(WeatherModel weather, bool newSlide, IPopupNavigation popupNavigation)
         {
+            _popupNavigation = popupNavigation;
+            
             Location = weather.Title;
             Temperature = weather.Main.Temperature;
             WindSpeed = weather.Wind.Speed;
@@ -122,7 +127,8 @@ namespace PrismApp.ViewModels
         
         private void ShowAddCityPageCommand()
         {
-            PopupNavigation.Instance.PushAsync(new AddCityView());
+            //todo: async? 
+            _popupNavigation.PushAsync(new AddCityView());
         }
     }
 }

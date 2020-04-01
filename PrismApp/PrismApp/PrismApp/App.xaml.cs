@@ -3,6 +3,8 @@ using Prism.Ioc;
 using PrismApp.Services;
 using PrismApp.ViewModels;
 using PrismApp.Views;
+using Rg.Plugins.Popup.Contracts;
+using Rg.Plugins.Popup.Services;
 using Xamarin.Forms;
 
 //[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
@@ -32,6 +34,7 @@ namespace PrismApp
             containerRegistry.Register<ILocationService, LocationService>();
             containerRegistry.Register<IQueryService, QueryService>();
             containerRegistry.Register<ISettingsService, SettingsService>();
+            containerRegistry.RegisterInstance(typeof(IPopupNavigation), PopupNavigation.Instance);
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
