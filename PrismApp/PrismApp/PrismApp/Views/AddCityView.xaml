@@ -11,6 +11,8 @@
     <StackLayout BackgroundColor="White"
                  VerticalOptions="CenterAndExpand"
                  HorizontalOptions="CenterAndExpand"
+                 HeightRequest="250"
+                 WidthRequest="250"
                  Padding="24"
                  Spacing="24">
         

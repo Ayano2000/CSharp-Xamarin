@@ -9,15 +9,17 @@
 
     <ContentPage.Content>
         <StackLayout>
-            <StackLayout>
-                <CarouselView ItemsSource="{Binding CityWeatherViewModels}">
-                    <CarouselView.ItemTemplate>
-                        <DataTemplate>
+            <CarouselView ItemsSource="{Binding CityWeatherViewModels}" 
+                          HorizontalOptions="Fill" 
+                          VerticalOptions="Fill">
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Padding="10,10">
                             <views:CityWeatherView/>
-                        </DataTemplate>
-                    </CarouselView.ItemTemplate>
-                </CarouselView>
-            </StackLayout>
+                        </StackLayout>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
             <Button Text="About" Command="{Binding About}"/>
         </StackLayout>
     </ContentPage.Content>
