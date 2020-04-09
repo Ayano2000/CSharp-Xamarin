@@ -7,17 +7,21 @@
     <Application.Resources>
         <Style TargetType="Label">
             <Setter Property="FontSize" 
-                        Value="Small" />
+                        Value="22" />
             <Setter Property="TextColor" 
                         Value="Gray" />
+            <Setter Property="HorizontalOptions"
+                    Value="Center"/>
         </Style>
 
         <Style x:Key="labelResultStyle" 
                    TargetType="Label">
             <Setter Property="FontSize" 
-                        Value="Medium" />
+                        Value="20" />
             <Setter Property="Margin" 
                         Value="10,0,0,0" />
+            <Setter Property="HorizontalOptions"
+                    Value="Center"/>
         </Style>
         
         <Style TargetType="Button">

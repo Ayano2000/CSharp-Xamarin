@@ -14,7 +14,10 @@ namespace PrismApp.Converters
         {
             if (value is long longDate)
             {
-                return $"{_time.AddSeconds(longDate).ToString()} GMT";
+                var time = $"{_time.AddSeconds(longDate).ToString()}";
+                var cutFromFront = time.Remove(0, 9);
+                var cutFromEnd = cutFromFront.Remove(4, 3);
+                return cutFromEnd;
             }
 
             return string.Empty;

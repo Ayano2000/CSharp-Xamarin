@@ -1,6 +1,8 @@
 ﻿using Android.App;
 using Android.Content.PM;
 using Android.OS;
+using Lottie.Forms;
+using Lottie.Forms.Droid;
 using Prism;
 using Prism.Ioc;
 using Xamarin;
@@ -21,7 +23,7 @@ namespace PrismApp.Droid
             Rg.Plugins.Popup.Popup.Init(this, bundle);
             Xamarin.Essentials.Platform.Init(this, bundle);
             global::Xamarin.Forms.Forms.Init(this, bundle);
-
+            AnimationViewRenderer.Init();
             LoadApplication(new App(new AndroidInitializer()));
         }
     }

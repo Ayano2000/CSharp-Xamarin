@@ -1,58 +1,112 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<Frame xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-             x:Class="PrismApp.Views.CityWeatherView"
-             CornerRadius="10" 
-             HasShadow="True"
-             BackgroundColor="White"
-             Margin="20,20"
-             VerticalOptions="Fill"
-             HorizontalOptions="Fill">
-       <StackLayout VerticalOptions="Fill"
-                    HorizontalOptions="Fill">
-              <StackLayout IsVisible="{Binding IsAddNewSlide, Converter={StaticResource BooleanConverter}}">
-                     <!-- <Label Text="Location"/> -->
-                        <Label Text="{Binding Location}" 
-                               Style="{StaticResource labelResultStyle}"
-                               FontSize="Title"
-                               HorizontalTextAlignment="Center"/>
-                        <Label Text="Temperature"/>
-                        <Label Text="{Binding Temperature}" 
-                               Style="{StaticResource labelResultStyle}" />
-                        <Label Text="Wind Speed"/>
-                        <Label Text="{Binding WindSpeed}" 
-                               Style="{StaticResource labelResultStyle}" />
-                        <Label Text="Humidity"/>
-                        <Label Text="{Binding Humidity}" 
-                               Style="{StaticResource labelResultStyle}" />
-                        <Label Text="Visibility"/>
-                        <Label Text="{Binding Visibility}" 
-                               Style="{StaticResource labelResultStyle}" />
-                        <Label Text="Time of Sunrise"/>
-                        <Label Text="{Binding Sunrise, Converter={StaticResource LongToDateTimeConverter}}"
-                               Style="{StaticResource labelResultStyle}" />
-                        <Label Text="Time of Sunset"/>
-                        <Label Text="{Binding Sunset, Converter={StaticResource LongToDateTimeConverter}}" 
-                               Style="{StaticResource labelResultStyle}" />
-                        
-                        <Button Text="X"
-                                TextColor="Red"
-                                BackgroundColor="Transparent"
-                                HorizontalOptions="End"
-                                Command="{Binding RemoveCity}"/>
-              </StackLayout>
-              
-              <Button Text="Add City" 
-                      Command="{Binding ShowAddCityPage}" 
-                      IsVisible="{Binding IsAddNewSlide}" 
-                      HeightRequest="200" 
-                      WidthRequest="200"
-                      CornerRadius="100"
-                      VerticalOptions="Center"
-                      HorizontalOptions="Center"/>
-              
-       </StackLayout>
+
+<Frame xmlns="http://xamarin.com/schemas/2014/forms"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+       xmlns:forms="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+       mc:Ignorable="d"
+       x:Class="PrismApp.Views.CityWeatherView"
+       CornerRadius="10"
+       HasShadow="True"
+       BackgroundColor="White"
+       VerticalOptions="Fill"
+       HorizontalOptions="Fill">
+    <StackLayout VerticalOptions="Fill"
+          HorizontalOptions="Fill">
+        <StackLayout IsVisible="{Binding IsAddNewSlide, Converter={StaticResource BooleanConverter}}">
+            <forms:AnimationView Loop="True"
+                                 AutoPlay="True"
+                                 WidthRequest="250"
+                                 HeightRequest="250"
+                                 IsPlaying="True"
+                                 Animation="{Binding WeatherConditions}" />
+            <Label Text="{Binding Location}"
+                   HorizontalOptions="Center"
+                   FontSize="26"
+                   HorizontalTextAlignment="Center"/>
+            <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="Center">
+                <Label Text="{Binding Temperature, StringFormat='{0:F0}°C'}"
+                       FontSize="54"
+                       Style="{StaticResource labelResultStyle}"/>
+            </StackLayout>                   
+            <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="FillAndExpand"
+                         Padding="0,20, 0, 0">
+                <StackLayout>
+                    <Label Text="{Binding WindSpeed, StringFormat='&#xf72e; {0:F0}km/h'}"
+                           Style="{StaticResource labelResultStyle}"
+                           FontSize="26">
+                        <Label.FontFamily>
+                            <x:OnPlatform Android="Font Awesome 5 Free-Solid-900.otf#Font Awesome 5 Free Solid" />
+                        </Label.FontFamily>
+                    </Label>
+                </StackLayout>
+                <StackLayout HorizontalOptions="EndAndExpand">
+                    <Label Text="{Binding Humidity, StringFormat='&#xf043; {0:F0}% '}"
+                           Style="{StaticResource labelResultStyle}"
+                           FontSize="26">
+                        <Label.FontFamily>
+                            <x:OnPlatform Android="Font Awesome 5 Free-Solid-900.otf#Font Awesome 5 Free Solid" />
+                        </Label.FontFamily>
+                    </Label>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="FillAndExpand"
+                         Padding="0,40, 0, 0">
+                <StackLayout HorizontalOptions="Start">
+                    <Label Text="{Binding Sunrise, Converter={StaticResource LongToDateTimeConverter}, StringFormat='&#xf185; {0:F0}'}"
+                           Style="{StaticResource labelResultStyle}"
+                           FontSize="22">
+                        <Label.FontFamily>
+                            <x:OnPlatform Android="Font Awesome 5 Free-Solid-900.otf#Font Awesome 5 Free Solid" />
+                        </Label.FontFamily>
+                    </Label>
+                </StackLayout>
+                <StackLayout HorizontalOptions="EndAndExpand">
+                    <Label Text="{Binding Sunset, Converter={StaticResource LongToDateTimeConverter}, StringFormat='&#xf186; {0:F0}'}"
+                           Style="{StaticResource labelResultStyle}"
+                           FontSize="22">
+                        <Label.FontFamily>
+                            <x:OnPlatform Android="Font Awesome 5 Free-Solid-900.otf#Font Awesome 5 Free Solid" />
+                        </Label.FontFamily>
+                    </Label>
+                </StackLayout>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="FillAndExpand">
+                <Button Text="&#xf129;"
+                        Command="{Binding About}"
+                        FontSize="22"
+                        TextColor="#B37F29"
+                        BackgroundColor="Transparent"
+                        HorizontalOptions="Start">
+                    <Label.FontFamily>
+                        <x:OnPlatform Android="Font Awesome 5 Free-Solid-900.otf#Font Awesome 5 Free Solid" />
+                    </Label.FontFamily>
+                </Button>
+                <Button Text="&#xf05e;"
+                        FontSize="16"
+                        TextColor="#B37F29"
+                        BackgroundColor="Transparent"
+                        HorizontalOptions="EndAndExpand"
+                        Command="{Binding RemoveCity}">
+                    <Label.FontFamily>
+                        <x:OnPlatform Android="Font Awesome 5 Free-Solid-900.otf#Font Awesome 5 Free Solid" />
+                    </Label.FontFamily>
+                </Button>
+            </StackLayout>
+        </StackLayout>
+
+        <Button Text="+"
+                TextColor="#B37F29"
+                FontSize="120"
+                BackgroundColor="Transparent"
+                Command="{Binding ShowAddCityPage}"
+                IsVisible="{Binding IsAddNewSlide}"
+                VerticalOptions="Fill"
+                HorizontalOptions="Fill" />
+    </StackLayout>
 </Frame>

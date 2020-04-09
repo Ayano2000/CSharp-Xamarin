@@ -1,8 +1,5 @@
 ﻿using System;
-using Prism.Commands;
 using Prism.Mvvm;
-using Prism.Navigation;
-using System.Collections.ObjectModel;
 using PrismApp.Services;
 using Xamarin.Forms;
 
@@ -18,6 +15,10 @@ namespace PrismApp.ViewModels
         {
             _settingsService = settingsService;
             AddCityButtonClicked = new Command(execute: AddCityToList);
+            
+            MessagingCenter.Unsubscribe<WeatherInfoViewModel>(this, "Addition Successful");
+            MessagingCenter.Subscribe<WeatherInfoViewModel>(this, "Addition Successful", 
+                (Success) => UpdateAdditionCompletionMessage());
         }
         
         public string AdditionCompletionMessage
@@ -49,18 +50,17 @@ namespace PrismApp.ViewModels
 
         public Command AddCityButtonClicked { get; }
         
-        private async void AddCityToList()
+        private void UpdateAdditionCompletionMessage()
         {
-            var userCities = _settingsService.UserCities;
+            AdditionCompletionMessage = "City has been added to your list";
+        }
+        private void AddCityToList()
+        {
             var userCityInput = _city.Trim();
-            var additionSuccessMessage = _settingsService.AddCity(userCityInput);
-            if (additionSuccessMessage == true)
-            {
-                AdditionCompletionMessage = "City successfully added";
-            }
-            if (additionSuccessMessage == false)
+            if (_settingsService.UserCities.Contains(userCityInput))
             {
                 AdditionCompletionMessage = "City is already on your watch list";
+                return;
             }
             MessagingCenter.Send(userCityInput, "NewAdded");
         }

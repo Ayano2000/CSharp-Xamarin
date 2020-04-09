@@ -5,12 +5,13 @@ using Prism.Navigation;
 using PrismApp.Services;
 using Xamarin.Forms;
 using System.Collections.ObjectModel;
+using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
 using PrismApp.Controls;
-using PrismApp.DTO;
 using PrismApp.Views;
 using Rg.Plugins.Popup.Contracts;
+using PrismApp.DTO;
 
 namespace PrismApp.ViewModels
 {
@@ -30,7 +31,6 @@ namespace PrismApp.ViewModels
         public Command GetWeatherCommand { get; }
 
         public DelegateCommand NavigateCommand => new DelegateCommand(ExecuteNavigationCommand);
-        public DelegateCommand About => new DelegateCommand(AboutCommand);
         
         public WeatherInfoViewModel(INavigationService navigationService, IRestService restService, IQueryService queryService, 
             ISettingsService settingsService, ILocationService locationService, IPopupNavigation popupNavigation)
@@ -77,11 +77,6 @@ namespace PrismApp.ViewModels
             await _navigationService.GoBackAsync();
         }
         
-        private async void AboutCommand()
-        {
-            await _popupNavigation.PushAsync(new AboutView());
-        }
-        
         private async Task GetCurrentCity()
         {
             var city = await GetDeviceLocation();
@@ -119,19 +114,28 @@ namespace PrismApp.ViewModels
             await _popupNavigation.PopAsync();
         }
 
-        private async Task AddCityWeatherViewModel(string city)
+        private async Task<bool> AddCityWeatherViewModel(string city)
         {
-            // check that no ViewModel exists for this city
-            foreach (var CityNameCollection in CityWeatherViewModels)
+            try
             {
-                if (CityNameCollection.Location == city) return; // ViewModel already exists.
+                // check that no ViewModel exists for this city
+                foreach (var CityNameCollection in CityWeatherViewModels)
+                {
+                    if (CityNameCollection.Location == city) return false; // ViewModel already exists.
+                }
+                
+                string requestUri = _queryService.GenerateQuery(city);
+                
+                // Await result from endpoint query
+                var weatherModel = await _restService.GetWeatherData(requestUri);
+                CityWeatherViewModels.Add(new CityWeatherViewModel(weatherModel, false, _popupNavigation));
+                return true;
             }
-            
-            string requestUri = _queryService.GenerateQuery(city);
-            
-            // Await result from endpoint query
-            var weatherModel = await _restService.GetWeatherData(requestUri);
-            CityWeatherViewModels.Add(new CityWeatherViewModel(weatherModel, false, _popupNavigation));
+            catch (Exception e)
+            {
+                await _popupNavigation.PushAsync(new ErrorPopup());
+                return false;
+            }
         }
         private void AddDummyCityWeatherViewModel()
         {
@@ -160,6 +164,13 @@ namespace PrismApp.ViewModels
                     Wind = new WindModel
                     {
                         Speed = 0
+                    },
+                    Weather = new WeatherDataModel[]
+                    {
+                        new WeatherDataModel
+                        {
+                            Id = 800,
+                        }, 
                     }
                 }, true, _popupNavigation);
             }
@@ -193,7 +204,13 @@ namespace PrismApp.ViewModels
                 if (city.Location == CityName) return;
             }
             
-            await AddCityWeatherViewModel(CityName);
+            var success = await AddCityWeatherViewModel(CityName);
+            if (success = true)
+            {
+                MessagingCenter.Send(this, "Addition Successful");
+                _settingsService.AddCity(CityName);
+            }
+            
             AddDummyCityWeatherViewModel();
         }
     }

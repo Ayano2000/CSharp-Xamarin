@@ -2,7 +2,7 @@
 using Prism.Commands;
 using Prism.Mvvm;
 using PrismApp.DTO;
-using PrismApp.Services;
+using PrismApp.Constants;
 using PrismApp.Views;
 using Rg.Plugins.Popup.Contracts;
 using Rg.Plugins.Popup.Services;
@@ -13,19 +13,18 @@ namespace PrismApp.ViewModels
     public class CityWeatherViewModel : BindableBase
     {
         private readonly IPopupNavigation _popupNavigation;
-        
+
+        private string _weatherConditions;
         private string _location;
         private double _temperature;
         private double _windSpeed;
         private long _humidity;
-        private long _visibility;
         private long _sunrise;
         private long _sunset;
-        private bool _isPopulated;
-        private bool _notShowingData;
         private bool _isAddNewSlide;
         public DelegateCommand RemoveCity => new DelegateCommand(RemoveCityCommand);
         public DelegateCommand ShowAddCityPage => new DelegateCommand(ShowAddCityPageCommand);
+        public DelegateCommand About => new DelegateCommand(AboutCommand);
 
         public CityWeatherViewModel(WeatherModel weather, bool newSlide, IPopupNavigation popupNavigation)
         {
@@ -35,9 +34,9 @@ namespace PrismApp.ViewModels
             Temperature = weather.Main.Temperature;
             WindSpeed = weather.Wind.Speed;
             Humidity = weather.Main.Humidity;
-            Visibility = weather.Visibility;
             Sunrise = weather.Sys.Sunrise;
             Sunset = weather.Sys.Sunset;
+            WeatherConditions = Constants.Constants.GetWeatherConditions(weather.Weather[0].Id);
             IsAddNewSlide = newSlide;
         }
 
@@ -57,6 +56,16 @@ namespace PrismApp.ViewModels
             {
                 _location = value;
                 RaisePropertyChanged(nameof(Location));
+            }
+        }
+        
+        public string WeatherConditions
+        {
+            get => _weatherConditions;
+            set
+            {
+                _weatherConditions = value;
+                RaisePropertyChanged(nameof(WeatherConditions));
             }
         }
 
@@ -90,16 +99,6 @@ namespace PrismApp.ViewModels
             }
         }
 
-        public long Visibility
-        {
-            get => _visibility;
-            set
-            {
-                _visibility = value;
-                RaisePropertyChanged(nameof(Visibility));
-            }
-        }
-
         public long Sunrise
         {
             get => _sunrise;
@@ -125,10 +124,14 @@ namespace PrismApp.ViewModels
             MessagingCenter.Send(Location, "DeleteCity");
         }
         
-        private void ShowAddCityPageCommand()
+        private async void ShowAddCityPageCommand()
+        { 
+            await _popupNavigation.PushAsync(new AddCityView());
+        }
+        
+        private async void AboutCommand()
         {
-            //todo: async? 
-            _popupNavigation.PushAsync(new AddCityView());
+            await _popupNavigation.PushAsync(new AboutView());
         }
     }
 }

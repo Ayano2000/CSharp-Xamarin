@@ -14,6 +14,7 @@ namespace PrismApp.Services
         public RestService()
         {
             _client = new HttpClient();
+            _client.Timeout = TimeSpan.FromSeconds(25);
         }
 
         public async Task<WeatherModel> GetWeatherData(string query)

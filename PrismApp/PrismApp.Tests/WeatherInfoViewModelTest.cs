@@ -31,7 +31,6 @@ namespace PrismApp.Tests
                     Sunrise = value + 2,
                     Sunset = value + 3
                 },
-                Visibility = value + 4,
                 Wind = new WindModel
                 {
                     Speed = value + 5,
@@ -85,7 +84,6 @@ namespace PrismApp.Tests
                     Assert.That(capeTownModel.Humidity == 21);
                     Assert.That(capeTownModel.Sunrise == 22);
                     Assert.That(capeTownModel.Sunset == 23);
-                    Assert.That(capeTownModel.Visibility == 24);
                     Assert.That(capeTownModel.WindSpeed == 25);
                 }
                 else Assert.Fail();
@@ -98,7 +96,6 @@ namespace PrismApp.Tests
                     Assert.That(stellenboschModel.Humidity == 31);
                     Assert.That(stellenboschModel.Sunrise == 32);
                     Assert.That(stellenboschModel.Sunset == 33);
-                    Assert.That(stellenboschModel.Visibility == 34);
                     Assert.That(stellenboschModel.WindSpeed == 35);
                 }
                 else Assert.Fail();
