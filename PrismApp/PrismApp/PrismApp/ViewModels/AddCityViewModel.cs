@@ -15,10 +15,6 @@ namespace PrismApp.ViewModels
         {
             _settingsService = settingsService;
             AddCityButtonClicked = new Command(execute: AddCityToList);
-            
-            MessagingCenter.Unsubscribe<WeatherInfoViewModel>(this, "Addition Successful");
-            MessagingCenter.Subscribe<WeatherInfoViewModel>(this, "Addition Successful", 
-                (Success) => UpdateAdditionCompletionMessage());
         }
         
         public string AdditionCompletionMessage
@@ -49,11 +45,6 @@ namespace PrismApp.ViewModels
         }
 
         public Command AddCityButtonClicked { get; }
-        
-        private void UpdateAdditionCompletionMessage()
-        {
-            AdditionCompletionMessage = "City has been added to your list";
-        }
         private void AddCityToList()
         {
             var userCityInput = _city.Trim();

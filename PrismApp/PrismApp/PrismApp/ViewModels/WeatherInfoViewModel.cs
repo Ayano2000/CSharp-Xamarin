@@ -5,13 +5,12 @@ using Prism.Navigation;
 using PrismApp.Services;
 using Xamarin.Forms;
 using System.Collections.ObjectModel;
-using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
 using PrismApp.Controls;
-using PrismApp.Views;
 using Rg.Plugins.Popup.Contracts;
 using PrismApp.DTO;
+using Xamarin.Essentials;
 
 namespace PrismApp.ViewModels
 {
@@ -43,7 +42,13 @@ namespace PrismApp.ViewModels
             _settingsService = settingsService;
             _locationService = locationService;
             _popupNavigation = popupNavigation;
-            
+
+            foreach (var city in _settingsService.UserCities)
+            {
+                _settingsService.RemoveCity(city);
+            }
+
+            _settingsService.AddCity("Stellenbosch");
             _getCurrentCityCommand = new Command(async () => await GetCurrentCity());
             
             if (settingsService.UserCities.Count == 0)
@@ -99,6 +104,13 @@ namespace PrismApp.ViewModels
 
         private async Task GetWeatherInfo()
         {
+            var connection = Connectivity.NetworkAccess;
+            if (connection != NetworkAccess.Internet)
+            {
+                await _popupNavigation.PushAsync(new ErrorPopup());
+                MessagingCenter.Send("Please check your internet connection and try again", "ErrorMessage");
+                return;
+            }
             await _popupNavigation.PushAsync(new LoadingPopup(), true);
             
             foreach (var city in _settingsService.UserCities)
@@ -205,12 +217,16 @@ namespace PrismApp.ViewModels
             }
             
             var success = await AddCityWeatherViewModel(CityName);
-            if (success = true)
+            if (success == true)
             {
-                MessagingCenter.Send(this, "Addition Successful");
                 _settingsService.AddCity(CityName);
+                await _popupNavigation.PopAsync();
             }
-            
+            else
+            {
+                await _popupNavigation.PopAsync();
+                await _popupNavigation.PushAsync(new ErrorPopup());
+            }
             AddDummyCityWeatherViewModel();
         }
     }

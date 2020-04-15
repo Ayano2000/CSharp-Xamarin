@@ -112,6 +112,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <AndroidAsset Include="Assets\NoConnection.json" />
     <AndroidAsset Include="Assets\Error.json" />
     <AndroidAsset Include="Assets\Font Awesome 5 Free-Solid-900.otf" />
     <AndroidAsset Include="Assets\Loading.json" />

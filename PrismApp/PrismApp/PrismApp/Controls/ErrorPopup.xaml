@@ -4,19 +4,26 @@
                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                  xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
                  xmlns:forms="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+                 xmlns:viewModels="clr-namespace:PrismApp.ViewModels;assembly=PrismApp"
                  x:Class="PrismApp.Controls.ErrorPopup"
-                 BackgroundColor="Transparent">
+                 BackgroundColor="white">
+    
+    <pages:PopupPage.BindingContext>
+        <viewModels:ErrorPopupViewModel/>
+    </pages:PopupPage.BindingContext>
 
     <ContentView>
         <ContentView.ControlTemplate>
             <ControlTemplate>
-                <StackLayout VerticalOptions="Center">
+                <StackLayout VerticalOptions="CenterAndExpand">
                     <forms:AnimationView Loop="True"
                                          AutoPlay="True"
-                                         HorizontalOptions="Center"
-                                         WidthRequest="400"
-                                         HeightRequest="400"
+                                         HorizontalOptions="CenterAndExpand"
+                                         WidthRequest="600"
+                                         HeightRequest="600"
                                          Animation="Error.json"/>
+                    <Label Text="{Binding Message}"
+                           FontSize="18"/>
                 </StackLayout>
             </ControlTemplate>
         </ContentView.ControlTemplate>
