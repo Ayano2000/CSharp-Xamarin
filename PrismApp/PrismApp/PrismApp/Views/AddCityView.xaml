@@ -9,8 +9,10 @@
              mc:Ignorable="d"
              x:Class="PrismApp.Views.AddCityView">
     <Frame BackgroundColor="White"
-                 VerticalOptions="CenterAndExpand"
-                 HorizontalOptions="CenterAndExpand"
+                 VerticalOptions="Center"
+                 HorizontalOptions="Center"
+                 HeightRequest="130"
+                 WidthRequest="300"
                  Padding="24"
                  CornerRadius="10">
         <StackLayout>
@@ -25,7 +27,7 @@
                     HorizontalOptions="Center"
                     BorderWidth="1"
                     BorderColor="White"
-                    BackgroundColor="DarkGray"
+                    BackgroundColor="#B37F29"
                     TextColor="White"
                     Command="{Binding AddCityButtonClicked}"/>
             <Label Text="{Binding AdditionCompletionMessage}"
