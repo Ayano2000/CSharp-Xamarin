@@ -29,8 +29,6 @@ namespace PrismApp.ViewModels
 
         public Command GetWeatherCommand { get; }
 
-        public DelegateCommand NavigateCommand => new DelegateCommand(ExecuteNavigationCommand);
-        
         public WeatherInfoViewModel(INavigationService navigationService, IRestService restService, IQueryService queryService, 
             ISettingsService settingsService, ILocationService locationService, IPopupNavigation popupNavigation)
         {
@@ -42,16 +40,10 @@ namespace PrismApp.ViewModels
             _settingsService = settingsService;
             _locationService = locationService;
             _popupNavigation = popupNavigation;
-
-            foreach (var city in _settingsService.UserCities)
-            {
-                _settingsService.RemoveCity(city);
-            }
-
-            _settingsService.AddCity("Stellenbosch");
-            _getCurrentCityCommand = new Command(async () => await GetCurrentCity());
             
-            if (settingsService.UserCities.Count == 0)
+            Console.WriteLine("CHECK ME " + _settingsService.UserCities);
+            _getCurrentCityCommand = new Command(async () => await GetCurrentCity());
+            if (_settingsService.UserCities.Count == 0 || _settingsService.UserCities == null)
             {
                 _getCurrentCityCommand.Execute(null);
             }

@@ -8,19 +8,17 @@
                  BackgroundColor="Transparent">
 
     <ContentView>
-        <ContentView.ControlTemplate>
-            <ControlTemplate>
-                <StackLayout VerticalOptions="Center">
-                    <forms:AnimationView Loop="True"
-                                         AutoPlay="True"
-                                         HorizontalOptions="Center"
-                                         WidthRequest="400"
-                                         HeightRequest="400"
-                                         Animation="Loading.json"/>
-                    <Label Text="Getting weather information"/>
-                </StackLayout>
-            </ControlTemplate>
-        </ContentView.ControlTemplate>
+        <StackLayout VerticalOptions="Center">
+            <forms:AnimationView Loop="True"
+                                 AutoPlay="True"
+                                 HorizontalOptions="Center"
+                                 WidthRequest="300"
+                                 HeightRequest="400"
+                                 Animation="Loading.json"/>
+            <Label Text="Getting weather information"
+                   HorizontalTextAlignment="Center"
+                   HorizontalOptions="Center"/>
+        </StackLayout>
     </ContentView>
     
 </pages:PopupPage>

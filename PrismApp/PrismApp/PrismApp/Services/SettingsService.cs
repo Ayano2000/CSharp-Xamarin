@@ -16,7 +16,11 @@ namespace PrismApp.Services
             {
                 var userCitiesJson = AppSettings.GetValueOrDefault(nameof(UserCities), string.Empty);
                 var userCitiesList = JsonConvert.DeserializeObject<List<string>>(userCitiesJson);
-                return userCitiesList;
+                if (userCitiesList != null) return userCitiesList;
+                else
+                {
+                    return new List<string>();
+                }
             }
             private set { AppSettings.AddOrUpdateValue(nameof(UserCities), JsonConvert.SerializeObject(value)); }
         }
