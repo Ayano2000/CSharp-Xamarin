@@ -12,22 +12,24 @@
        BackgroundColor="White"
        VerticalOptions="Fill"
        HorizontalOptions="Fill">
-    
-    <StackLayout VerticalOptions="CenterAndExpand"
-          HorizontalOptions="CenterAndExpand"
-          Margin="0, 30, 0, 0">
-        <StackLayout IsVisible="{Binding IsAddNewSlide, Converter={StaticResource BooleanConverter}}">
-        <Grid RowSpacing="5" ColumnSpacing="5" BackgroundColor="white" VerticalOptions="Fill" HorizontalOptions="Fill">
+
+    <StackLayout VerticalOptions="Fill"
+                 HorizontalOptions="Fill">
+
+        <Grid VerticalOptions="Fill"
+              HorizontalOptions="Fill"
+              IsVisible="{Binding IsAddNewSlide, Converter={StaticResource BooleanConverter}}">
             <Grid.RowDefinitions>
-                <RowDefinition Height="200"/>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="60"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="200" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-        
+
             <forms:AnimationView Loop="True"
                                  AutoPlay="True"
                                  WidthRequest="200"
@@ -36,13 +38,15 @@
                                  Animation="{Binding WeatherConditions}"
                                  Grid.Row="0"
                                  Grid.Column="0"
-                                 HorizontalOptions="Center"/>
+                                 HorizontalOptions="Center" />
+
             <Label Text="{Binding Location}"
                    HorizontalOptions="Center"
                    FontSize="32"
                    HorizontalTextAlignment="Center"
                    Grid.Row="1"
-                   Grid.Column="0"/>
+                   Grid.Column="0" />
+
             <Label Text="{Binding Temperature, StringFormat='{0:F0}°C'}"
                    FontSize="54"
                    TextColor="#696969"
@@ -51,132 +55,135 @@
                    Grid.Column="0"
                    HorizontalOptions="Center"
                    HorizontalTextAlignment="Center"
-                   Style="{StaticResource labelResultStyle}"/>
-            <Grid Grid.Row="3" Grid.Column="0" RowSpacing="3" ColumnSpacing="1" Padding="0, 15, 0, 0">
+                   Style="{StaticResource labelResultStyle}" />
+
+            <Grid Grid.Row="3" Grid.Column="0" RowSpacing="3" ColumnSpacing="1" Margin="10,15" VerticalOptions="Start" HorizontalOptions="Fill">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="80"/>
-                    <RowDefinition Height="60"/>
-                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="10"/>
-                    <ColumnDefinition Width="25"/>
-                    <ColumnDefinition Width="150"/>
-                    <ColumnDefinition Width="25"/>
-                    <ColumnDefinition Width="130"/>
+                    <!-- <ColumnDefinition Width="10"/> -->
+                    <ColumnDefinition Width="25" />
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="25" />
+                    <ColumnDefinition Width="130" />
                 </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0" 
-                           Grid.Column="1" 
-                           Text="&#xf72e;" 
-                           FontSize="26" 
-                           HorizontalOptions="End"
-                           Padding="0, 20, 0, 0">
-                        <Label.FontFamily>
-                            <x:OnPlatform Android="Font Awesome 5 Free-Solid-900.otf#Font Awesome 5 Free Solid" />
-                        </Label.FontFamily>
-                    </Label>
-                    <Label Text="{Binding WindSpeed, StringFormat='{0:F0}km/h'}"
-                           Style="{StaticResource labelResultStyle}"
-                           FontSize="26"
-                           Grid.Row="0"
-                           Grid.Column="2"
-                           HorizontalOptions="Start"
-                           Padding="0, 20, 0, 0">
-                    </Label>
-                    <Label Grid.Row="0" 
-                           Grid.Column="3" 
-                           Text="&#xf043;" 
-                           FontSize="26" 
-                           HorizontalOptions="End"
-                           Padding="0, 20, 0, 0">
-                        <Label.FontFamily>
-                            <x:OnPlatform Android="Font Awesome 5 Free-Solid-900.otf#Font Awesome 5 Free Solid" />
-                        </Label.FontFamily>
-                    </Label>
-                    <Label Text="{Binding Humidity, StringFormat='{0:F0}%'}"
-                           Style="{StaticResource labelResultStyle}"
-                           FontSize="26"
-                           Grid.Row="0"
-                           Grid.Column="4"
-                           HorizontalOptions="Start"
-                           Padding="0, 20, 0, 0">
-                    </Label>
-                    <Label Grid.Row="1" 
-                           Grid.Column="1" 
-                           Text="&#xf185;" 
-                           FontSize="26" 
-                           HorizontalOptions="End"
-                           Padding="0, 15, 0, 0">
-                        <Label.FontFamily>
-                            <x:OnPlatform Android="Font Awesome 5 Free-Solid-900.otf#Font Awesome 5 Free Solid" />
-                        </Label.FontFamily>
-                    </Label>
-                    <Label Text="{Binding Sunrise, Converter={StaticResource LongToDateTimeConverter}}"
-                           Style="{StaticResource labelResultStyle}"
-                           FontSize="26"
-                           Grid.Row="1"
-                           Grid.Column="2"
-                           HorizontalOptions="Start"
-                           Padding="0, 15, 0, 0">
-                    </Label>
-                    <Label Grid.Row="1" 
-                           Grid.Column="3" 
-                           Text="&#xf186;" 
-                           FontSize="26" 
-                           HorizontalOptions="End"
-                           Padding="0, 15, 0, 0">
-                        <Label.FontFamily>
-                            <x:OnPlatform Android="Font Awesome 5 Free-Solid-900.otf#Font Awesome 5 Free Solid" />
-                        </Label.FontFamily>
-                    </Label>
-                    <Label Text="{Binding Sunset, Converter={StaticResource LongToDateTimeConverter}}"
-                           Style="{StaticResource labelResultStyle}"
-                           FontSize="26"
-                           Grid.Row="1"
-                           Grid.Column="4"
-                           HorizontalOptions="Start"
-                           Padding="0, 15, 0, 0">
-                    </Label>
-                    <Button Text="&#xf129;"
-                            Command="{Binding About}"
-                            FontSize="22"
-                            TextColor="#B37F29"
-                            BackgroundColor="Beige"
-                            HorizontalOptions="Start"
-                            Grid.Row="2"
-                            Grid.ColumnSpan="5"
-                            HeightRequest="40"
-                            WidthRequest="40"
-                            CornerRadius="25">
-                        <Label.FontFamily>
-                            <x:OnPlatform Android="Font Awesome 5 Free-Solid-900.otf#Font Awesome 5 Free Solid" />
-                        </Label.FontFamily>
-                    </Button>
-                    <Button Text="&#xf05e;"
-                            FontSize="16"
-                            TextColor="#B37F29"
-                            BackgroundColor="Beige"
-                            HorizontalOptions="EndAndExpand"
-                            Command="{Binding RemoveCity}"
-                            Grid.Row="2"
-                            Grid.ColumnSpan="5"
-                            HeightRequest="40"
-                            WidthRequest="40"
-                            CornerRadius="25">
-                        <Label.FontFamily>
-                            <x:OnPlatform Android="Font Awesome 5 Free-Solid-900.otf#Font Awesome 5 Free Solid" />
-                        </Label.FontFamily>
-                    </Button>
+
+                <Label Grid.Row="0"
+                       Grid.Column="0"
+                       Text="&#xf72e;"
+                       FontSize="26"
+                       HorizontalOptions="Center"
+                       Margin="0, 20, 0, 0">
+                    <Label.FontFamily>
+                        <x:OnPlatform Android="Font Awesome 5 Free-Solid-900.otf#Font Awesome 5 Free Solid" />
+                    </Label.FontFamily>
+                </Label>
+
+                <Label Text="{Binding WindSpeed, StringFormat='{0:F0}km/h'}"
+                       Style="{StaticResource labelResultStyle}"
+                       FontSize="26"
+                       Grid.Row="0"
+                       Grid.Column="1"
+                       HorizontalOptions="Start"
+                       Margin="0, 20, 0, 0" />
+
+                <Label Grid.Row="0"
+                       Grid.Column="2"
+                       Text="&#xf043;"
+                       FontSize="26"
+                       HorizontalOptions="Center"
+                       Margin="0, 20, 0, 0">
+                    <Label.FontFamily>
+                        <x:OnPlatform Android="Font Awesome 5 Free-Solid-900.otf#Font Awesome 5 Free Solid" />
+                    </Label.FontFamily>
+                </Label>
+
+                <Label Text="{Binding Humidity, StringFormat='{0:F0}%'}"
+                       Style="{StaticResource labelResultStyle}"
+                       FontSize="26"
+                       Grid.Row="0"
+                       Grid.Column="3"
+                       HorizontalOptions="Start"
+                       Margin="0, 20, 0, 0" />
+
+                <Label Grid.Row="1"
+                       Grid.Column="0"
+                       Text="&#xf185;"
+                       FontSize="26"
+                       HorizontalOptions="Center"
+                       Margin="0, 15, 0, 0">
+                    <Label.FontFamily>
+                        <x:OnPlatform Android="Font Awesome 5 Free-Solid-900.otf#Font Awesome 5 Free Solid" />
+                    </Label.FontFamily>
+                </Label>
+
+                <Label Text="{Binding Sunrise, Converter={StaticResource LongToDateTimeConverter}}"
+                       Style="{StaticResource labelResultStyle}"
+                       FontSize="26"
+                       Grid.Row="1"
+                       Grid.Column="1"
+                       HorizontalOptions="Start"
+                       Margin="0, 15, 0, 0" />
+
+                <Label Grid.Row="1"
+                       Grid.Column="2"
+                       Text="&#xf186;"
+                       FontSize="26"
+                       HorizontalOptions="Center"
+                       Margin="0, 15, 0, 0">
+                    <Label.FontFamily>
+                        <x:OnPlatform Android="Font Awesome 5 Free-Solid-900.otf#Font Awesome 5 Free Solid" />
+                    </Label.FontFamily>
+                </Label>
+
+                <Label Text="{Binding Sunset, Converter={StaticResource LongToDateTimeConverter}}"
+                       Style="{StaticResource labelResultStyle}"
+                       FontSize="26"
+                       Grid.Row="1"
+                       Grid.Column="3"
+                       HorizontalOptions="Start"
+                       Margin="0, 15, 0, 0" />
+
             </Grid>
+
+            <Grid Grid.Row="4" VerticalOptions="End" HorizontalOptions="Fill">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Button Style="{StaticResource RoundButton}"
+                        Text="&#xf129;"
+                        Command="{Binding About}"
+                        HorizontalOptions="Start"
+                        Grid.Column="0">
+                    <Label.FontFamily>
+                        <x:OnPlatform Android="Font Awesome 5 Free-Solid-900.otf#Font Awesome 5 Free Solid" />
+                    </Label.FontFamily>
+                </Button>
+
+                <Button Style="{StaticResource RoundButton}"
+                        Text="&#xf05e;"
+                        Grid.Column="1"
+                        HorizontalOptions="End"
+                        Command="{Binding RemoveCity}">
+                    <Label.FontFamily>
+                        <x:OnPlatform Android="Font Awesome 5 Free-Solid-900.otf#Font Awesome 5 Free Solid" />
+                    </Label.FontFamily>
+                </Button>
+            </Grid>
+
         </Grid>
-            </StackLayout>
-            <Button Text="+"
-                    TextColor="#B37F29"
-                    FontSize="120"
-                    BackgroundColor="Transparent"
-                    Command="{Binding ShowAddCityPage}"
-                    IsVisible="{Binding IsAddNewSlide}"
-                    VerticalOptions="Fill"
-                    HorizontalOptions="Fill" />
+
+        <Button Text="+"
+                TextColor="{StaticResource GloriousGold}"
+                FontSize="120"
+                BackgroundColor="Transparent"
+                Command="{Binding ShowAddCityPage}"
+                IsVisible="{Binding IsAddNewSlide}"
+                VerticalOptions="Fill"
+                HorizontalOptions="Fill" />
     </StackLayout>
 </Frame>

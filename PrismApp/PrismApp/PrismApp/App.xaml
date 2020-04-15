@@ -5,6 +5,10 @@
              xmlns:local="clr-namespace:PrismApp.Converters"
              x:Class="PrismApp.App">
     <Application.Resources>
+        <Color x:Key="GloriousGold">#B37F29</Color>
+        
+        <x:Int16 x:Key="DefaultCornerRadius">25</x:Int16>
+        
         <Style TargetType="Label">
             <Setter Property="FontSize" 
                         Value="22" />
@@ -27,6 +31,18 @@
         <Style TargetType="Button">
             <Setter Property="CornerRadius" Value="10"/>
         </Style>
+        
+        <Style TargetType="Button" x:Key="RoundButton">
+            <Setter Property="HeightRequest" Value="50"/>
+            <Setter Property="WidthRequest" Value="50"/>
+            <Setter Property="CornerRadius" Value="{StaticResource DefaultCornerRadius}"/>
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="TextColor" Value="Beige"/>
+            <Setter Property="BackgroundColor" Value="{StaticResource GloriousGold}"/>
+            <Setter Property="CornerRadius" Value="25"/>
+            <Setter Property="CornerRadius" Value="25"/>
+        </Style>
+        
         
         <local:LongToDateTimeConverter x:Key="LongToDateTimeConverter" />
         <local:BooleanConverter x:Key="BooleanConverter" />

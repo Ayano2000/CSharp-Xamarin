@@ -5,20 +5,20 @@
                  xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
                  xmlns:forms="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
                  x:Class="PrismApp.Controls.LoadingPopup"
-                 BackgroundColor="Transparent">
+                 BackgroundColor="White">
 
     <ContentView>
-        <StackLayout VerticalOptions="Center">
-            <forms:AnimationView Loop="True"
-                                 AutoPlay="True"
-                                 HorizontalOptions="Center"
-                                 WidthRequest="300"
-                                 HeightRequest="400"
-                                 Animation="Loading.json"/>
-            <Label Text="Getting weather information"
-                   HorizontalTextAlignment="Center"
-                   HorizontalOptions="Center"/>
-        </StackLayout>
+        <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                <forms:AnimationView Loop="True"
+                                     AutoPlay="True"
+                                     HorizontalOptions="Center"
+                                     WidthRequest="300"
+                                     HeightRequest="400"
+                                     Animation="Loading.json" />
+                <Label Text="Getting weather information"
+                       HorizontalTextAlignment="Center"
+                       HorizontalOptions="Center" />
+            </StackLayout>
     </ContentView>
-    
+
 </pages:PopupPage>

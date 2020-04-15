@@ -5,7 +5,8 @@
              xmlns:views="clr-namespace:PrismApp.Views;assembly=PrismApp"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="PrismApp.Views.WeatherInfoView"
-             Title="Weather Info Page">
+             Title="Weather Info Page"
+             BackgroundColor="DodgerBlue">
 
     <ContentPage.Content>
         <StackLayout>
@@ -15,11 +16,10 @@
                           HorizontalScrollBarVisibility="Always">
                 <CarouselView.ItemTemplate>
                     <DataTemplate>
-                        <StackLayout Padding="10,35,10,0"
-                                     BackgroundColor="DodgerBlue"
-                                     VerticalOptions="Fill"
-                                     HorizontalOptions="Fill">
-                            <views:CityWeatherView/>
+                        <StackLayout Margin="10, 10"
+                                     Padding="10, 30, 10, 10">
+                            <views:CityWeatherView HorizontalOptions="FillAndExpand"
+                                                   VerticalOptions="FillAndExpand"/>
                         </StackLayout>
                     </DataTemplate>
                 </CarouselView.ItemTemplate>
