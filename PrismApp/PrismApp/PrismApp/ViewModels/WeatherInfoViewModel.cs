@@ -77,7 +77,8 @@ namespace PrismApp.ViewModels
                 Console.WriteLine("success is" + success);
                 if (success == true)
                 {
-                 _settingsService.AddCity(city.Title);   
+                    var to_add = city.Title.ToUpper().Trim(); 
+                    _settingsService.AddCity(to_add);   
                 }
                 AddDummyCityWeatherViewModel();
             }
@@ -211,7 +212,9 @@ namespace PrismApp.ViewModels
             var success = await AddCityWeatherViewModel(CityName);
             if (success == true)
             {
-                _settingsService.AddCity(CityName);
+                
+                var to_add = CityName.ToUpper().Trim(); 
+                _settingsService.AddCity(to_add);
                 await _popupNavigation.PopAsync();
             }
             else

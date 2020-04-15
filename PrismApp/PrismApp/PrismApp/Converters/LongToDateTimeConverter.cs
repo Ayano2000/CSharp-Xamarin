@@ -15,7 +15,7 @@ namespace PrismApp.Converters
             if (value is long longDate)
             {
                 var time = $"{_time.AddSeconds(longDate).ToString()}";
-                var cutFromFront = time.Remove(0, 9);
+                var cutFromFront = time.Remove(0, 10);
                 var cutFromEnd = cutFromFront.Remove(4, 3);
                 return cutFromEnd;
             }

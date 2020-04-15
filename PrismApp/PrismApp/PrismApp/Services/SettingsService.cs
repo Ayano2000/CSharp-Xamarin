@@ -28,9 +28,12 @@ namespace PrismApp.Services
         public bool AddCity(string city)
         {
             var cities = UserCities;
-
-            if (cities.Contains(city)) return false;
-            cities.Add(city);
+            
+            var to_check = city.ToUpper().Trim();
+            
+            if (cities.Contains(to_check)) return false;
+            
+            cities.Add(to_check);
             UserCities = cities;
             return true;
         }
@@ -38,10 +41,12 @@ namespace PrismApp.Services
         public bool RemoveCity(string city)
         {
             var cities = UserCities;
+            
+            var to_check = city.ToUpper().Trim();
+            
+            if (!cities.Contains(to_check)) return false;
 
-            if (!cities.Contains(city)) return false;
-
-            cities.Remove(city);
+            cities.Remove(to_check);
             UserCities = cities;
             return true;
         }

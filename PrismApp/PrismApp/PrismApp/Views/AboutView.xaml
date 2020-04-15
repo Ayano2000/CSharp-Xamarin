@@ -11,15 +11,16 @@
     <Frame BackgroundColor="White"
                  VerticalOptions="CenterAndExpand"
                  HorizontalOptions="CenterAndExpand"
-                 Padding="24"
+                 Margin=" 30, 30"
                  CornerRadius="10">
         <StackLayout>
             <Label Text="Weather App Version 1.0.0"
                    HorizontalOptions="CenterAndExpand"
                    VerticalOptions="CenterAndExpand"/>
-            <Label Text="Icon made by 'https://www.flaticon.com/authors/freepik' from www.flaticon.com"
+            <Label Text="Icon made by 'https://www.flaticon.com/authors/freepik'x    "
                    HorizontalOptions="CenterAndExpand"
                    VerticalOptions="CenterAndExpand"/>
+            <Label Text="Animations made by 'https://lottiefiles.com/user/26177'"/>
         </StackLayout>
     </Frame>
 </pages:PopupPage>

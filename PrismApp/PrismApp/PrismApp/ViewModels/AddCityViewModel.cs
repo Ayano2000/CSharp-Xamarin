@@ -47,7 +47,7 @@ namespace PrismApp.ViewModels
         public Command AddCityButtonClicked { get; }
         private void AddCityToList()
         {
-            var userCityInput = _city.Trim();
+            var userCityInput = _city.ToUpper().Trim();
             if (_settingsService.UserCities.Contains(userCityInput))
             {
                 AdditionCompletionMessage = "City is already on your watch list";
