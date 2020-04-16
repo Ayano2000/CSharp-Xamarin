@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace PrismApp.Controls
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ErrorPopup : PopupPage
+    public partial class ErrorPopupView : PopupPage
     {
-        public ErrorPopup()
+        public ErrorPopupView()
         {
             InitializeComponent();
         }

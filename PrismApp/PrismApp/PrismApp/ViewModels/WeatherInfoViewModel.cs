@@ -57,6 +57,11 @@ namespace PrismApp.ViewModels
             MessagingCenter.Unsubscribe<string>(this, "DeleteCity");
             MessagingCenter.Subscribe<string>(this, "DeleteCity", 
                 (CityName) => DeleteCity(CityName));
+            
+            
+            MessagingCenter.Unsubscribe<string>(this, "ErrorButtonClicked");
+            MessagingCenter.Subscribe<string>(this, "ErrorButtonClicked", 
+                (Error) => ErrorButtonClicked());
         }
         public ObservableCollection<CityWeatherViewModel> CityWeatherViewModels
         {
@@ -99,7 +104,7 @@ namespace PrismApp.ViewModels
             var connection = Connectivity.NetworkAccess;
             if (connection != NetworkAccess.Internet)
             {
-                await _popupNavigation.PushAsync(new ErrorPopup());
+                await _popupNavigation.PushAsync(new ErrorPopupView());
                 MessagingCenter.Send("Please check your internet connection and try again", "ErrorMessage");
                 return;
             }
@@ -138,7 +143,7 @@ namespace PrismApp.ViewModels
             }
             catch (Exception e)
             {
-                await _popupNavigation.PushAsync(new ErrorPopup());
+                await _popupNavigation.PushAsync(new ErrorPopupView());
                 return false;
             }
         }
@@ -220,9 +225,16 @@ namespace PrismApp.ViewModels
             else
             {
                 await _popupNavigation.PopAsync();
-                await _popupNavigation.PushAsync(new ErrorPopup());
+                await _popupNavigation.PushAsync(new ErrorPopupView());
             }
             AddDummyCityWeatherViewModel();
+        }
+
+        private async void ErrorButtonClicked()
+        {
+            Console.WriteLine("HERE123");
+            await _popupNavigation.PopAsync();
+            GetWeatherCommand.Execute(null);
         }
     }
 }

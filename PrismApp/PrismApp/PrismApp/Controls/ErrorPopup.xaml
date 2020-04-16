@@ -1,32 +1,51 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-
-<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms" 
                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
                  xmlns:forms="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
-                 xmlns:viewModels="clr-namespace:PrismApp.ViewModels;assembly=PrismApp"
-                 x:Class="PrismApp.Controls.ErrorPopup"
+                 xmlns:mvvm="http://prismlibrary.com"
+                 xmlns:locals="clr-namespace:PrismApp.ViewModels;assembly=PrismApp"
+                 mc:Ignorable="d"
+                 x:Class="PrismApp.Controls.ErrorPopupView"
                  BackgroundColor="white">
-    
     <pages:PopupPage.BindingContext>
-        <viewModels:ErrorPopupViewModel/>
+        <locals:ErrorPopupViewModel/>
     </pages:PopupPage.BindingContext>
-
+                 
     <ContentView>
         <ContentView.ControlTemplate>
             <ControlTemplate>
                 <StackLayout VerticalOptions="CenterAndExpand">
-                    <forms:AnimationView Loop="True"
+                    <forms:AnimationView Loop="False"
                                          AutoPlay="True"
-                                         HorizontalOptions="CenterAndExpand"
+                                         HorizontalOptions="Fill"
+                                         VerticalOptions="Fill"
                                          WidthRequest="600"
-                                         HeightRequest="600"
+                                         HeightRequest="400"
                                          Animation="Error.json"/>
                     <Label Text="{Binding Message}"
-                           FontSize="18"/>
+                           FontSize="16"
+                           TextColor="Black"/>
+                        <!-- <Label.BindingContext> -->
+                        <!--     <locals:ErrorPopupViewModel/> -->
+                        <!-- </Label.BindingContext> -->
+                    
+                    <Button Text="Try Again"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+                            BorderWidth="1"
+                            BorderColor="White"
+                            BackgroundColor="#B37F29"
+                            TextColor="White"
+                            Command="{Binding ErrorButtonClickedCommand}"/>
+                    <!--     <Button.BindingContext> -->
+                    <!--         <locals:ErrorPopupViewModel/> -->
+                    <!--     </Button.BindingContext> -->
+                    <!-- </Button> -->
                 </StackLayout>
             </ControlTemplate>
         </ContentView.ControlTemplate>
     </ContentView>
-    
 </pages:PopupPage>
