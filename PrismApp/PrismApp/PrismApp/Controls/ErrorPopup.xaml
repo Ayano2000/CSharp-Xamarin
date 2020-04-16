@@ -8,32 +8,31 @@
                  mc:Ignorable="d"
                  x:Class="PrismApp.Controls.ErrorPopupView"
                  BackgroundColor="white">
-    
-    <ContentView>
-        <ContentView.ControlTemplate>
-            <ControlTemplate>
-                <StackLayout VerticalOptions="CenterAndExpand">
-                    <forms:AnimationView Loop="False"
-                                         AutoPlay="True"
-                                         HorizontalOptions="Fill"
-                                         VerticalOptions="Fill"
-                                         WidthRequest="600"
-                                         HeightRequest="400"
-                                         Animation="Error.json"/>
-                    <Label Text="{Binding Message}"
-                           FontSize="16"
-                           TextColor="Black"/>
-                    
-                    <Button Text="Try Again"
-                            VerticalOptions="Center"
-                            HorizontalOptions="Center"
-                            BorderWidth="1"
-                            BorderColor="White"
-                            BackgroundColor="#B37F29"
-                            TextColor="White"
-                            Command="{Binding ErrorButtonClickedCommand}"/>
-                </StackLayout>
-            </ControlTemplate>
-        </ContentView.ControlTemplate>
-    </ContentView>
+    <pages:PopupPage.Content>
+        <StackLayout VerticalOptions="Fill"
+                     HorizontalOptions="Fill">
+            <forms:AnimationView Loop="False"
+                                 AutoPlay="True"
+                                 HorizontalOptions="Center"
+                                 VerticalOptions="Center"
+                                 WidthRequest="600"
+                                 HeightRequest="400"
+                                 Animation="Error.json"/>
+            <Label Text="{Binding Message}"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center"
+                   FontSize="22"
+                   TextColor="{StaticResource DarkGrey}"/>
+            
+            <Button Text="Try Again"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    BorderWidth="1"
+                    BorderColor="White"
+                    BackgroundColor="#B37F29"
+                    Margin="20,40"
+                    TextColor="White"
+                    Command="{Binding ErrorButtonClickedCommand}"/>
+        </StackLayout>
+    </pages:PopupPage.Content>
 </pages:PopupPage>

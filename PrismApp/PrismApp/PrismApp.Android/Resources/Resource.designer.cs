@@ -15,7 +15,7 @@ namespace PrismApp.Droid
 {
 	
 	
-	[System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Android.Build.Tasks", "1.0.0.0")]
+	[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Android.Build.Tasks", "1.0.0.0")]
 	public partial class Resource
 	{
 		
@@ -9652,6 +9652,9 @@ namespace PrismApp.Droid
 			
 			// aapt resource value: 0x7F050083
 			public const int tooltip_background_light = 2131034243;
+			
+			// aapt resource value: 0x7F050084
+			public const int white = 2131034244;
 			
 			static Color()
 			{

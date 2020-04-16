@@ -101,6 +101,7 @@
     <AndroidResource Include="Resources\mipmap-xhdpi\ic_launcher.png" />
     <AndroidResource Include="Resources\mipmap-xxhdpi\ic_launcher.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\values\color.xml" />
     <AndroidResource Include="Resources\values\styles.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
@@ -112,8 +113,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <AndroidAsset Include="Assets\NoConnection.json" />
     <AndroidAsset Include="Assets\Error.json" />
+    <AndroidAsset Include="Assets\NoConnection.json" />
     <AndroidAsset Include="Assets\Font Awesome 5 Free-Solid-900.otf" />
     <AndroidAsset Include="Assets\Loading.json" />
     <AndroidAsset Include="Assets\ThunderStorm.json" />

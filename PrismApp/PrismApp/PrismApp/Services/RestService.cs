@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Data;
 using System.Diagnostics;
+using System.Net;
 using System.Net.Http;
-using System.Threading;
+using System.Web;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using PrismApp.DTO;
@@ -24,14 +26,31 @@ namespace PrismApp.Services
             try
             {
                 var response = await _client.GetAsync(query);
-                if (response.IsSuccessStatusCode)
+                if (response.IsSuccessStatusCode && response.StatusCode != HttpStatusCode.NotFound)
                 {
                     var data = await response.Content.ReadAsStringAsync();
                     weatherData = JsonConvert.DeserializeObject<WeatherModel>(data);
                 }
                 else
                 {
-                    throw new Exception("", new Exception(""));
+                    if (response.StatusCode == HttpStatusCode.NotFound)
+                    {
+                        throw new Exception("Cannot Find City", new Exception(response.StatusCode.ToString()));
+                    }
+                    if (response.StatusCode == HttpStatusCode.InternalServerError)
+                    {
+                        throw new Exception("Internal Server Error", new Exception(response.StatusCode.ToString()));
+                    }
+
+                    if (response.StatusCode == HttpStatusCode.RequestTimeout)
+                    {
+                        throw new Exception("Request Timeout", new Exception(response.StatusCode.ToString()));
+                    }
+                    if (response.StatusCode != HttpStatusCode.NotFound &&
+                        response.StatusCode != HttpStatusCode.InternalServerError)
+                    {
+                        throw new Exception("Something Went Wrong", new Exception(response.StatusCode.ToString()));
+                    }
                 }
             }
             catch (Exception ex)

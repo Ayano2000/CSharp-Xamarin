@@ -2,9 +2,12 @@
 <resources>
 
   <style name="Theme.Splash"
-         parent="android:Theme">
-    <item name="android:windowBackground">@drawable/loading</item>
+         parent="Theme.AppCompat.Light.NoActionBar">
+    <item name="android:colorBackground">@color/white</item>
     <item name="android:windowNoTitle">true</item>
+    <item name="android:windowFullscreen">true</item>
+    <item name="android:windowContentOverlay">@null</item>
+    <item name="android:windowActionBar">true</item>
   </style>
 
   <style name="MainTheme" parent="MainTheme.Base">

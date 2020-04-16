@@ -8,7 +8,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <application android:label="PrismApp.Android" android:icon="@mipmap/ic_launcher">
+    <application android:label="Weather App" android:theme="@style/Theme.Splash" android:icon="@mipmap/ic_launcher" >
         <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyAxdwnqjWNL8FzlEYk7RAXGaaDW52vO2V4" />
     </application>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />

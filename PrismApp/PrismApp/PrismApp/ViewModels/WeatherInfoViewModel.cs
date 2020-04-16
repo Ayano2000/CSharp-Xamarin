@@ -1,15 +1,16 @@
 ﻿using System;
-using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
 using PrismApp.Services;
 using Xamarin.Forms;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using PrismApp.Controls;
 using Rg.Plugins.Popup.Contracts;
 using PrismApp.DTO;
+using PrismApp.Views;
 using Xamarin.Essentials;
 
 namespace PrismApp.ViewModels
@@ -32,6 +33,7 @@ namespace PrismApp.ViewModels
             IQueryService queryService,
             ISettingsService settingsService, ILocationService locationService, IPopupNavigation popupNavigation)
         {
+            Debug.WriteLine("GOT TO CON");
             CityWeatherViewModels = new ObservableCollection<CityWeatherViewModel>();
 
             _restService = restService;
@@ -42,10 +44,6 @@ namespace PrismApp.ViewModels
             _popupNavigation = popupNavigation;
 
             _getCurrentCityCommand = new Command(async () => await GetCurrentCity());
-            if (_settingsService.UserCities.Count == 0 || _settingsService.UserCities == null)
-            {
-                _getCurrentCityCommand.Execute(null);
-            }
 
             GetWeatherCommand = new Command(async () => await GetWeatherInfo());
 
@@ -60,36 +58,16 @@ namespace PrismApp.ViewModels
 
         private async Task CheckPermissionsAndContinue()
         {
-            bool networkPermissionGranted = false;
-
-            var networkStateResult = await Permissions.CheckStatusAsync<Permissions.NetworkState>();
-
-            if (networkStateResult == PermissionStatus.Denied ||
-                networkStateResult == PermissionStatus.Disabled ||
-                networkStateResult == PermissionStatus.Unknown)
-            {
-                //then what?
-                await Permissions.RequestAsync<Permissions.NetworkState>();
-            }
-            else
-            {
-                networkPermissionGranted = true;
-            }
-
-            var locationStateResult = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
-
-            if (locationStateResult == PermissionStatus.Denied ||
-                locationStateResult == PermissionStatus.Disabled ||
-                locationStateResult == PermissionStatus.Unknown)
-            {
-                await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
-            }
-
-            if (!networkPermissionGranted) return;
-
             if (await CheckUserConnectivity())
             {
-                GetWeatherCommand.Execute(null);
+                if (_settingsService.UserCities.Count == 0 || _settingsService.UserCities == null)
+                {
+                    _getCurrentCityCommand.Execute(null);
+                }
+                else
+                {
+                    GetWeatherCommand.Execute(null);
+                }
             }
         }
 
@@ -136,7 +114,7 @@ namespace PrismApp.ViewModels
             if (connection == NetworkAccess.Internet) return true;
             
             await ShowErrorPopup(new Command(async () => await ErrorButtonClicked()),
-                "Please check your internet connection and try again");
+                "Please check your internet connection");
             
             return false;
         }
@@ -178,14 +156,45 @@ namespace PrismApp.ViewModels
             }
             catch (Exception e)
             {
-                await ShowErrorPopup(new Command(async () => await ErrorButtonClicked()));
+                if (e.Message == "Cannot Find City")
+                {
+                    var viewModel = new AddCityViewModel(_settingsService)
+                    {
+                        AdditionCompletionMessage = "City Not Found"
+                    };
+                    Debug.WriteLine("City not found\\n" + e.StackTrace);
+                    await _popupNavigation.PushAsync(new AddCityView {BindingContext = viewModel});
+                }
+                else if (e.Message == "Request Timeout")
+                {
+                    Debug.WriteLine("Request Timeout\\n" + e.StackTrace);
+                    await ShowErrorPopup(new Command(async () => await ErrorButtonClicked()), 
+                        "Your request has timed out, Please check your internet connection or try again later");
+                }
+                else if (e.Message == "Internal Server Error")
+                {
+                    Debug.WriteLine("Internal Server Error\\n" + e.StackTrace);
+                    await ShowErrorPopup(new Command(async () => await ErrorButtonClicked()), 
+                        "Internal server error, Please try again later");
+                }
+                else
+                {
+                    Debug.WriteLine("Unspecified Error\\n" + e.StackTrace);
+                    await ShowErrorPopup(new Command(async () => await ErrorButtonClicked()), 
+                        "Something went wrong, Please try again later");
+                }
                 return false;
             }
         }
 
         private async Task ShowErrorPopup(Command retryCommand,
-            string errorMessage = Constants.Constants.DEFAULT_ERROR_MESSAGE)
+            string errorMessage)
         {
+            if (string.IsNullOrEmpty(errorMessage))
+            {
+                errorMessage = Constants.Constants.DEFAULT_ERROR_MESSAGE;
+            }
+            
             var viewModel = new ErrorPopupViewModel
             {
                 RetryCommand = retryCommand,
@@ -267,21 +276,19 @@ namespace PrismApp.ViewModels
             {
                 var toAdd = cityName.ToUpper().Trim();
                 _settingsService.AddCity(toAdd);
-                await _popupNavigation.PopAsync();
+                await _popupNavigation.PopAllAsync();
             }
-            else
-            {
-                await _popupNavigation.PopAsync();
-                await _popupNavigation.PushAsync(new ErrorPopupView());
-            }
-
             AddDummyCityWeatherViewModel();
         }
 
         private async Task ErrorButtonClicked()
         {
-            Console.WriteLine("HERE123");
             await _popupNavigation.PopAsync();
+            
+            var userHasConnection = await CheckUserConnectivity();
+            
+            if (!userHasConnection) return;
+            
             GetWeatherCommand.Execute(null);
         }
     }
