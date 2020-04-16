@@ -8,22 +8,17 @@ namespace PrismApp.ViewModels
     {
         private string _message;
         public Command ErrorButtonClickedCommand { get; }
+        
+        public Command RetryCommand { get; set; }
 
         public ErrorPopupViewModel()
         {
-            Message = "Something Went wrong, Please try again later";
-            
             ErrorButtonClickedCommand = new Command(execute: ErrorButtonClicked);
-            
-            MessagingCenter.Unsubscribe<string>("Error", "ErrorMessage");
-            MessagingCenter.Subscribe<string>("Error", "ErrorMessage", 
-                (message) => UpdateErrorMessage(message));
         }
 
         private void ErrorButtonClicked()
         {
-            Console.WriteLine("HERE");
-            MessagingCenter.Send(this, "ErrorButtonClicked");
+            RetryCommand?.Execute(null);
         }
 
         private void UpdateErrorMessage(string message)

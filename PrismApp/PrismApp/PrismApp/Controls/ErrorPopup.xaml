@@ -5,15 +5,10 @@
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
                  xmlns:forms="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
-                 xmlns:mvvm="http://prismlibrary.com"
-                 xmlns:locals="clr-namespace:PrismApp.ViewModels;assembly=PrismApp"
                  mc:Ignorable="d"
                  x:Class="PrismApp.Controls.ErrorPopupView"
                  BackgroundColor="white">
-    <pages:PopupPage.BindingContext>
-        <locals:ErrorPopupViewModel/>
-    </pages:PopupPage.BindingContext>
-                 
+    
     <ContentView>
         <ContentView.ControlTemplate>
             <ControlTemplate>
@@ -28,9 +23,6 @@
                     <Label Text="{Binding Message}"
                            FontSize="16"
                            TextColor="Black"/>
-                        <!-- <Label.BindingContext> -->
-                        <!--     <locals:ErrorPopupViewModel/> -->
-                        <!-- </Label.BindingContext> -->
                     
                     <Button Text="Try Again"
                             VerticalOptions="Center"
@@ -40,10 +32,6 @@
                             BackgroundColor="#B37F29"
                             TextColor="White"
                             Command="{Binding ErrorButtonClickedCommand}"/>
-                    <!--     <Button.BindingContext> -->
-                    <!--         <locals:ErrorPopupViewModel/> -->
-                    <!--     </Button.BindingContext> -->
-                    <!-- </Button> -->
                 </StackLayout>
             </ControlTemplate>
         </ContentView.ControlTemplate>

@@ -31,7 +31,7 @@ namespace PrismApp.Services
                 }
                 else
                 {
-                    throw new Exception();
+                    throw new Exception("", new Exception(""));
                 }
             }
             catch (Exception ex)

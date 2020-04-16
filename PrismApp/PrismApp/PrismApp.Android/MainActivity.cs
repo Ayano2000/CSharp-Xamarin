@@ -23,6 +23,7 @@ namespace PrismApp.Droid
             Rg.Plugins.Popup.Popup.Init(this, bundle);
             Xamarin.Essentials.Platform.Init(this, bundle);
             global::Xamarin.Forms.Forms.Init(this, bundle);
+
             AnimationViewRenderer.Init();
             LoadApplication(new App(new AndroidInitializer()));
         }

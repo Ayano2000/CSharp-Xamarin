@@ -9,19 +9,19 @@ namespace PrismApp.Services
     {
         public string GenerateQuery(string city)
         {
-            string query= Constants.Constants.Endpoint;
+            string query= Constants.Constants.ENDPOINT;
             query+= $"?q={city}";
             query+= "&units=metric"; // or units=imperial
-            query+= $"&APPID={Constants.Constants.APIKey}";
+            query+= $"&APPID={Constants.Constants.API_KEY}";
             return (query);
         }
 
         public string GenerateQuery(double lat, double lon)
         {
-            string query = Constants.Constants.Endpoint;
+            string query = Constants.Constants.ENDPOINT;
             query += $"?lat={lat}&lon={lon}";
             query += "&units=metric"; // or units=imperial
-            query += $"&APPID={Constants.Constants.APIKey}";
+            query += $"&APPID={Constants.Constants.API_KEY}";
             return (query);
         }
         
