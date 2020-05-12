@@ -68,7 +68,7 @@ namespace PrismApp.Tests
                     Populate(STELLENBOSCH, 30)));
 
                 var viewModel = new WeatherInfoViewModel(navigationService, restService, queryService, settingsService, locationService, popupnNavigationService);
-                
+                viewModel.GetWeatherCommand.Execute(null);
                 // Assert
                 Assert.That(viewModel.CityWeatherViewModels.Count() == 3);
                 var dummyModel = viewModel.CityWeatherViewModels.FirstOrDefault(vm => vm.Location == "Dummy");

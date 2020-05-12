@@ -17,7 +17,7 @@
             <Label Text="Weather App Version 1.0.0"
                    HorizontalOptions="CenterAndExpand"
                    VerticalOptions="CenterAndExpand"/>
-            <Label Text="Icon made by 'https://www.flaticon.com/authors/freepik'x    "
+            <Label Text="Icon made by 'https://www.flaticon.com/authors/freepik'"
                    HorizontalOptions="CenterAndExpand"
                    VerticalOptions="CenterAndExpand"/>
             <Label Text="Animations made by 'https://lottiefiles.com/user/26177'"/>
