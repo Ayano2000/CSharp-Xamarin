@@ -34,6 +34,13 @@ namespace PrismApp.Tests
                 Wind = new WindModel
                 {
                     Speed = value + 5,
+                },
+                Weather = new WeatherDataModel[]
+                {
+                    new WeatherDataModel
+                    {
+                        Id = 800
+                    }
                 }
             };
         }
