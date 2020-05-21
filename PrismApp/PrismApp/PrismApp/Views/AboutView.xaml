@@ -8,13 +8,19 @@
                  mvvm:ViewModelLocator.AutowireViewModel="True"
                  mc:Ignorable="d"
                  x:Class="PrismApp.Views.AboutView">
-    <StackLayout BackgroundColor="White"
+    <Frame BackgroundColor="White"
                  VerticalOptions="CenterAndExpand"
                  HorizontalOptions="CenterAndExpand"
-                 Padding="24"
-                 Spacing="24">
-        <Label Text="Weather App Version 1.0.0"
-               HorizontalOptions="CenterAndExpand"
-               VerticalOptions="CenterAndExpand"/>
-    </StackLayout>
+                 Margin=" 30, 30"
+                 CornerRadius="10">
+        <StackLayout>
+            <Label Text="Weather App Version 1.0.0"
+                   HorizontalOptions="CenterAndExpand"
+                   VerticalOptions="CenterAndExpand"/>
+            <Label Text="Icon made by 'https://www.flaticon.com/authors/freepik'"
+                   HorizontalOptions="CenterAndExpand"
+                   VerticalOptions="CenterAndExpand"/>
+            <Label Text="Animations made by 'https://lottiefiles.com/user/26177'"/>
+        </StackLayout>
+    </Frame>
 </pages:PopupPage>

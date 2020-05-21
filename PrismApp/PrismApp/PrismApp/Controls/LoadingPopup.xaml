@@ -3,18 +3,22 @@
 <pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                  xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                 xmlns:forms="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
                  x:Class="PrismApp.Controls.LoadingPopup"
-                 BackgroundColor="Transparent">
+                 BackgroundColor="White">
 
     <ContentView>
-        <ContentView.ControlTemplate>
-            <ControlTemplate>
-                <StackLayout VerticalOptions="Center">
-                    <ActivityIndicator IsRunning="true" HorizontalOptions="Center" Color="Blue" />
-                    <Label Text="Loading.." HorizontalOptions="Center" />
-                </StackLayout>
-            </ControlTemplate>
-        </ContentView.ControlTemplate>
+        <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                <forms:AnimationView Loop="True"
+                                     AutoPlay="True"
+                                     HorizontalOptions="Center"
+                                     WidthRequest="300"
+                                     HeightRequest="400"
+                                     Animation="Loading.json" />
+                <Label Text="Getting weather information"
+                       HorizontalTextAlignment="Center"
+                       HorizontalOptions="Center" />
+            </StackLayout>
     </ContentView>
-    
+
 </pages:PopupPage>

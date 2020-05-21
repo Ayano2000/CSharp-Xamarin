@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<pages:PopupPage xmlns="http://xamarin.com/schemas/2014/forms" 
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                 xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                 xmlns:forms="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+                 mc:Ignorable="d"
+                 x:Class="PrismApp.Controls.ErrorPopupView"
+                 BackgroundColor="white">
+    <pages:PopupPage.Content>
+        <StackLayout VerticalOptions="Fill"
+                     HorizontalOptions="Fill">
+            <forms:AnimationView Loop="False"
+                                 AutoPlay="True"
+                                 HorizontalOptions="Center"
+                                 VerticalOptions="Center"
+                                 WidthRequest="600"
+                                 HeightRequest="400"
+                                 Animation="Error.json"/>
+            <Label Text="{Binding Message}"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center"
+                   FontSize="22"
+                   TextColor="{StaticResource DarkGrey}"/>
+            
+            <Button Text="Try Again"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    BorderWidth="1"
+                    BorderColor="White"
+                    BackgroundColor="#B37F29"
+                    Margin="20,40"
+                    TextColor="White"
+                    Command="{Binding ErrorButtonClickedCommand}"/>
+        </StackLayout>
+    </pages:PopupPage.Content>
+</pages:PopupPage>

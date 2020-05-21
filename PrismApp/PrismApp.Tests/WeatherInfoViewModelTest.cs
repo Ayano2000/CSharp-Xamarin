@@ -31,10 +31,16 @@ namespace PrismApp.Tests
                     Sunrise = value + 2,
                     Sunset = value + 3
                 },
-                Visibility = value + 4,
                 Wind = new WindModel
                 {
                     Speed = value + 5,
+                },
+                Weather = new WeatherDataModel[]
+                {
+                    new WeatherDataModel
+                    {
+                        Id = 800
+                    }
                 }
             };
         }
@@ -69,7 +75,7 @@ namespace PrismApp.Tests
                     Populate(STELLENBOSCH, 30)));
 
                 var viewModel = new WeatherInfoViewModel(navigationService, restService, queryService, settingsService, locationService, popupnNavigationService);
-                
+                viewModel.GetWeatherCommand.Execute(null);
                 // Assert
                 Assert.That(viewModel.CityWeatherViewModels.Count() == 3);
                 var dummyModel = viewModel.CityWeatherViewModels.FirstOrDefault(vm => vm.Location == "Dummy");
@@ -85,7 +91,6 @@ namespace PrismApp.Tests
                     Assert.That(capeTownModel.Humidity == 21);
                     Assert.That(capeTownModel.Sunrise == 22);
                     Assert.That(capeTownModel.Sunset == 23);
-                    Assert.That(capeTownModel.Visibility == 24);
                     Assert.That(capeTownModel.WindSpeed == 25);
                 }
                 else Assert.Fail();
@@ -98,7 +103,6 @@ namespace PrismApp.Tests
                     Assert.That(stellenboschModel.Humidity == 31);
                     Assert.That(stellenboschModel.Sunrise == 32);
                     Assert.That(stellenboschModel.Sunset == 33);
-                    Assert.That(stellenboschModel.Visibility == 34);
                     Assert.That(stellenboschModel.WindSpeed == 35);
                 }
                 else Assert.Fail();

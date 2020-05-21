@@ -8,24 +8,30 @@
              mvvm:ViewModelLocator.AutowireViewModel="True"
              mc:Ignorable="d"
              x:Class="PrismApp.Views.AddCityView">
-    <StackLayout BackgroundColor="White"
-                 VerticalOptions="CenterAndExpand"
-                 HorizontalOptions="CenterAndExpand"
+    <Frame BackgroundColor="White"
+                 VerticalOptions="Center"
+                 HorizontalOptions="Center"
+                 HeightRequest="130"
+                 WidthRequest="300"
                  Padding="24"
-                 Spacing="24">
-        
-        <Entry Text="{Binding City}"
-               Placeholder="Enter City"
-               Margin="5,0"
-               VerticalOptions="Center"
-               BackgroundColor="DarkGray"
-               TextColor="White"/>
-        <Button Text="Add City" 
-                BorderWidth="1"
-                BorderColor="White"
-                BackgroundColor="DarkGray"
-                TextColor="White"
-                Command="{Binding AddCityButtonClicked}"/>
-        <Label Text="{Binding AdditionCompletionMessage}"/>
-    </StackLayout>
+                 CornerRadius="10">
+        <StackLayout>
+            <Entry Text="{Binding City}"
+                   Placeholder="Enter City"
+                   Margin="5,0"
+                   VerticalOptions="Center"
+                   BackgroundColor="White"
+                   TextColor="Black"/>
+            <Button Text="Add City"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    BorderWidth="1"
+                    BorderColor="White"
+                    BackgroundColor="#B37F29"
+                    TextColor="White"
+                    Command="{Binding AddCityButtonClicked}"/>
+            <Label Text="{Binding AdditionCompletionMessage}"
+                   FontSize="18"/>
+        </StackLayout>
+    </Frame>
 </pages:PopupPage>

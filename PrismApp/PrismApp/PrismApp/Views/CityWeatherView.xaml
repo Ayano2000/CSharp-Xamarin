@@ -1,35 +1,140 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<StackLayout xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-             x:Class="PrismApp.Views.CityWeatherView">
-       <StackLayout IsVisible="{Binding IsAddNewSlide, Converter={StaticResource BooleanConverter}}">
-              <Label Text="Location"/>
-          <Label Text="{Binding Location}" 
-                 Style="{StaticResource labelResultStyle}" />
-          <Label Text="Temperature"/>
-          <Label Text="{Binding Temperature}" 
-                 Style="{StaticResource labelResultStyle}" />
-          <Label Text="Wind Speed"/>
-          <Label Text="{Binding WindSpeed}" 
-                 Style="{StaticResource labelResultStyle}" />
-          <Label Text="Humidity"/>
-          <Label Text="{Binding Humidity}" 
-                 Style="{StaticResource labelResultStyle}" />
-          <Label Text="Visibility"/>
-          <Label Text="{Binding Visibility}" 
-                 Style="{StaticResource labelResultStyle}" />
-          <Label Text="Time of Sunrise"/>
-          <Label Text="{Binding Sunrise, Converter={StaticResource LongToDateTimeConverter}}"
-                 Style="{StaticResource labelResultStyle}" />
-          <Label Text="Time of Sunset"/>
-          <Label Text="{Binding Sunset, Converter={StaticResource LongToDateTimeConverter}}" 
-                 Style="{StaticResource labelResultStyle}" />
-          <Button Text="Remove City" Command="{Binding RemoveCity}"/>
-       </StackLayout>
-       <StackLayout IsVisible="{Binding IsAddNewSlide}">
-              <Button Text="Add City" Command="{Binding ShowAddCityPage}"/>
-       </StackLayout>
-</StackLayout>
+
+<Frame xmlns="http://xamarin.com/schemas/2014/forms"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+       xmlns:forms="clr-namespace:Lottie.Forms;assembly=Lottie.Forms"
+       mc:Ignorable="d"
+       x:Class="PrismApp.Views.CityWeatherView"
+       CornerRadius="10"
+       HasShadow="True"
+       BackgroundColor="White"
+       VerticalOptions="Fill"
+       HorizontalOptions="Fill">
+
+    <StackLayout VerticalOptions="Fill"
+                 HorizontalOptions="Fill">
+
+        <Grid VerticalOptions="Fill"
+              HorizontalOptions="Fill"
+              IsVisible="{Binding IsAddNewSlide, Converter={StaticResource BooleanConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="250" />
+                <RowDefinition Height="40" />
+                <RowDefinition Height="60" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <forms:AnimationView Style="{StaticResource AnimationStyle}"
+                                 Animation="{Binding WeatherConditions}"
+                                 Grid.Row="0"
+                                 Grid.Column="0" />
+
+            <Label Text="{Binding Location}"
+                   Grid.Row="1"
+                   Grid.Column="0"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center"
+                   FontSize="32"/>
+
+            <Label Text="{Binding Temperature, StringFormat='{0:F0}°C'}"
+                   TextColor="{StaticResource DarkGrey}"
+                   Grid.Row="2"
+                   Grid.Column="0"
+                   FontSize="54"
+                   Padding="25,0"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center"/>
+
+            <Grid Grid.Row="3" Grid.Column="0" RowSpacing="3" ColumnSpacing="3" Margin="10,15" VerticalOptions="Start" HorizontalOptions="Fill">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30" />
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="30" />
+                    <ColumnDefinition Width="130" />
+                </Grid.ColumnDefinitions>
+
+                <Label Style="{StaticResource IconResultStyle}"
+                       Grid.Row="0"
+                       Grid.Column="0"
+                       Text="&#xf72e;"
+                       FontFamily="{StaticResource FaSolid}"/>
+
+                <Label Text="{Binding WindSpeed, StringFormat='{0:F0}km/h'}"
+                       Style="{StaticResource labelResultStyle}"
+                       Grid.Row="0"
+                       Grid.Column="1"/>
+
+                <Label Style="{StaticResource IconResultStyle}" 
+                       Grid.Row="0"
+                       Grid.Column="2"
+                       Text="&#xf043;"
+                       FontFamily="{StaticResource FaSolid}"/>
+
+                <Label Text="{Binding Humidity, StringFormat='{0:F0}%'}"
+                       Style="{StaticResource labelResultStyle}"
+                       Grid.Row="0"
+                       Grid.Column="3"/>
+
+                <Label Style="{StaticResource IconResultStyle}" 
+                       Grid.Row="1"
+                       Grid.Column="0"
+                       Text="&#xf185;"
+                       FontFamily="{StaticResource FaSolid}"/>
+
+                <Label Text="{Binding Sunrise, Converter={StaticResource LongToDateTimeConverter}}"
+                       Style="{StaticResource labelResultStyle}"
+                       Grid.Row="1"
+                       Grid.Column="1"/>
+
+                <Label Style="{StaticResource IconResultStyle}" 
+                       Grid.Row="1"
+                       Grid.Column="2"
+                       Text="&#xf186;"
+                       FontFamily="{StaticResource FaSolid}"/>
+
+                <Label Text="{Binding Sunset, Converter={StaticResource LongToDateTimeConverter}}"
+                       Style="{StaticResource labelResultStyle}"
+                       Grid.Row="1"
+                       Grid.Column="3"/>
+            </Grid>
+
+            <Grid Grid.Row="4" VerticalOptions="End" HorizontalOptions="Fill">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Button Style="{StaticResource RoundButton}"
+                        Text="&#xf129;"
+                        Command="{Binding About}"
+                        HorizontalOptions="Start"
+                        Grid.Column="0">
+                  
+                </Button>
+
+                <Button Style="{StaticResource RoundButton}"
+                        Text="&#xf05e;"
+                        Grid.Column="1"
+                        HorizontalOptions="End"
+                        Command="{Binding RemoveCity}">
+                </Button>
+            </Grid>
+
+        </Grid>
+
+        <Button Style="{StaticResource AddCityButton}" 
+                Text="+"
+                Command="{Binding ShowAddCityPage}"
+                IsVisible="{Binding IsAddNewSlide}"/>
+    </StackLayout>
+</Frame>

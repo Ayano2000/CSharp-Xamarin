@@ -5,20 +5,25 @@
              xmlns:views="clr-namespace:PrismApp.Views;assembly=PrismApp"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="PrismApp.Views.WeatherInfoView"
-             Title="Weather Info Page">
+             Title="Weather Info Page"
+             BackgroundColor="DodgerBlue">
 
     <ContentPage.Content>
         <StackLayout>
-            <StackLayout>
-                <CarouselView ItemsSource="{Binding CityWeatherViewModels}">
-                    <CarouselView.ItemTemplate>
-                        <DataTemplate>
-                            <views:CityWeatherView/>
-                        </DataTemplate>
-                    </CarouselView.ItemTemplate>
-                </CarouselView>
-            </StackLayout>
-            <Button Text="About" Command="{Binding About}"/>
+            <CarouselView ItemsSource="{Binding CityWeatherViewModels}" 
+                          HorizontalOptions="Fill" 
+                          VerticalOptions="Fill"
+                          HorizontalScrollBarVisibility="Always">
+                <CarouselView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Margin="10, 10"
+                                     Padding="10, 30, 10, 10">
+                            <views:CityWeatherView HorizontalOptions="FillAndExpand"
+                                                   VerticalOptions="FillAndExpand"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </CarouselView.ItemTemplate>
+            </CarouselView>
         </StackLayout>
     </ContentPage.Content>
 
